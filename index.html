@@ -12,51 +12,116 @@
 </html> -->
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>레츠고</title>
+    <title>심소현 프로필</title>
     <style>
-      /* 전체 배경과 글꼴 */
       body {
         margin: 0;
-        padding: 0;
         font-family: "Noto Sans KR", sans-serif;
-        background: linear-gradient(135deg, #74ebd5, #9face6);
+        background: linear-gradient(135deg, #d9afd9, #97d9e1);
         color: #333;
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 100vh;
-        flex-direction: column;
+        min-height: 100vh;
       }
 
-      h1 {
-        font-size: 3rem;
-        color: #fff;
-        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+      .card {
+        background: #fff;
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        max-width: 500px;
+        width: 90%;
+        text-align: center;
+        animation: fadeIn 1.2s ease-in-out;
+      }
+
+      .card h1 {
+        font-size: 2.2rem;
         margin-bottom: 10px;
+        color: #444;
       }
 
-      h2 {
-        font-size: 1.8rem;
-        color: #222;
-        background: rgba(255, 255, 255, 0.7);
-        padding: 10px 20px;
-        border-radius: 12px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-        transition: transform 0.3s ease;
+      .card h2 {
+        font-size: 1.2rem;
+        font-weight: normal;
+        margin-bottom: 20px;
+        color: #666;
       }
 
-      h2:hover {
-        transform: scale(1.1);
-        background: rgba(255, 255, 255, 0.9);
+      .section {
+        margin: 20px 0;
+        text-align: left;
+      }
+
+      .section h3 {
+        margin-bottom: 10px;
+        font-size: 1.1rem;
+        color: #333;
+        border-left: 4px solid #97d9e1;
+        padding-left: 8px;
+      }
+
+      .skills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .skill {
+        background: #f0f8ff;
+        color: #333;
+        padding: 8px 14px;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        font-weight: bold;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s ease;
+      }
+
+      .skill:hover {
+        transform: scale(1.05);
+        background: #e0f0ff;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
       }
     </style>
   </head>
   <body>
-    <h1>프론트엔드</h1>
-    <h2>CSS</h2>
+    <div class="card">
+      <h1>심소현</h1>
+      <h2>신입 · 클라우드 / 백엔드 엔지니어</h2>
+
+      <div class="section">
+        <h3>학력</h3>
+        <p>컴퓨터 공학과 재학중</p>
+      </div>
+
+      <div class="section">
+        <h3>기술 스택</h3>
+        <div class="skills">
+          <span class="skill">Java</span>
+          <span class="skill">SQL</span>
+          <span class="skill">AWS</span>
+          <span class="skill">C</span>
+          <span class="skill">C++</span>
+          <span class="skill">Assembly</span>
+          <span class="skill">Python</span>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
