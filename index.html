@@ -1,9 +1,59 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>레츠고</title>
+  </head>
+  <body>
+    <h1>프론트엔드</h1>
+    <h2>CSS</h2>
+  </body>
+</html> -->
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>레츠고</title>
+    <style>
+      /* 전체 배경과 글꼴 */
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Noto Sans KR", sans-serif;
+        background: linear-gradient(135deg, #74ebd5, #9face6);
+        color: #333;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        flex-direction: column;
+      }
+
+      h1 {
+        font-size: 3rem;
+        color: #fff;
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+        margin-bottom: 10px;
+      }
+
+      h2 {
+        font-size: 1.8rem;
+        color: #222;
+        background: rgba(255, 255, 255, 0.7);
+        padding: 10px 20px;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        transition: transform 0.3s ease;
+      }
+
+      h2:hover {
+        transform: scale(1.1);
+        background: rgba(255, 255, 255, 0.9);
+      }
+    </style>
   </head>
   <body>
     <h1>프론트엔드</h1>
