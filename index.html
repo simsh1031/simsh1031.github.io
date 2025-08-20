@@ -1,194 +1,84 @@
 <!DOCTYPE html>
 <html lang="ko">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>심소현 - 프로필</title>
-    <style>
-      /* 기본 스타일 초기화 */
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>심소현 프로필</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto+Mono&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Roboto Mono', monospace;
+      background-color: #f5f5f5;
+      color: #1a1a1a;
+    }
+    .neo-brutalist {
+      border: 4px solid #000;
+      box-shadow: 8px 8px 0 #000;
+      transition: all 0.2s ease;
+      border-radius: 4px;
+    }
+    .neo-brutalist:hover {
+      box-shadow: 6px 6px 0 #000;
+      transform: translate(2px, 2px);
+    }
+    h1, h2, h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      letter-spacing: 2px;
+    }
+    .component-card {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    .component-preview {
+      flex-grow: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      min-height: 200px;
+    }
+  </style>
+</head>
+<body class="p-4 md:p-8">
+  <div class="container mx-auto">
+    <h1 class="text-4xl md:text-5xl mb-6 md:mb-8 text-center">Neo Brutalist Profile</h1>
 
-      body {
-        font-family: "Segoe UI", "Malgun Gothic", "Apple SD Gothic Neo", Roboto,
-          sans-serif;
-        line-height: 1.6;
-        color: #333;
-        background-color: #f5f7fa;
-      }
-
-      /* 헤더 스타일 */
-      header {
-        background: linear-gradient(135deg, #3498db, #2c3e50);
-        color: white;
-        text-align: center;
-        padding: 3rem 1rem;
-        position: relative;
-      }
-
-      .profile-img {
-        width: 150px;
-        height: 150px;
-        border-radius: 50%;
-        border: 5px solid rgba(255, 255, 255, 0.3);
-        margin: 0 auto 1.5rem;
-        background-color: #ecf0f1;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 3rem;
-        color: #3498db;
-      }
-
-      .name {
-        font-size: 2.5rem;
-        margin-bottom: 0.5rem;
-      }
-
-      .title {
-        font-size: 1.2rem;
-        font-weight: 300;
-        margin-bottom: 1rem;
-      }
-
-      /* 메인 콘텐츠 스타일 */
-      .container {
-        max-width: 1000px;
-        margin: 0 auto;
-        padding: 2rem;
-      }
-
-      section {
-        background: white;
-        border-radius: 8px;
-        padding: 2rem;
-        margin-bottom: 2rem;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      }
-
-      h2 {
-        color: #2c3e50;
-        margin-bottom: 1.5rem;
-        padding-bottom: 0.5rem;
-        border-bottom: 2px solid #3498db;
-      }
-
-      /* 기술 스킬 스타일 */
-      .skills-container {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 1rem;
-      }
-
-      .skill-category {
-        flex: 1;
-        min-width: 250px;
-      }
-
-      .skill-category h3 {
-        color: #3498db;
-        margin-bottom: 1rem;
-      }
-
-      .skill-list {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.8rem;
-      }
-
-      .skill {
-        background: #ecf0f1;
-        padding: 0.5rem 1rem;
-        border-radius: 20px;
-        font-size: 0.9rem;
-      }
-
-      /* 푸터 스타일 */
-      footer {
-        text-align: center;
-        padding: 2rem;
-        background: #2c3e50;
-        color: white;
-      }
-
-      /* 반응형 디자인 */
-      @media (max-width: 768px) {
-        .name {
-          font-size: 2rem;
-        }
-
-        .profile-img {
-          width: 120px;
-          height: 120px;
-        }
-
-        .skills-container {
-          flex-direction: column;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <header>
-      <div class="profile-img">SH</div>
-      <h1 class="name">심소현</h1>
-      <p class="title">신입 | 클라우드/백엔드 엔지니어</p>
-      <p>컴퓨터 공학과 재학중</p>
-    </header>
-
-    <div class="container">
-      <section id="about">
-        <h2>소개</h2>
-        <p>
-          컴퓨터 공학을 전공하며 클라우드와 백엔드 개발에 깊은 관심을 가지고
-          공부하고 있는 신입 개발자입니다. 다양한 프로그래밍 언어와 기술 스택을
-          학습하며 실무 적용 가능한 능력을 키우고 있습니다. 사용자에게 가치를
-          제공하는 효율적이고 안정적인 시스템을 구축하는 것을 목표로 하고
-          있습니다.
-        </p>
-      </section>
-
-      <section id="skills">
-        <h2>기술 스킬</h2>
-        <div class="skills-container">
-          <div class="skill-category">
-            <h3>주요 언어</h3>
-            <div class="skill-list">
-              <span class="skill">Java</span>
-              <span class="skill">Python</span>
-              <span class="skill">C</span>
-              <span class="skill">C++</span>
-              <span class="skill">Assembly</span>
-            </div>
-          </div>
-
-          <div class="skill-category">
-            <h3>데이터베이스</h3>
-            <div class="skill-list">
-              <span class="skill">SQL</span>
-            </div>
-          </div>
-
-          <div class="skill-category">
-            <h3>클라우드 & 인프라</h3>
-            <div class="skill-list">
-              <span class="skill">AWS</span>
-            </div>
+    <!-- Component Grid -->
+    <div id="components" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-2 gap-6">
+      
+      <!-- Profile Card -->
+      <div class="component-card neo-brutalist bg-white">
+        <div class="component-preview flex-col">
+          <h2 class="text-3xl mb-2">심소현</h2>
+          <p class="text-lg mb-4">신입 · 클라우드 / 백엔드 엔지니어</p>
+          <p class="mb-4 text-sm text-gray-700">컴퓨터 공학과 재학중</p>
+          <div class="flex flex-wrap gap-2 justify-center">
+            <span class="px-3 py-1 bg-yellow-200 border border-black rounded">Java</span>
+            <span class="px-3 py-1 bg-green-200 border border-black rounded">SQL</span>
+            <span class="px-3 py-1 bg-blue-200 border border-black rounded">AWS</span>
+            <span class="px-3 py-1 bg-pink-200 border border-black rounded">C</span>
+            <span class="px-3 py-1 bg-purple-200 border border-black rounded">C++</span>
+            <span class="px-3 py-1 bg-red-200 border border-black rounded">Assembly</span>
+            <span class="px-3 py-1 bg-orange-200 border border-black rounded">Python</span>
           </div>
         </div>
-      </section>
-
-      <section id="education">
-        <h2>학력</h2>
-        <p><strong>컴퓨터 공학과</strong> 재학중</p>
-      </section>
+      </div>
+      
     </div>
-
-    <footer>
-      <p>© 2023 심소현. All rights reserved.</p>
-    </footer>
-  </body>
+  </div>
+  
+  <!-- floating badge -->
+  <a target="_blank" href="https://www.rustcodeweb.com/" 
+   style="position: fixed; bottom: 0.6rem; right: 0.6rem; background: #FFD166; color: #073B4C; text-decoration: none; padding: 0.5rem 1rem; border: 3px solid #073B4C; box-shadow: 3px 3px 0 #073B4C; font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; font-weight: 600; font-size: 0.875rem; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); z-index: 1200; border-radius: 2px; display: flex; align-items: center; gap: 0.5rem;"
+   onmouseover="this.style.background='#F8F9FA'; this.style.transform='translate(-1px, -1px)'; this.style.boxShadow='4px 4px 0 #073B4C';"
+   onmouseout="this.style.background='#FFD166'; this.style.transform='translate(0, 0)'; this.style.boxShadow='3px 3px 0 #073B4C';"
+   onmousedown="this.style.transform='translate(0, 0)'; this.style.boxShadow='2px 2px 0 #073B4C';"
+   onmouseup="this.style.transform='translate(-1px, -1px)'; this.style.boxShadow='4px 4px 0 #073B4C';"
+   aria-label="Visit rustcodeweb.com">
+   <i class="fas fa-link" style="font-size: 1rem;"></i>
+  </a>
+</body>
 </html>
