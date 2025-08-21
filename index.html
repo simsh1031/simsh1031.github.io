@@ -2,83 +2,165 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>심소현 프로필</title>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto+Mono&display=swap" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com"></script>
+  <title>심소현 프로필 페이지</title>
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", Arial, sans-serif;
+    }
+
     body {
-      font-family: 'Roboto Mono', monospace;
-      background-color: #f5f5f5;
-      color: #1a1a1a;
+      background-color: #f9fafb;
+      color: #333;
+      line-height: 1.6;
     }
-    .neo-brutalist {
-      border: 4px solid #000;
-      box-shadow: 8px 8px 0 #000;
-      transition: all 0.2s ease;
-      border-radius: 4px;
+
+    header {
+      background-color: #111827;
+      color: white;
+      padding: 1rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
-    .neo-brutalist:hover {
-      box-shadow: 6px 6px 0 #000;
-      transform: translate(2px, 2px);
-    }
-    h1, h2, h3 {
-      font-family: 'Bebas Neue', sans-serif;
-      letter-spacing: 2px;
-    }
-    .component-card {
-      height: 100%;
+
+    header nav {
       display: flex;
-      flex-direction: column;
-    }
-    .component-preview {
-      flex-grow: 1;
-      display: flex;
-      align-items: center;
       justify-content: center;
-      padding: 1.5rem;
-      min-height: 200px;
+      gap: 1.5rem;
+    }
+
+    header nav a {
+      color: #f3f4f6;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    header nav a:hover {
+      color: #60a5fa;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    section {
+      background: white;
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    }
+
+    section h2 {
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+      color: #1f2937;
+      border-bottom: 2px solid #e5e7eb;
+      padding-bottom: 0.5rem;
+    }
+
+    ul {
+      list-style: none;
+      margin-top: 0.5rem;
+    }
+
+    ul li {
+      margin-bottom: 0.4rem;
+    }
+
+    .name-box {
+      text-align: center;
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #111827;
+    }
+
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .tag {
+      background: #e5e7eb;
+      color: #111827;
+      padding: 0.4rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.9rem;
     }
   </style>
 </head>
-<body class="p-4 md:p-8">
-  <div class="container mx-auto">
-    <h1 class="text-4xl md:text-5xl mb-6 md:mb-8 text-center">Neo Brutalist Profile</h1>
+<body>
 
-    <!-- Component Grid -->
-    <div id="components" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-2 gap-6">
-      
-      <!-- Profile Card -->
-      <div class="component-card neo-brutalist bg-white">
-        <div class="component-preview flex-col">
-          <h2 class="text-3xl mb-2">심소현</h2>
-          <p class="text-lg mb-4">신입 · 클라우드 / 백엔드 엔지니어</p>
-          <p class="mb-4 text-sm text-gray-700">컴퓨터 공학과 재학중</p>
-          <div class="flex flex-wrap gap-2 justify-center">
-            <span class="px-3 py-1 bg-yellow-200 border border-black rounded">Java</span>
-            <span class="px-3 py-1 bg-green-200 border border-black rounded">SQL</span>
-            <span class="px-3 py-1 bg-blue-200 border border-black rounded">AWS</span>
-            <span class="px-3 py-1 bg-pink-200 border border-black rounded">C</span>
-            <span class="px-3 py-1 bg-purple-200 border border-black rounded">C++</span>
-            <span class="px-3 py-1 bg-red-200 border border-black rounded">Assembly</span>
-            <span class="px-3 py-1 bg-orange-200 border border-black rounded">Python</span>
-          </div>
-        </div>
+  <header>
+    <nav>
+      <a href="#name">이름</a>
+      <a href="#career">경력</a>
+      <a href="#skills">기술 스택</a>
+      <a href="#portfolio">포트폴리오</a>
+      <a href="#goals">희망 직군</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <section id="name">
+      <div class="name-box">심소현</div>
+    </section>
+
+    <section id="career">
+      <h2>경력</h2>
+      <ul>
+        <li>컴퓨터 공학과 3학년 재학중</li>
+        <li>멋쟁이사자처럼 클라우드 엔지니어링 부트 캠프</li>
+        <li>웹 학회 활동</li>
+      </ul>
+    </section>
+
+    <section id="skills">
+      <h2>기술 스택</h2>
+      <div class="tag-list">
+        <span class="tag">C</span>
+        <span class="tag">C++</span>
+        <span class="tag">Python</span>
+        <span class="tag">Java</span>
+        <span class="tag">HTML</span>
+        <span class="tag">CSS</span>
+        <span class="tag">Assembly</span>
+        <span class="tag">Django</span>
+        <span class="tag">Spring</span>
+        <span class="tag">MySQL</span>
+        <span class="tag">AWS</span>
       </div>
-      
-    </div>
+    </section>
+
+    <section id="portfolio">
+      <h2>포트폴리오</h2>
+      <ul>
+        <li>AI 챗봇 제작</li>
+        <li>테트리스 프로그램 제작</li>
+        <li>게시판 프로그램 제작</li>
+        <li>Shell 자체 제작</li>
+      </ul>
+    </section>
+
+    <section id="goals">
+      <h2>희망 직군</h2>
+      <div class="tag-list">
+        <span class="tag">백엔드 엔지니어</span>
+        <span class="tag">풀스택 엔지니어</span>
+        <span class="tag">클라우드 엔지니어</span>
+        <span class="tag">시스템 엔지니어</span>
+        <span class="tag">네트워크 엔지니어</span>
+      </div>
+    </section>
   </div>
-  
-  <!-- floating badge -->
-  <a target="_blank" href="https://www.rustcodeweb.com/" 
-   style="position: fixed; bottom: 0.6rem; right: 0.6rem; background: #FFD166; color: #073B4C; text-decoration: none; padding: 0.5rem 1rem; border: 3px solid #073B4C; box-shadow: 3px 3px 0 #073B4C; font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; font-weight: 600; font-size: 0.875rem; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); z-index: 1200; border-radius: 2px; display: flex; align-items: center; gap: 0.5rem;"
-   onmouseover="this.style.background='#F8F9FA'; this.style.transform='translate(-1px, -1px)'; this.style.boxShadow='4px 4px 0 #073B4C';"
-   onmouseout="this.style.background='#FFD166'; this.style.transform='translate(0, 0)'; this.style.boxShadow='3px 3px 0 #073B4C';"
-   onmousedown="this.style.transform='translate(0, 0)'; this.style.boxShadow='2px 2px 0 #073B4C';"
-   onmouseup="this.style.transform='translate(-1px, -1px)'; this.style.boxShadow='4px 4px 0 #073B4C';"
-   aria-label="Visit rustcodeweb.com">
-   <i class="fas fa-link" style="font-size: 1rem;"></i>
-  </a>
+
 </body>
 </html>
