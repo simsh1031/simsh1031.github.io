@@ -1,7 +1,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NewSugar — Project · 심소현</title>
+<title>NewSugar - Project · 심소현</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -299,11 +299,11 @@
 
     <h3 class="sub-head">퀴즈 시스템 프론트엔드 &amp; API 연동</h3>
     <div class="feat-grid fade-in">
-      <div class="feat-card"><h4>퀴즈 제출 &amp; 채점</h4><p><code style="font-family:var(--font-mono);font-size:11.5px;">POST /api/v1/quizzes/{id}/submit</code> — 정답 제출 및 실시간 채점 결과 표시</p></div>
-      <div class="feat-card"><h4>오늘의 주요뉴스 퀴즈</h4><p><code style="font-family:var(--font-mono);font-size:11.5px;">POST /api/v1/quizzes/todaymain/generate</code> — 스케줄러가 생성한 일일 퀴즈 조회</p></div>
-      <div class="feat-card"><h4>AI 기반 요약 퀴즈 생성</h4><p><code style="font-family:var(--font-mono);font-size:11.5px;">POST /api/v1/quizzes/summary/{summaryId}/generate</code> — AI가 생성한 객관식 퀴즈 표시</p></div>
+      <div class="feat-card"><h4>퀴즈 제출 &amp; 채점</h4><p><code style="font-family:var(--font-mono);font-size:11.5px;">POST /api/v1/quizzes/{id}/submit</code> - 정답 제출 및 실시간 채점 결과 표시</p></div>
+      <div class="feat-card"><h4>오늘의 주요뉴스 퀴즈</h4><p><code style="font-family:var(--font-mono);font-size:11.5px;">POST /api/v1/quizzes/todaymain/generate</code> - 스케줄러가 생성한 일일 퀴즈 조회</p></div>
+      <div class="feat-card"><h4>AI 기반 요약 퀴즈 생성</h4><p><code style="font-family:var(--font-mono);font-size:11.5px;">POST /api/v1/quizzes/summary/{summaryId}/generate</code> - AI가 생성한 객관식 퀴즈 표시</p></div>
       <div class="feat-card"><h4>퀴즈 목록 / 상세 / 결과 / 정답</h4><p>기간별 필터링, 문제·선택지 표시, 최근 제출 결과 및 정답·해설 조회 화면 구현</p></div>
-      <div class="feat-card"><h4>퀴즈 통계</h4><p><code style="font-family:var(--font-mono);font-size:11.5px;">GET /api/v1/quizzes/stats</code> — 로그인 사용자의 퀴즈 통계 대시보드</p></div>
+      <div class="feat-card"><h4>퀴즈 통계</h4><p><code style="font-family:var(--font-mono);font-size:11.5px;">GET /api/v1/quizzes/stats</code> - 로그인 사용자의 퀴즈 통계 대시보드</p></div>
       <div class="feat-card"><h4>AI 프록시 연동</h4><p>뉴스 요약 AI, 퀴즈 생성 AI 엔드포인트 연동 및 개발용 관리 기능(강제 생성/삭제)</p></div>
     </div>
 
@@ -315,9 +315,9 @@
 
     <h3 class="sub-head">클라우드 인프라 설계 (AWS)</h3>
     <ul class="plain">
-      <li>Multi-AZ VPC 구성 — 서울 리전 192.168.0.0/16, 도쿄 리전 172.16.0.0/16, Public/Private 서브넷 분리</li>
+      <li>Multi-AZ VPC 구성 - 서울 리전 192.168.0.0/16, 도쿄 리전 172.16.0.0/16, Public/Private 서브넷 분리</li>
       <li>Security Group 계층별 설계(ALB, App, DB, Cache), IAM 최소 권한 Role 설계</li>
-      <li>암호화 전략 — 전송 중 TLS 1.2+, 저장 시 KMS</li>
+      <li>암호화 전략 - 전송 중 TLS 1.2+, 저장 시 KMS</li>
       <li>EKS Fargate 기반 애플리케이션 배치(Multi-AZ), Aurora MySQL HA(Writer/Reader), ElastiCache Redis 캐싱</li>
       <li>Multi-AZ HA(ECS/ALB/Aurora) + 서울-도쿄 DR(Active-Passive), RPO 1분·RTO 15분 목표</li>
       <li>GitHub Actions → ECR → EKS 배포 플로우, Blue/Green 배포, OIDC 기반 AWS 자격증명 획득</li>

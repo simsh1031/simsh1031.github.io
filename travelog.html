@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Travelog — Project · 심소현</title>
+    <title>Travelog - Project · 심소현</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link
       href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap"
@@ -1101,7 +1101,7 @@
           </table>
         </div>
         <div class="highlight-note">
-          총 예상 비용 — 월 약 <b>$106.34</b> (~14만원) · 연간 약
+          총 예상 비용 - 월 약 <b>$106.34</b> (~14만원) · 연간 약
           <b>$1,276</b> (~170만원)
         </div>
         <ul class="plain" style="margin-top: 16px">
@@ -1248,7 +1248,7 @@
             </p>
             <h5>해결</h5>
             <p>
-              OAC에서 레거시 OAI(Origin Access Identity) 방식으로 전환 —
+              OAC에서 레거시 OAI(Origin Access Identity) 방식으로 전환 -
               CloudFront가 자동 생성한 OAI 전용 IAM 사용자 ARN이 버킷 정책에
               자동 반영되어 즉시 해결, 이후 캐시 무효화 수행
             </p>
@@ -1305,15 +1305,15 @@
             <h5>정리된 규칙</h5>
             <ul>
               <li>
-                <b style="color: var(--text)">ALB</b> — 인바운드
+                <b style="color: var(--text)">ALB</b> - 인바운드
                 HTTP(80)/0.0.0.0/0, 아웃바운드 ECS 보안 그룹으로 전체 트래픽
               </li>
               <li>
-                <b style="color: var(--text)">ECS</b> — 인바운드 8080/ALB 보안
+                <b style="color: var(--text)">ECS</b> - 인바운드 8080/ALB 보안
                 그룹, 아웃바운드 3306/RDS 보안 그룹
               </li>
               <li>
-                <b style="color: var(--text)">RDS</b> — 인바운드 3306/ECS 보안
+                <b style="color: var(--text)">RDS</b> - 인바운드 3306/ECS 보안
                 그룹, 아웃바운드 0.0.0.0/0 (패치 등 외부 통신)
               </li>
             </ul>

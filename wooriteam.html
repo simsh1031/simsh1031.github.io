@@ -1,7 +1,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Wooriteam — Project · 심소현</title>
+<title>Wooriteam - Project · 심소현</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -312,18 +312,18 @@
       <img src="wooriteam-aws.png" alt="Wooriteam AWS Multi-Region Architecture Diagram" style="width: 100%; height: auto; border-radius: 6px; display: block;">
     </div>
     <div class="service-grid fade-in">
-      <div class="service-card"><span class="svc-name">CloudFront + S3 — 단일 진입점</span><p>프론트엔드(S3)와 백엔드 API(ALB)를 CloudFront 하나의 도메인으로 통합 노출해 CORS 문제를 근본적으로 해결. S3는 OAC로만 접근 허용해 퍼블릭 접근 차단</p></div>
-      <div class="service-card"><span class="svc-name">ALB — CloudFront 경유만 허용</span><p>CloudFront가 주입하는 커스텀 헤더가 없는 요청에는 403 고정 응답을 반환하도록 설계해 ALB DNS 직접 접근을 차단</p></div>
+      <div class="service-card"><span class="svc-name">CloudFront + S3 - 단일 진입점</span><p>프론트엔드(S3)와 백엔드 API(ALB)를 CloudFront 하나의 도메인으로 통합 노출해 CORS 문제를 근본적으로 해결. S3는 OAC로만 접근 허용해 퍼블릭 접근 차단</p></div>
+      <div class="service-card"><span class="svc-name">ALB - CloudFront 경유만 허용</span><p>CloudFront가 주입하는 커스텀 헤더가 없는 요청에는 403 고정 응답을 반환하도록 설계해 ALB DNS 직접 접근을 차단</p></div>
       <div class="service-card"><span class="svc-name">ECS Fargate</span><p>CPU 70% 초과 3분 지속 시 스케일 아웃(최대 6개), 40% 미만 5분 지속 시 스케일 인(최소 2개). Graceful Shutdown과 ALB Deregistration Delay를 동일하게 맞춰 요청 유실 방지</p></div>
       <div class="service-card"><span class="svc-name">RDS MySQL (Multi-AZ)</span><p>Primary 장애 시 Standby로 자동 승격. HikariCP 커넥션 풀을 태스크당 10개로 설정, max_connections는 100으로 여유분 확보</p></div>
       <div class="service-card"><span class="svc-name">Secrets Manager</span><p>DB 자격증명·JWT 서명 키·CloudFront 헤더 난수값을 암호화해 중앙 관리, ECS Task Definition의 secrets 블록으로 직접 주입</p></div>
       <div class="service-card"><span class="svc-name">CloudWatch + Grafana Cloud</span><p>ECS/ALB/RDS 메트릭·로그를 수집하고 9패널 대시보드로 시각화, 임계값 초과 시 SNS → Lambda → Discord로 실시간 알림</p></div>
-      <div class="service-card"><span class="svc-name">GitHub Actions — 3-워크플로 분리</span><p>PR 단계에서 백엔드/프론트엔드를 각각 검증하고, main 머지 후 변경된 영역만 자동 배포해 불필요한 재배포 방지</p></div>
+      <div class="service-card"><span class="svc-name">GitHub Actions - 3-워크플로 분리</span><p>PR 단계에서 백엔드/프론트엔드를 각각 검증하고, main 머지 후 변경된 영역만 자동 배포해 불필요한 재배포 방지</p></div>
       <div class="service-card"><span class="svc-name">Terraform (IaC)</span><p>VPC부터 ECS, RDS, CloudFront, 모니터링까지 전체 인프라를 코드로 관리해 환경 간 일관성과 재현 가능성 확보</p></div>
     </div>
 
     <div class="highlight-note" style="margin-top:22px;">
-      <b>트레이드오프</b> — 멀티 리전 DR 대신 단일 리전(서울) + Multi-AZ로 비용 효율성 우선 ·
+      <b>트레이드오프</b> - 멀티 리전 DR 대신 단일 리전(서울) + Multi-AZ로 비용 효율성 우선 ·
       NAT Gateway 2개로 단일 장애점은 제거했으나 비용 부담이 커 VPC Endpoint 전환을 개선 과제로 남김 ·
       EKS 대신 ECS Fargate를 선택해 클러스터 운영 부담과 학습 곡선을 낮춤
     </div>
@@ -436,7 +436,7 @@
     <div class="section-head"><span class="path"># troubleshooting.tf</span><h2>트러블슈팅</h2></div>
 
     <details class="incident fade-in">
-      <summary><span class="sev"></span>프론트엔드 빌드 실패 — TS6133 (미사용 변수)<span class="chev">▸</span></summary>
+      <summary><span class="sev"></span>프론트엔드 빌드 실패 - TS6133 (미사용 변수)<span class="chev">▸</span></summary>
       <div class="incident-body">
         <h5>원인</h5><p>삭제 핸들러가 정의되어 있었지만 UI에 연결되지 않아 tsc 빌드에서 미사용 변수로 잡힘</p>
         <h5>해결</h5><p>'내가 올린 공고' 카드 UI에 삭제 버튼을 추가해 핸들러를 실제로 연결</p>
@@ -444,7 +444,7 @@
     </details>
 
     <details class="incident fade-in">
-      <summary><span class="sev"></span>백엔드 테스트 실패 — JavaMailSender 빈 없음<span class="chev">▸</span></summary>
+      <summary><span class="sev"></span>백엔드 테스트 실패 - JavaMailSender 빈 없음<span class="chev">▸</span></summary>
       <div class="incident-body">
         <h5>원인</h5><p>테스트 환경설정에 spring.mail.host가 없어 MailSenderAutoConfiguration이 빈을 생성하지 못해 ApplicationContext 로딩 실패</p>
         <h5>해결</h5><p>테스트 설정에 더미 mail 설정과 app.mail.enabled: false를 추가</p>
@@ -452,7 +452,7 @@
     </details>
 
     <details class="incident fade-in">
-      <summary><span class="sev"></span>CD — Trivy 이미지 스캔에서 CRITICAL 취약점 발견<span class="chev">▸</span></summary>
+      <summary><span class="sev"></span>CD - Trivy 이미지 스캔에서 CRITICAL 취약점 발견<span class="chev">▸</span></summary>
       <div class="incident-body">
         <h5>원인</h5><p>Spring Boot가 번들하는 Tomcat 버전에 CRITICAL 취약점 포함</p>
         <h5>해결</h5><p>build.gradle에 번들 Tomcat 버전을 오버라이드하도록 추가</p>
@@ -460,7 +460,7 @@
     </details>
 
     <details class="incident fade-in">
-      <summary><span class="sev"></span>Infra — ECS 태스크 기동 직후 즉시 종료 반복<span class="chev">▸</span></summary>
+      <summary><span class="sev"></span>Infra - ECS 태스크 기동 직후 즉시 종료 반복<span class="chev">▸</span></summary>
       <div class="incident-body">
         <h5>원인</h5><p>ddl-auto: validate 상태에서 새로 생성된 빈 RDS에는 테이블이 없어 Hibernate 스키마 검증이 즉시 실패</p>
         <h5>해결</h5><p>최초 배포·RDS 재생성 시 update로 변경해 테이블을 자동 생성하도록 설정</p>
@@ -468,7 +468,7 @@
     </details>
 
     <details class="incident fade-in">
-      <summary><span class="sev"></span>CD — terraform apply 후 GitHub Secrets 미갱신으로 연쇄 실패<span class="chev">▸</span></summary>
+      <summary><span class="sev"></span>CD - terraform apply 후 GitHub Secrets 미갱신으로 연쇄 실패<span class="chev">▸</span></summary>
       <div class="incident-body">
         <h5>원인</h5><p>ALB/CloudFront 재생성 시 식별자가 바뀌는데 GitHub Actions는 워크플로 시작 시점의 시크릿 값을 사용해 옛 값으로 실패</p>
         <h5>해결</h5><p>terraform apply 직후 output 기준으로 시크릿을 갱신한 뒤 새 런을 트리거하는 운영 체크리스트 수립</p>
@@ -476,7 +476,7 @@
     </details>
 
     <details class="incident fade-in">
-      <summary><span class="sev"></span>Infra — k6 부하테스트 시 ALB 직접 호출 403 및 헬스체크 한계<span class="chev">▸</span></summary>
+      <summary><span class="sev"></span>Infra - k6 부하테스트 시 ALB 직접 호출 403 및 헬스체크 한계<span class="chev">▸</span></summary>
       <div class="incident-body">
         <h5>원인</h5><p>"CloudFront 경유 트래픽만 허용" 정책으로 ALB DNS 직접 호출은 403 고정 응답</p>
         <h5>해결</h5><p>BASE_URL을 CloudFront 도메인으로 변경. 단 CloudFront 경유 시 /actuator/health가 ALB가 아닌 S3로 라우팅되어 프론트 응답이 200으로 잡히는 한계는 별도 개선 과제로 남김</p>
@@ -517,7 +517,7 @@
       <table class="cost-table">
         <tbody>
           <tr><td style="color:var(--text)">도메인 설계</td><td>Post/PostRole 분리로 "공고 하나가 여러 역할 탭에 동시 노출"되는 기획 의도를 데이터 모델 레벨에서 정확히 구현</td></tr>
-          <tr><td style="color:var(--text)">네트워크 보안 패턴</td><td>커스텀 헤더로 ALB 직접 접근 차단 — 실무에서 실제 쓰이는 패턴이며, k6 트러블슈팅에서 "정책이 의도대로 동작함"까지 검증</td></tr>
+          <tr><td style="color:var(--text)">네트워크 보안 패턴</td><td>커스텀 헤더로 ALB 직접 접근 차단 - 실무에서 실제 쓰이는 패턴이며, k6 트러블슈팅에서 "정책이 의도대로 동작함"까지 검증</td></tr>
           <tr><td style="color:var(--text)">배포 안정성 3종 세트</td><td>Trivy(CRITICAL 배포 차단) + 스모크 테스트 + 자동 롤백으로 "실패 시 대응"까지 설계</td></tr>
           <tr><td style="color:var(--text)">트러블슈팅 문서 퀄리티</td><td>증상·원인·해결이 분리되어 있고, Terraform state 파손 건에서는 교훈(버저닝 필수)까지 도출</td></tr>
         </tbody>
@@ -528,7 +528,7 @@
     <div class="roadmap-item fade-in">
       <h4>① 스모크 테스트가 실제로 백엔드를 검증하지 못하는 문제 (가장 중요)</h4>
       <div class="roadmap-cols">
-        <div class="col limit"><h5>발견된 문제</h5><ul><li>CloudFront가 /*를 SPA로 보내 헬스체크를 CloudFront 도메인으로 호출하면 백엔드가 죽어도 SPA 폴백이 200을 반환 — 자동 롤백이 무력화됐을 가능성</li></ul></div>
+        <div class="col limit"><h5>발견된 문제</h5><ul><li>CloudFront가 /*를 SPA로 보내 헬스체크를 CloudFront 도메인으로 호출하면 백엔드가 죽어도 SPA 폴백이 200을 반환 - 자동 롤백이 무력화됐을 가능성</li></ul></div>
         <div class="col plan"><h5>해결 방향</h5><ul><li>헬스체크는 X-From-CloudFront 헤더를 실은 채 ALB에 직접 호출하거나 /api/* 경로로 확실히 ALB를 태움</li><li>응답 코드뿐 아니라 응답 바디의 status: UP 여부까지 검증</li></ul></div>
       </div>
     </div>
@@ -556,14 +556,14 @@
     <div class="roadmap-item fade-in">
       <h4>⑤ "너무 좋은 숫자"가 오히려 질문을 부름</h4>
       <div class="roadmap-cols">
-        <div class="col limit"><h5>발견된 문제</h5><ul><li>부하가 커질수록 p95가 낮아진 점, stress에서도 서버가 사실상 여유로웠던 점 — 읽기 위주 테스트였다는 한계</li></ul></div>
+        <div class="col limit"><h5>발견된 문제</h5><ul><li>부하가 커질수록 p95가 낮아진 점, stress에서도 서버가 사실상 여유로웠던 점 - 읽기 위주 테스트였다는 한계</li></ul></div>
         <div class="col plan"><h5>해결 방향</h5><ul><li>쓰기(공고 등록/지원 제출) 시나리오를 섞어 실제 서비스 부하에 가깝게 보완</li></ul></div>
       </div>
     </div>
 
     <h3 class="sub-head">조금 더 깊이 가면 좋은 것</h3>
     <ul class="plain">
-      <li>비용 관점 보완: NAT Gateway 2개 + RDS Multi-AZ + 상시 태스크 2개로 NAT 비용만 월 6만 원 이상 — VPC Endpoint 전환 검토</li>
+      <li>비용 관점 보완: NAT Gateway 2개 + RDS Multi-AZ + 상시 태스크 2개로 NAT 비용만 월 6만 원 이상 - VPC Endpoint 전환 검토</li>
       <li>비회원 신고 엔드포인트 남용 방지: Rate limiting, hCaptcha, 비동기 큐+스로틀링 검토</li>
       <li>보안 심화: 로그인 brute force 방어, 비밀번호 해싱 방식 명시, JWT refresh 전략 보강</li>
       <li>Multi-AZ RDS Failover 실측: 설계는 되어 있으나 콘솔에서 실제 승격·다운타임을 측정한 적은 없음</li>
@@ -588,7 +588,7 @@
     </div>
 
     <div class="highlight-note" style="margin-top:22px;">
-      <b>취업·면접 관점 한 줄 요약</b> — "React·Spring Boot 서비스를 AWS ECS Fargate에 배포하고, Terraform으로 인프라를 코드화했으며, Trivy 스캔·스모크 테스트 기반 자동 롤백까지 갖춘 CI/CD와 k6 부하테스트·Grafana 모니터링으로 운영 안정성을 검증한 개인 프로젝트"
+      <b>취업·면접 관점 한 줄 요약</b> - "React·Spring Boot 서비스를 AWS ECS Fargate에 배포하고, Terraform으로 인프라를 코드화했으며, Trivy 스캔·스모크 테스트 기반 자동 롤백까지 갖춘 CI/CD와 k6 부하테스트·Grafana 모니터링으로 운영 안정성을 검증한 개인 프로젝트"
     </div>
 
     <h3 class="sub-head">회고</h3>
