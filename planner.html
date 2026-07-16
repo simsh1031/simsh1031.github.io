@@ -223,6 +223,34 @@
     *{ animation-duration:0.001ms !important; transition-duration:0.001ms !important; }
     html{ scroll-behavior:auto; }
   }
+  .github-link {
+    margin-top: 18px;
+  }
+
+  .github-link a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--surface);
+    color: var(--text-dim);
+    font-family: var(--font-mono);
+    font-size: 13px;
+    transition: all 0.2s ease;
+  }
+
+  .github-link a:hover {
+    color: var(--teal);
+    border-color: var(--teal);
+    transform: translateY(-1px);
+  }
+
+  .github-link a::before {
+    content: "↗";
+    color: var(--teal);
+  }
 </style>
 </head>
 <body>
@@ -253,6 +281,33 @@
       <span class="tag">ECS Fargate</span><span class="tag">RDS MySQL 8.0</span>
       <span class="tag">ALB</span><span class="tag">AWS WAF</span>
       <span class="tag">Route53</span><span class="tag">CloudWatch</span>
+    </div>
+    <div class="github-link">
+      <a
+        href="https://github.com/simsh1031/planner-frontend"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Planner-Frontend GitHub Repository
+      </a>
+    </div>
+    <div class="github-link">
+      <a
+        href="https://github.com/simsh1031/planner-backend"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Planner-Backend GitHub Repository
+      </a>
+    </div>
+    <div class="github-link">
+      <a
+        href="https://github.com/simsh1031/planner-infra"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Planner-Infra GitHub Repository
+      </a>
     </div>
   </section>
 
