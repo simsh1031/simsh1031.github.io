@@ -1,0 +1,586 @@
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Planner — Project · 심소현</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0A1220;
+    --surface:#0F1A2B;
+    --surface-2:#121F33;
+    --grid:#1B2A40;
+    --border:#233450;
+    --text:#E7ECF3;
+    --text-dim:#7E92AC;
+    --text-faint:#54667F;
+    --teal:#4FD1C5;
+    --amber:#E8A33D;
+    --red:#E8664F;
+    --font-display:'Space Grotesk', sans-serif;
+    --font-body:'Inter', sans-serif;
+    --font-mono:'JetBrains Mono', monospace;
+  }
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    background:
+      radial-gradient(circle at 1px 1px, var(--grid) 1px, transparent 0) 0 0/28px 28px,
+      var(--bg);
+    color:var(--text);
+    font-family:var(--font-body);
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{ color:inherit; text-decoration:none; }
+  ::selection{ background:var(--teal); color:#04211F; }
+  .wrap{ max-width:960px; margin:0 auto; padding:0 28px; }
+
+  /* ---------- NAV ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(10,18,32,0.88);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border);
+  }
+  .nav-inner{
+    max-width:960px; margin:0 auto; padding:14px 28px;
+    display:flex; align-items:center; justify-content:space-between; gap:16px;
+  }
+  .nav-path{
+    font-family:var(--font-mono); font-size:12.5px; color:var(--text-dim);
+    display:flex; align-items:center; gap:8px; white-space:nowrap;
+  }
+  .status-dot{
+    width:7px; height:7px; border-radius:50%; background:var(--teal); flex:none;
+    box-shadow:0 0 0 0 rgba(79,209,197,0.6); animation:pulse 2.4s infinite;
+  }
+  @keyframes pulse{
+    0%{ box-shadow:0 0 0 0 rgba(79,209,197,0.55); }
+    70%{ box-shadow:0 0 0 7px rgba(79,209,197,0); }
+    100%{ box-shadow:0 0 0 0 rgba(79,209,197,0); }
+  }
+  nav.links{ display:flex; gap:18px; font-family:var(--font-mono); font-size:12.5px; color:var(--text-dim); overflow-x:auto; }
+  nav.links a{ white-space:nowrap; transition:color .15s; padding:4px 2px; }
+  nav.links a:hover, nav.links a:focus-visible{ color:var(--teal); }
+  nav.links a:focus-visible{ outline:1px solid var(--teal); outline-offset:4px; border-radius:2px; }
+  .back-link{
+    font-family:var(--font-mono); font-size:12.5px; color:var(--text-dim);
+    display:flex; align-items:center; gap:6px; flex:none;
+  }
+  .back-link:hover, .back-link:focus-visible{ color:var(--amber); }
+
+  /* ---------- HERO ---------- */
+  .hero{ padding:64px 0 48px; }
+  .eyebrow{
+    font-family:var(--font-mono); font-size:12.5px; letter-spacing:.06em;
+    color:var(--amber); text-transform:uppercase; margin-bottom:16px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .eyebrow::before{ content:'//'; color:var(--text-faint); }
+  h1.title{
+    font-family:var(--font-display); font-weight:700;
+    font-size:clamp(38px, 7vw, 58px); line-height:1.05; letter-spacing:-0.01em;
+    margin-bottom:14px;
+  }
+  .subtitle{ color:var(--text-dim); max-width:600px; font-size:15.5px; margin-bottom:26px; }
+  .role-tag{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:var(--font-mono); font-size:12.5px; color:var(--teal);
+    border:1px solid var(--border); background:var(--surface);
+    padding:6px 12px; border-radius:6px; margin-bottom:22px;
+  }
+  .tag-row{ display:flex; flex-wrap:wrap; gap:8px; }
+  .tag{
+    font-family:var(--font-mono); font-size:12px; padding:5px 10px; border-radius:5px;
+    background:var(--surface-2); border:1px solid var(--border); color:var(--text-dim);
+  }
+
+  /* ---------- SECTION SHELL ---------- */
+  section{ padding:60px 0; border-top:1px solid var(--border); }
+  .section-head{ display:flex; align-items:baseline; gap:12px; margin-bottom:28px; font-family:var(--font-mono); }
+  .section-head .path{ font-size:13px; color:var(--amber); }
+  .section-head h2{ font-family:var(--font-display); font-size:23px; font-weight:600; }
+  h3.sub-head{
+    font-family:var(--font-display); font-size:16.5px; font-weight:600;
+    margin:32px 0 14px; display:flex; align-items:center; gap:8px;
+  }
+  h3.sub-head:first-child{ margin-top:0; }
+  h3.sub-head::before{ content:''; width:8px; height:8px; background:var(--teal); border-radius:2px; flex:none; }
+
+  .fade-in{ opacity:0; transform:translateY(14px); transition:opacity .6s ease, transform .6s ease; }
+  .fade-in.visible{ opacity:1; transform:translateY(0); }
+
+  p.body-text{ color:var(--text-dim); font-size:15px; max-width:680px; }
+  p.body-text + p.body-text{ margin-top:10px; }
+
+  ul.plain{ color:var(--text-dim); font-size:14.5px; padding-left:20px; }
+  ul.plain li{ margin-bottom:6px; }
+  ul.plain li::marker{ color:var(--teal); }
+
+  /* ---------- OVERVIEW FEATURE GRID ---------- */
+  .feat-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(260px,1fr)); gap:16px; }
+  .feat-card{ border:1px solid var(--border); background:var(--surface); border-radius:10px; padding:18px 20px; border-left:3px solid var(--teal); }
+  .feat-card h4{ font-family:var(--font-display); font-size:15px; font-weight:600; margin-bottom:8px; }
+  .feat-card p{ color:var(--text-dim); font-size:13.5px; }
+
+  /* ---------- ARCHITECTURE DIAGRAM ---------- */
+  .diagram-frame{
+    border:1px solid var(--border); background:var(--surface); border-radius:10px;
+    padding:16px; margin-bottom:30px; overflow-x:auto;
+  }
+  .diagram-frame svg{ width:100%; height:auto; min-width:640px; display:block; }
+
+  .service-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(270px,1fr)); gap:14px; }
+  .service-card{ border:1px solid var(--border); background:var(--surface); border-radius:8px; padding:14px 16px; }
+  .service-card .svc-name{ font-family:var(--font-mono); font-size:13px; color:var(--teal); margin-bottom:6px; display:block; }
+  .service-card p{ color:var(--text-dim); font-size:13px; }
+
+  /* ---------- TERMINAL / CODE BLOCK ---------- */
+  .term-block{ background:var(--surface); border:1px solid var(--border); border-radius:10px; overflow:hidden; margin:18px 0 26px; }
+  .term-titlebar{
+    display:flex; align-items:center; gap:8px; padding:9px 16px; border-bottom:1px solid var(--border);
+    background:var(--surface-2); font-family:var(--font-mono); font-size:11.5px; color:var(--text-faint);
+  }
+  .term-dot{ width:8px; height:8px; border-radius:50%; background:var(--grid); }
+  .term-body{ font-family:var(--font-mono); font-size:13px; padding:16px 18px; overflow-x:auto; white-space:pre; }
+  .term-body .c{ color:var(--text-faint); font-style:italic; }
+  .term-body .p{ color:var(--amber); }
+
+  /* ---------- STAT GRID ---------- */
+  .stat-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(150px,1fr)); gap:14px; margin:20px 0 8px; }
+  .stat-card{ border:1px solid var(--border); background:var(--surface); border-radius:10px; padding:18px; text-align:center; }
+  .stat-num{ font-family:var(--font-display); font-size:26px; font-weight:700; color:var(--teal); }
+  .stat-label{ font-family:var(--font-mono); font-size:11.5px; color:var(--text-faint); margin-top:6px; }
+  .highlight-note{
+    font-family:var(--font-mono); font-size:13px; color:var(--text-dim);
+    border-left:3px solid var(--amber); padding:10px 14px; background:var(--surface); border-radius:0 8px 8px 0; margin-top:14px;
+  }
+  .highlight-note b{ color:var(--amber); }
+
+  /* ---------- TABLES ---------- */
+  table.cost-table{ width:100%; border-collapse:collapse; font-family:var(--font-mono); font-size:13px; margin-bottom:10px; }
+  table.cost-table th, table.cost-table td{ border:1px solid var(--border); padding:9px 12px; text-align:left; }
+  table.cost-table th{ background:var(--surface-2); color:var(--text-dim); font-weight:500; }
+  table.cost-table td{ color:var(--text-dim); }
+  table.cost-table tr.total td{ color:var(--amber); font-weight:600; }
+  .table-wrap{ overflow-x:auto; margin-bottom:26px; }
+
+  /* ---------- CHECKLIST ---------- */
+  .checklist-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(220px,1fr)); gap:16px; }
+  .check-col h4{ font-family:var(--font-mono); font-size:12.5px; color:var(--amber); margin-bottom:10px; }
+  .check-col ul{ list-style:none; }
+  .check-col li{ font-size:13.5px; color:var(--text-dim); padding:5px 0 5px 24px; position:relative; }
+  .check-col li::before{
+    content:'✓'; position:absolute; left:0; top:5px; width:16px; height:16px;
+    border:1px solid var(--border); border-radius:4px; color:var(--teal);
+    font-size:11px; display:flex; align-items:center; justify-content:center;
+  }
+
+  /* ---------- TROUBLESHOOTING (details) ---------- */
+  .incident{ border:1px solid var(--border); background:var(--surface); border-radius:10px; margin-bottom:12px; overflow:hidden; }
+  .incident summary{
+    list-style:none; cursor:pointer; padding:16px 20px; display:flex; align-items:center; gap:12px;
+    font-family:var(--font-display); font-weight:600; font-size:14.5px;
+  }
+  .incident summary::-webkit-details-marker{ display:none; }
+  .incident summary .sev{ width:8px; height:8px; border-radius:50%; background:var(--teal); flex:none; }
+  .incident summary .chev{ margin-left:auto; color:var(--text-faint); transition:transform .18s; font-family:var(--font-mono); font-size:12px; }
+  .incident[open] summary .chev{ transform:rotate(90deg); }
+  .incident .incident-body{ padding:0 20px 20px; border-top:1px solid var(--border); }
+  .incident .incident-body h5{ font-family:var(--font-mono); font-size:12px; color:var(--amber); margin:14px 0 6px; }
+  .incident .incident-body h5:first-child{ margin-top:16px; }
+  .incident .incident-body p, .incident .incident-body li{ color:var(--text-dim); font-size:13.5px; }
+  .incident .incident-body ul{ padding-left:18px; }
+
+  /* ---------- ROADMAP ---------- */
+  .roadmap-item{ border:1px solid var(--border); background:var(--surface); border-radius:10px; padding:20px 22px; margin-bottom:14px; }
+  .roadmap-item h4{ font-family:var(--font-display); font-size:15.5px; font-weight:600; margin-bottom:12px; }
+  .roadmap-cols{ display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+  @media (max-width:640px){ .roadmap-cols{ grid-template-columns:1fr; } }
+  .roadmap-cols .col h5{ font-family:var(--font-mono); font-size:11.5px; margin-bottom:8px; }
+  .roadmap-cols .col.limit h5{ color:var(--red); }
+  .roadmap-cols .col.plan h5{ color:var(--amber); }
+  .roadmap-cols ul{ padding-left:16px; }
+  .roadmap-cols li{ font-size:13px; color:var(--text-dim); margin-bottom:5px; }
+
+  footer{
+    padding:40px 0 60px; text-align:center; font-family:var(--font-mono); font-size:12px; color:var(--text-faint);
+    display:flex; flex-direction:column; align-items:center; gap:14px;
+  }
+  .footer-back{
+    border:1px solid var(--border); padding:8px 16px; border-radius:6px; color:var(--text-dim); transition:border-color .15s, color .15s;
+  }
+  .footer-back:hover, .footer-back:focus-visible{ border-color:var(--teal); color:var(--teal); }
+
+  @media (max-width:560px){
+    .nav-inner{ padding:12px 18px; }
+    .wrap{ padding:0 18px; }
+    .hero{ padding:44px 0 36px; }
+    nav.links{ gap:14px; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:0.001ms !important; transition-duration:0.001ms !important; }
+    html{ scroll-behavior:auto; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav-inner">
+    <a class="back-link" href="index.html">← ~/sim-sohyeon</a>
+    <nav class="links">
+      <a href="#overview">overview</a>
+      <a href="#architecture">architecture</a>
+      <a href="#compute">compute · db</a>
+      <a href="#network">network · security</a>
+      <a href="#deploy">deploy</a>
+      <a href="#troubleshooting">troubleshooting</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="hero" style="border-top:none;">
+    <div class="eyebrow">project // infrastructure as code</div>
+    <h1 class="title">Planner</h1>
+    <p class="subtitle">Planner 서비스를 AWS 클라우드에 배포하기 위한 Infrastructure as Code(IaC) 프로젝트입니다.</p>
+    <div class="role-tag"><span class="status-dot"></span> role: 인프라 설계 · Terraform 구현</div>
+    <div class="tag-row">
+      <span class="tag">Terraform >= 1.5.0</span><span class="tag">AWS ap-northeast-2</span>
+      <span class="tag">ECS Fargate</span><span class="tag">RDS MySQL 8.0</span>
+      <span class="tag">ALB</span><span class="tag">AWS WAF</span>
+      <span class="tag">Route53</span><span class="tag">CloudWatch</span>
+    </div>
+  </section>
+
+  <section id="overview">
+    <div class="section-head"><span class="path"># overview.tf</span><h2>프로젝트 개요</h2></div>
+    <p class="body-text">Terraform을 이용해 다음 AWS 리소스를 자동으로 프로비저닝하며, 프로덕션 레벨의 고가용성 및 보안을 갖춘 완전 관리형 환경을 제공합니다.</p>
+    <div class="feat-grid fade-in" style="margin-top:16px;">
+      <div class="feat-card"><h4>네트워크</h4><p>VPC, 공개/개인 서브넷, NAT 게이트웨이</p></div>
+      <div class="feat-card"><h4>컨테이너</h4><p>ECR(레지스트리), ECS Fargate(오케스트레이션)</p></div>
+      <div class="feat-card"><h4>데이터베이스</h4><p>RDS MySQL 8.0 (Multi-AZ 고가용성)</p></div>
+      <div class="feat-card"><h4>로드밸런싱</h4><p>Application Load Balancer (ALB)</p></div>
+      <div class="feat-card"><h4>보안</h4><p>Security Groups, WAF, Secrets Manager</p></div>
+      <div class="feat-card"><h4>모니터링 / DNS</h4><p>CloudWatch(로그·메트릭), Route53(도메인 관리)</p></div>
+    </div>
+
+    <h3 class="sub-head">기술 스택</h3>
+    <div class="table-wrap">
+      <table class="cost-table">
+        <thead><tr><th>구분</th><th>기술</th></tr></thead>
+        <tbody>
+          <tr><td>Infrastructure as Code</td><td>Terraform &gt;= 1.5.0</td></tr>
+          <tr><td>클라우드 플랫폼</td><td>AWS (ap-northeast-2 리전)</td></tr>
+          <tr><td>Provider</td><td>hashicorp/aws ~&gt; 5.0, hashicorp/random ~&gt; 3.5</td></tr>
+          <tr><td>컨테이너 레지스트리</td><td>Amazon ECR</td></tr>
+          <tr><td>오케스트레이션</td><td>Amazon ECS Fargate</td></tr>
+          <tr><td>데이터베이스</td><td>Amazon RDS (MySQL 8.0)</td></tr>
+          <tr><td>로드밸런싱</td><td>Application Load Balancer (ALB)</td></tr>
+          <tr><td>보안</td><td>AWS WAF, Security Groups, Secrets Manager</td></tr>
+          <tr><td>DNS</td><td>Amazon Route53</td></tr>
+          <tr><td>모니터링</td><td>Amazon CloudWatch</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="architecture">
+  <div class="section-head"><span class="path"># architecture.tf</span><h2>아키텍처 개요</h2></div>
+
+  <div class="diagram-frame fade-in">
+    <svg viewBox="0 0 900 820" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Planner AWS 아키텍처 다이어그램">
+      <defs>
+        <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+          <path d="M0,0 L8,4 L0,8 Z" fill="var(--text-faint)"/>
+        </marker>
+        <marker id="arrowTeal" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+          <path d="M0,0 L8,4 L0,8 Z" fill="var(--teal)"/>
+        </marker>
+        <marker id="arrowAmber" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+          <path d="M0,0 L8,4 L0,8 Z" fill="var(--amber)"/>
+        </marker>
+      </defs>
+
+      <!-- Client -->
+      <rect x="380" y="16" width="140" height="44" rx="7" fill="var(--surface-2)" stroke="var(--border)"/>
+      <text x="450" y="43" text-anchor="middle" fill="var(--text)" font-family="JetBrains Mono" font-size="13">Client</text>
+      <line x1="450" y1="60" x2="450" y2="90" stroke="var(--text-faint)" stroke-width="1.4" marker-end="url(#arrow)"/>
+
+      <!-- Route53 -->
+      <rect x="380" y="90" width="140" height="42" rx="7" fill="var(--surface-2)" stroke="var(--border)"/>
+      <text x="450" y="116" text-anchor="middle" fill="var(--text-dim)" font-family="JetBrains Mono" font-size="12">Route53</text>
+      <line x1="450" y1="132" x2="450" y2="162" stroke="var(--text-faint)" stroke-width="1.4" marker-end="url(#arrow)"/>
+
+      <!-- IGW -->
+      <rect x="380" y="162" width="140" height="40" rx="7" fill="var(--surface-2)" stroke="var(--border)"/>
+      <text x="450" y="187" text-anchor="middle" fill="var(--text-dim)" font-family="JetBrains Mono" font-size="12">IGW</text>
+      <line x1="450" y1="202" x2="450" y2="232" stroke="var(--amber)" stroke-width="1.4" marker-end="url(#arrowAmber)"/>
+
+      <!-- WAF -->
+      <rect x="380" y="232" width="140" height="40" rx="7" fill="var(--surface-2)" stroke="var(--amber)"/>
+      <text x="450" y="257" text-anchor="middle" fill="var(--amber)" font-family="JetBrains Mono" font-size="12">WAF</text>
+      <line x1="450" y1="272" x2="450" y2="298" stroke="var(--teal)" stroke-width="1.6" marker-end="url(#arrowTeal)"/>
+
+      <!-- VPC outer -->
+      <rect x="40" y="298" width="760" height="380" rx="10" fill="none" stroke="var(--teal)" stroke-opacity="0.5" stroke-width="1.4" stroke-dasharray="5 5"/>
+      <text x="56" y="318" fill="var(--teal)" font-family="JetBrains Mono" font-size="11.5">VPC · planner-vpc (192.168.0.0/16)</text>
+
+      <!-- Public Subnets -->
+      <rect x="60" y="332" width="720" height="100" rx="8" fill="var(--surface)" stroke="var(--border)"/>
+      <text x="74" y="350" fill="var(--text-faint)" font-family="JetBrains Mono" font-size="11">Public Subnets (2a / 2c)</text>
+
+      <rect x="90" y="364" width="140" height="46" rx="7" fill="var(--surface-2)" stroke="var(--border)"/>
+      <text x="160" y="391" text-anchor="middle" fill="var(--text-dim)" font-family="JetBrains Mono" font-size="11.5">NAT GW · 2a</text>
+
+      <rect x="370" y="360" width="160" height="52" rx="7" fill="var(--surface-2)" stroke="var(--teal)"/>
+      <text x="450" y="382" text-anchor="middle" fill="var(--text)" font-family="JetBrains Mono" font-size="12.5">ALB</text>
+      <text x="450" y="398" text-anchor="middle" fill="var(--text-faint)" font-family="JetBrains Mono" font-size="10.5">multi-AZ</text>
+
+      <rect x="670" y="364" width="140" height="46" rx="7" fill="var(--surface-2)" stroke="var(--border)"/>
+      <text x="740" y="391" text-anchor="middle" fill="var(--text-dim)" font-family="JetBrains Mono" font-size="11.5">NAT GW · 2c</text>
+
+      <!-- Private ECS Subnets -->
+      <rect x="60" y="452" width="720" height="112" rx="8" fill="var(--surface)" stroke="var(--border)"/>
+      <text x="74" y="470" fill="var(--text-faint)" font-family="JetBrains Mono" font-size="11">Private Subnets – ECS Fargate</text>
+
+      <line x1="410" y1="412" x2="260" y2="484" stroke="var(--teal)" stroke-width="1.6" marker-end="url(#arrowTeal)"/>
+      <rect x="150" y="484" width="180" height="58" rx="7" fill="var(--surface-2)" stroke="var(--teal)"/>
+      <text x="240" y="507" text-anchor="middle" fill="var(--text)" font-family="JetBrains Mono" font-size="12.5">ECS · Backend</text>
+      <text x="240" y="524" text-anchor="middle" fill="var(--text-faint)" font-family="JetBrains Mono" font-size="10.5">Spring Boot :8080</text>
+
+      <line x1="490" y1="412" x2="640" y2="484" stroke="var(--teal)" stroke-width="1.6" marker-end="url(#arrowTeal)"/>
+      <rect x="550" y="484" width="180" height="58" rx="7" fill="var(--surface-2)" stroke="var(--border)"/>
+      <text x="640" y="507" text-anchor="middle" fill="var(--text)" font-family="JetBrains Mono" font-size="12.5">ECS · Frontend</text>
+      <text x="640" y="524" text-anchor="middle" fill="var(--text-faint)" font-family="JetBrains Mono" font-size="10.5">React/Nginx :80</text>
+
+      <line x1="160" y1="410" x2="200" y2="484" stroke="var(--text-faint)" stroke-width="1.1" stroke-dasharray="4 4" marker-end="url(#arrow)"/>
+      <line x1="740" y1="410" x2="680" y2="484" stroke="var(--text-faint)" stroke-width="1.1" stroke-dasharray="4 4" marker-end="url(#arrow)"/>
+
+      <!-- Private RDS Subnets -->
+      <rect x="60" y="588" width="720" height="90" rx="8" fill="var(--surface)" stroke="var(--border)"/>
+      <text x="74" y="606" fill="var(--text-faint)" font-family="JetBrains Mono" font-size="11">Private Subnets – RDS Multi-AZ</text>
+
+      <line x1="240" y1="542" x2="280" y2="610" stroke="var(--teal)" stroke-width="1.6" marker-end="url(#arrowTeal)"/>
+      <rect x="200" y="610" width="170" height="50" rx="7" fill="var(--surface-2)" stroke="var(--teal)"/>
+      <text x="285" y="630" text-anchor="middle" fill="var(--text)" font-family="JetBrains Mono" font-size="12">RDS MySQL</text>
+      <text x="285" y="646" text-anchor="middle" fill="var(--text-faint)" font-family="JetBrains Mono" font-size="10.5">Primary · 2a</text>
+
+      <rect x="530" y="610" width="170" height="50" rx="7" fill="var(--surface-2)" stroke="var(--border)"/>
+      <text x="615" y="630" text-anchor="middle" fill="var(--text-dim)" font-family="JetBrains Mono" font-size="12">RDS MySQL</text>
+      <text x="615" y="646" text-anchor="middle" fill="var(--text-faint)" font-family="JetBrains Mono" font-size="10.5">Standby · 2c</text>
+
+      <line x1="370" y1="635" x2="530" y2="635" stroke="var(--text-faint)" stroke-width="1.1" stroke-dasharray="4 4" marker-end="url(#arrow)"/>
+      <text x="450" y="628" text-anchor="middle" fill="var(--text-faint)" font-family="JetBrains Mono" font-size="9.5">sync</text>
+
+      <!-- External services -->
+      <rect x="100" y="716" width="150" height="44" rx="7" fill="var(--surface-2)" stroke="var(--border)"/>
+      <text x="175" y="743" text-anchor="middle" fill="var(--text-dim)" font-family="JetBrains Mono" font-size="12">ECR</text>
+      <line x1="175" y1="716" x2="220" y2="542" stroke="var(--text-faint)" stroke-width="1.1" stroke-dasharray="4 4" marker-end="url(#arrow)"/>
+      <text x="130" y="620" fill="var(--text-faint)" font-family="JetBrains Mono" font-size="9.5">image pull</text>
+
+      <rect x="365" y="716" width="170" height="44" rx="7" fill="var(--surface-2)" stroke="var(--border)"/>
+      <text x="450" y="743" text-anchor="middle" fill="var(--text-dim)" font-family="JetBrains Mono" font-size="12">Secrets Manager</text>
+      <line x1="420" y1="716" x2="260" y2="542" stroke="var(--text-faint)" stroke-width="1.1" stroke-dasharray="4 4" marker-end="url(#arrow)"/>
+      <line x1="480" y1="716" x2="330" y2="635" stroke="var(--text-faint)" stroke-width="1.1" stroke-dasharray="4 4" marker-end="url(#arrow)"/>
+
+      <rect x="650" y="716" width="150" height="44" rx="7" fill="var(--surface-2)" stroke="var(--border)"/>
+      <text x="725" y="743" text-anchor="middle" fill="var(--text-dim)" font-family="JetBrains Mono" font-size="12">CloudWatch</text>
+      <line x1="725" y1="716" x2="660" y2="542" stroke="var(--text-faint)" stroke-width="1" stroke-dasharray="2 4" marker-end="url(#arrow)"/>
+      <line x1="700" y1="716" x2="620" y2="660" stroke="var(--text-faint)" stroke-width="1" stroke-dasharray="2 4" marker-end="url(#arrow)"/>
+    </svg>
+  </div>
+
+  <div class="table-wrap">
+    <table class="cost-table">
+      <thead><tr><th>리소스</th><th>설명</th><th>구성</th></tr></thead>
+      <tbody>
+        <tr><td>VPC</td><td>Virtual Private Cloud</td><td>192.168.0.0/16</td></tr>
+        <tr><td>Public Subnets</td><td>NAT Gateway, ALB 배치</td><td>2개 (AZ-a, AZ-c)</td></tr>
+        <tr><td>Private ECS Subnets</td><td>ECS Fargate (Backend/Frontend)</td><td>2개 (AZ-a, AZ-c)</td></tr>
+        <tr><td>Private RDS Subnets</td><td>RDS Multi-AZ</td><td>2개 (AZ-a, AZ-c)</td></tr>
+        <tr><td>IGW</td><td>Internet Gateway</td><td>VPC 외부 통신용</td></tr>
+        <tr><td>NAT Gateway</td><td>개인 서브넷 → 인터넷 통신</td><td>각 공개 서브넷에 1개</td></tr>
+        <tr><td>Route Table</td><td>트래픽 라우팅 규칙</td><td>공개/개인 구분</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+  <section id="compute">
+    <div class="section-head"><span class="path"># compute.tf</span><h2>컴퓨팅 &amp; 데이터베이스</h2></div>
+
+    <h3 class="sub-head">컨테이너 레지스트리 (ECR)</h3>
+    <p class="body-text">myapp-backend(Spring Boot), myapp-frontend(React/Nginx) 두 리포지토리를 운영하며, 이미지 스캔 자동화(보안 취약점 검사)를 적용했습니다.</p>
+
+    <h3 class="sub-head">ECS Fargate 클러스터</h3>
+    <p class="body-text">클러스터명 <code style="font-family:var(--font-mono)">myapp-cluster</code> · Container Insights 활성화 · 서버리스 컨테이너 오케스트레이션 · 자동 스케일링 지원</p>
+    <div class="feat-grid fade-in">
+      <div class="feat-card"><h4>Backend 태스크</h4><p>Spring Boot 애플리케이션, 포트 8080</p></div>
+      <div class="feat-card"><h4>Frontend 태스크</h4><p>React + Nginx, 포트 80/443</p></div>
+    </div>
+
+    <h3 class="sub-head">RDS MySQL (Multi-AZ)</h3>
+    <div class="table-wrap">
+      <table class="cost-table">
+        <tbody>
+          <tr><td>엔진</td><td>MySQL 8.0</td></tr>
+          <tr><td>인스턴스 클래스</td><td>기본 db.t3.micro (설정 가능)</td></tr>
+          <tr><td>스토리지</td><td>20GB (gp3)</td></tr>
+          <tr><td>Multi-AZ</td><td>활성화 (자동 페일오버)</td></tr>
+          <tr><td>백업</td><td>1일 보관 (03:00-04:00 KST)</td></tr>
+          <tr><td>모니터링</td><td>CloudWatch 로그 (error, general, slowquery)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="body-text">보안: RDS 전용 Security Group, 개인 서브넷에만 배치(인터넷 노출 없음), Secrets Manager에서 비밀번호 관리</p>
+  </section>
+
+  <section id="network">
+    <div class="section-head"><span class="path"># network.tf</span><h2>로드밸런싱 &amp; 보안</h2></div>
+
+    <h3 class="sub-head">ALB / Target Group</h3>
+    <div class="table-wrap">
+      <table class="cost-table">
+        <thead><tr><th>타겟 그룹</th><th>설명</th><th>포트</th><th>프로토콜</th></tr></thead>
+        <tbody>
+          <tr><td>Backend</td><td>Spring Boot API</td><td>8080</td><td>HTTP</td></tr>
+          <tr><td>Frontend</td><td>React 애플리케이션</td><td>80</td><td>HTTP</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="body-text">헬스 체크: 인터벌 30초 · 타임아웃 5초 · 정상 3회 연속 성공 / 비정상 3회 연속 실패 · 성공 코드 200, 302, 404</p>
+
+    <h3 class="sub-head">Security Groups</h3>
+    <div class="table-wrap">
+      <table class="cost-table">
+        <thead><tr><th>Security Group</th><th>인바운드</th><th>아웃바운드</th></tr></thead>
+        <tbody>
+          <tr><td>ALB</td><td>80/443 (전체 CIDR)</td><td>모든 트래픽</td></tr>
+          <tr><td>ECS</td><td>8080 / 443 (ALB에서)</td><td>모든 트래픽</td></tr>
+          <tr><td>RDS</td><td>3306 (ECS SG에서)</td><td>모든 트래픽</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="sub-head">Secrets Manager / IAM / WAF</h3>
+    <ul class="plain">
+      <li>DB Password, JWT Secret을 Secrets Manager에서 암호화 관리</li>
+      <li>ECS Execution Role(ECR·CloudWatch), ECS Task Role(RDS·Secrets Manager), RDS Monitoring Role을 각각 최소 권한으로 분리</li>
+      <li>AWS WAF(선택적): DDoS 방어, SQL Injection·XSS 방어, Rate limiting, 지리적 차단</li>
+    </ul>
+
+    <h3 class="sub-head">모니터링 &amp; 로깅</h3>
+    <p class="body-text">CloudWatch 로그 그룹 <code style="font-family:var(--font-mono)">/ecs/myapp-backend</code>, <code style="font-family:var(--font-mono)">/ecs/myapp-frontend</code>, <code style="font-family:var(--font-mono)">/rds/mysql/myapp-mysql</code>에서 CPU·메모리·네트워크 I/O·디스크 I/O·DB 쿼리 성능을 수집하고, Container Insights로 ECS 클러스터·컨테이너별 리소스 사용량을 모니터링합니다.</p>
+  </section>
+
+  <section id="deploy">
+    <div class="section-head"><span class="path"># deploy.tf</span><h2>배포 &amp; 프로비저닝</h2></div>
+
+    <div class="term-block fade-in">
+      <div class="term-titlebar"><span class="term-dot"></span><span class="term-dot"></span><span class="term-dot"></span><span>terraform · provisioning</span></div>
+      <div class="term-body"><span class="c"># 1단계: 초기화</span>
+cd Planner-aws
+terraform init
+
+<span class="c"># 2단계: 실행 계획 검토</span>
+terraform plan -out=tfplan
+
+<span class="c"># 3단계: 인프라 생성</span>
+terraform apply tfplan
+
+<span class="c"># 4단계: 출력값 확인</span>
+terraform output
+
+<span class="c"># 삭제(정리)</span>
+terraform destroy</div>
+    </div>
+
+    <div class="table-wrap">
+      <table class="cost-table">
+        <thead><tr><th>출력값</th><th>설명</th></tr></thead>
+        <tbody>
+          <tr><td>vpc_id</td><td>VPC ID</td></tr>
+          <tr><td>alb_dns_name</td><td>ALB DNS 이름 (애플리케이션 접근 주소)</td></tr>
+          <tr><td>ecs_cluster_name</td><td>ECS 클러스터 이름</td></tr>
+          <tr><td>rds_endpoint</td><td>RDS 엔드포인트 (DB 연결 주소)</td></tr>
+          <tr><td>db_secret_arn / jwt_secret_arn</td><td>Secrets Manager ARN</td></tr>
+          <tr><td>backend/frontend_ecr_repository_url</td><td>ECR 레포지토리 URL</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="term-block fade-in">
+      <div class="term-titlebar"><span class="term-dot"></span><span class="term-dot"></span><span class="term-dot"></span><span>docker · build & push</span></div>
+      <div class="term-body"><span class="c"># 백엔드 이미지 빌드 &amp; 푸시</span>
+./gradlew build
+docker build -t planner-backend:latest .
+aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin &lt;ACCOUNT_ID&gt;.dkr.ecr.ap-northeast-2.amazonaws.com
+docker tag planner-backend:latest &lt;ACCOUNT_ID&gt;.dkr.ecr.ap-northeast-2.amazonaws.com/myapp-backend:latest
+docker push &lt;ACCOUNT_ID&gt;.dkr.ecr.ap-northeast-2.amazonaws.com/myapp-backend:latest
+
+<span class="c"># 프론트엔드도 동일한 방식으로 빌드 → 태그 → 푸시</span></div>
+    </div>
+
+    <h3 class="sub-head">비용 최적화 팁</h3>
+    <ul class="plain">
+      <li>RDS 인스턴스 타입을 프로덕션 환경에 맞게 선택 (t3.micro → t3.small/medium)</li>
+      <li>ECS 태스크 CPU/메모리를 애플리케이션 요구사항에 맞게 설정</li>
+      <li>ECS 및 RDS Auto Scaling 정책 구성</li>
+      <li>장기 운영 시 Reserved Instance로 비용 절감</li>
+      <li>CloudWatch 로그 보존 — 불필요한 로그는 자동 삭제 정책 설정</li>
+    </ul>
+  </section>
+
+  <section id="troubleshooting">
+    <div class="section-head"><span class="path"># troubleshooting.tf</span><h2>트러블슈팅</h2></div>
+    <div class="feat-grid fade-in">
+      <div class="feat-card"><h4>ECS 태스크가 시작되지 않음</h4><p>CloudWatch 로그 확인, ECR 이미지 존재 여부 확인, Security Group 규칙 확인</p></div>
+      <div class="feat-card"><h4>RDS 연결 오류</h4><p>RDS Security Group 규칙(ECS SG에서 3306 허용) 확인, RDS 서브넷 그룹 확인, 마스터 비밀번호(Secrets Manager) 확인</p></div>
+      <div class="feat-card"><h4>ALB 헬스 체크 실패</h4><p>대상 그룹 헬스 체크 경로 확인, 보안 그룹 인바운드 규칙 확인, 애플리케이션 포트 확인</p></div>
+    </div>
+
+    <h3 class="sub-head">프로젝트 구조</h3>
+    <div class="term-block fade-in">
+      <div class="term-titlebar"><span class="term-dot"></span><span class="term-dot"></span><span class="term-dot"></span><span>Planner-aws/</span></div>
+      <div class="term-body">Planner-aws/
+├── main.tf              <span class="c"># Provider 및 버전 정의</span>
+├── variables.tf         <span class="c"># 입력 변수</span>
+├── outputs.tf           <span class="c"># 출력값</span>
+├── vpc.tf               <span class="c"># VPC, Subnets, IGW, NAT Gateway, Route Table</span>
+├── ecs.tf               <span class="c"># ECR, ECS Cluster, IAM Role, Task Definition</span>
+├── rds.tf               <span class="c"># RDS 인스턴스, Subnet Group</span>
+├── alb.tf               <span class="c"># ALB, Target Groups, Listeners</span>
+├── security_groups.tf   <span class="c"># Security Group 정의</span>
+├── route53.tf           <span class="c"># Route53 DNS (선택)</span>
+├── cloudwatch.tf        <span class="c"># CloudWatch 로그 그룹 및 알람</span>
+├── waf.tf               <span class="c"># AWS WAF 규칙 (선택)</span>
+├── secrets.tf           <span class="c"># Secrets Manager</span>
+└── README.md</div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <a class="footer-back" href="index.html">← sim-sohyeon 프로필로 돌아가기</a>
+  <div>project status: archived · maintained by 심소현</div>
+</footer>
+
+<script>
+  (function(){
+    const targets = document.querySelectorAll('.fade-in');
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); }
+      });
+    }, {threshold:0.1});
+    targets.forEach(t=>io.observe(t));
+  })();
+</script>
+
+</body>
+</html>

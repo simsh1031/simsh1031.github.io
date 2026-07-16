@@ -1,0 +1,1465 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Travelog — Project · 심소현</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #0a1220;
+        --surface: #0f1a2b;
+        --surface-2: #121f33;
+        --grid: #1b2a40;
+        --border: #233450;
+        --text: #e7ecf3;
+        --text-dim: #7e92ac;
+        --text-faint: #54667f;
+        --teal: #4fd1c5;
+        --amber: #e8a33d;
+        --red: #e8664f;
+        --font-display: "Space Grotesk", sans-serif;
+        --font-body: "Inter", sans-serif;
+        --font-mono: "JetBrains Mono", monospace;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        background:
+          radial-gradient(circle at 1px 1px, var(--grid) 1px, transparent 0) 0
+            0/28px 28px,
+          var(--bg);
+        color: var(--text);
+        font-family: var(--font-body);
+        line-height: 1.65;
+        -webkit-font-smoothing: antialiased;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      ::selection {
+        background: var(--teal);
+        color: #04211f;
+      }
+      .wrap {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 0 28px;
+      }
+
+      /* ---------- NAV ---------- */
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        background: rgba(10, 18, 32, 0.88);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--border);
+      }
+      .nav-inner {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 14px 28px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+      }
+      .nav-path {
+        font-family: var(--font-mono);
+        font-size: 12.5px;
+        color: var(--text-dim);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        white-space: nowrap;
+      }
+      .status-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--teal);
+        flex: none;
+        box-shadow: 0 0 0 0 rgba(79, 209, 197, 0.6);
+        animation: pulse 2.4s infinite;
+      }
+      @keyframes pulse {
+        0% {
+          box-shadow: 0 0 0 0 rgba(79, 209, 197, 0.55);
+        }
+        70% {
+          box-shadow: 0 0 0 7px rgba(79, 209, 197, 0);
+        }
+        100% {
+          box-shadow: 0 0 0 0 rgba(79, 209, 197, 0);
+        }
+      }
+      nav.links {
+        display: flex;
+        gap: 18px;
+        font-family: var(--font-mono);
+        font-size: 12.5px;
+        color: var(--text-dim);
+        overflow-x: auto;
+      }
+      nav.links a {
+        white-space: nowrap;
+        transition: color 0.15s;
+        padding: 4px 2px;
+      }
+      nav.links a:hover,
+      nav.links a:focus-visible {
+        color: var(--teal);
+      }
+      nav.links a:focus-visible {
+        outline: 1px solid var(--teal);
+        outline-offset: 4px;
+        border-radius: 2px;
+      }
+      .back-link {
+        font-family: var(--font-mono);
+        font-size: 12.5px;
+        color: var(--text-dim);
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        flex: none;
+      }
+      .back-link:hover,
+      .back-link:focus-visible {
+        color: var(--amber);
+      }
+
+      /* ---------- HERO ---------- */
+      .hero {
+        padding: 64px 0 48px;
+      }
+      .eyebrow {
+        font-family: var(--font-mono);
+        font-size: 12.5px;
+        letter-spacing: 0.06em;
+        color: var(--amber);
+        text-transform: uppercase;
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .eyebrow::before {
+        content: "//";
+        color: var(--text-faint);
+      }
+      h1.title {
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: clamp(38px, 7vw, 58px);
+        line-height: 1.05;
+        letter-spacing: -0.01em;
+        margin-bottom: 14px;
+      }
+      .subtitle {
+        color: var(--text-dim);
+        max-width: 600px;
+        font-size: 15.5px;
+        margin-bottom: 26px;
+      }
+      .role-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-family: var(--font-mono);
+        font-size: 12.5px;
+        color: var(--teal);
+        border: 1px solid var(--border);
+        background: var(--surface);
+        padding: 6px 12px;
+        border-radius: 6px;
+        margin-bottom: 22px;
+      }
+      .tag-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .tag {
+        font-family: var(--font-mono);
+        font-size: 12px;
+        padding: 5px 10px;
+        border-radius: 5px;
+        background: var(--surface-2);
+        border: 1px solid var(--border);
+        color: var(--text-dim);
+      }
+
+      /* ---------- SECTION SHELL ---------- */
+      section {
+        padding: 60px 0;
+        border-top: 1px solid var(--border);
+      }
+      .section-head {
+        display: flex;
+        align-items: baseline;
+        gap: 12px;
+        margin-bottom: 28px;
+        font-family: var(--font-mono);
+      }
+      .section-head .path {
+        font-size: 13px;
+        color: var(--amber);
+      }
+      .section-head h2 {
+        font-family: var(--font-display);
+        font-size: 23px;
+        font-weight: 600;
+      }
+      h3.sub-head {
+        font-family: var(--font-display);
+        font-size: 16.5px;
+        font-weight: 600;
+        margin: 32px 0 14px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      h3.sub-head:first-child {
+        margin-top: 0;
+      }
+      h3.sub-head::before {
+        content: "";
+        width: 8px;
+        height: 8px;
+        background: var(--teal);
+        border-radius: 2px;
+        flex: none;
+      }
+
+      .fade-in {
+        opacity: 0;
+        transform: translateY(14px);
+        transition:
+          opacity 0.6s ease,
+          transform 0.6s ease;
+      }
+      .fade-in.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      p.body-text {
+        color: var(--text-dim);
+        font-size: 15px;
+        max-width: 680px;
+      }
+      p.body-text + p.body-text {
+        margin-top: 10px;
+      }
+
+      ul.plain {
+        color: var(--text-dim);
+        font-size: 14.5px;
+        padding-left: 20px;
+      }
+      ul.plain li {
+        margin-bottom: 6px;
+      }
+      ul.plain li::marker {
+        color: var(--teal);
+      }
+
+      /* ---------- OVERVIEW FEATURE GRID ---------- */
+      .feat-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 16px;
+      }
+      .feat-card {
+        border: 1px solid var(--border);
+        background: var(--surface);
+        border-radius: 10px;
+        padding: 18px 20px;
+        border-left: 3px solid var(--teal);
+      }
+      .feat-card h4 {
+        font-family: var(--font-display);
+        font-size: 15px;
+        font-weight: 600;
+        margin-bottom: 8px;
+      }
+      .feat-card p {
+        color: var(--text-dim);
+        font-size: 13.5px;
+      }
+
+      /* ---------- ARCHITECTURE DIAGRAM ---------- */
+      .diagram-frame {
+        border: 1px solid var(--border);
+        background: var(--surface);
+        border-radius: 10px;
+        padding: 16px;
+        margin-bottom: 30px;
+        overflow-x: auto;
+      }
+      .diagram-frame svg {
+        width: 100%;
+        height: auto;
+        min-width: 640px;
+        display: block;
+      }
+
+      .service-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+        gap: 14px;
+      }
+      .service-card {
+        border: 1px solid var(--border);
+        background: var(--surface);
+        border-radius: 8px;
+        padding: 14px 16px;
+      }
+      .service-card .svc-name {
+        font-family: var(--font-mono);
+        font-size: 13px;
+        color: var(--teal);
+        margin-bottom: 6px;
+        display: block;
+      }
+      .service-card p {
+        color: var(--text-dim);
+        font-size: 13px;
+      }
+
+      /* ---------- TERMINAL / CODE BLOCK ---------- */
+      .term-block {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        overflow: hidden;
+        margin: 18px 0 26px;
+      }
+      .term-titlebar {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 9px 16px;
+        border-bottom: 1px solid var(--border);
+        background: var(--surface-2);
+        font-family: var(--font-mono);
+        font-size: 11.5px;
+        color: var(--text-faint);
+      }
+      .term-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--grid);
+      }
+      .term-body {
+        font-family: var(--font-mono);
+        font-size: 13px;
+        padding: 16px 18px;
+        overflow-x: auto;
+        white-space: pre;
+      }
+      .term-body .c {
+        color: var(--text-faint);
+        font-style: italic;
+      }
+      .term-body .p {
+        color: var(--amber);
+      }
+
+      /* ---------- STAT GRID ---------- */
+      .stat-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 14px;
+        margin: 20px 0 8px;
+      }
+      .stat-card {
+        border: 1px solid var(--border);
+        background: var(--surface);
+        border-radius: 10px;
+        padding: 18px;
+        text-align: center;
+      }
+      .stat-num {
+        font-family: var(--font-display);
+        font-size: 26px;
+        font-weight: 700;
+        color: var(--teal);
+      }
+      .stat-label {
+        font-family: var(--font-mono);
+        font-size: 11.5px;
+        color: var(--text-faint);
+        margin-top: 6px;
+      }
+      .highlight-note {
+        font-family: var(--font-mono);
+        font-size: 13px;
+        color: var(--text-dim);
+        border-left: 3px solid var(--amber);
+        padding: 10px 14px;
+        background: var(--surface);
+        border-radius: 0 8px 8px 0;
+        margin-top: 14px;
+      }
+      .highlight-note b {
+        color: var(--amber);
+      }
+
+      /* ---------- TABLES ---------- */
+      table.cost-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-family: var(--font-mono);
+        font-size: 13px;
+        margin-bottom: 10px;
+      }
+      table.cost-table th,
+      table.cost-table td {
+        border: 1px solid var(--border);
+        padding: 9px 12px;
+        text-align: left;
+      }
+      table.cost-table th {
+        background: var(--surface-2);
+        color: var(--text-dim);
+        font-weight: 500;
+      }
+      table.cost-table td {
+        color: var(--text-dim);
+      }
+      table.cost-table tr.total td {
+        color: var(--amber);
+        font-weight: 600;
+      }
+      .table-wrap {
+        overflow-x: auto;
+        margin-bottom: 26px;
+      }
+
+      /* ---------- CHECKLIST ---------- */
+      .checklist-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 16px;
+      }
+      .check-col h4 {
+        font-family: var(--font-mono);
+        font-size: 12.5px;
+        color: var(--amber);
+        margin-bottom: 10px;
+      }
+      .check-col ul {
+        list-style: none;
+      }
+      .check-col li {
+        font-size: 13.5px;
+        color: var(--text-dim);
+        padding: 5px 0 5px 24px;
+        position: relative;
+      }
+      .check-col li::before {
+        content: "✓";
+        position: absolute;
+        left: 0;
+        top: 5px;
+        width: 16px;
+        height: 16px;
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        color: var(--teal);
+        font-size: 11px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* ---------- TROUBLESHOOTING (details) ---------- */
+      .incident {
+        border: 1px solid var(--border);
+        background: var(--surface);
+        border-radius: 10px;
+        margin-bottom: 12px;
+        overflow: hidden;
+      }
+      .incident summary {
+        list-style: none;
+        cursor: pointer;
+        padding: 16px 20px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-family: var(--font-display);
+        font-weight: 600;
+        font-size: 14.5px;
+      }
+      .incident summary::-webkit-details-marker {
+        display: none;
+      }
+      .incident summary .sev {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--teal);
+        flex: none;
+      }
+      .incident summary .chev {
+        margin-left: auto;
+        color: var(--text-faint);
+        transition: transform 0.18s;
+        font-family: var(--font-mono);
+        font-size: 12px;
+      }
+      .incident[open] summary .chev {
+        transform: rotate(90deg);
+      }
+      .incident .incident-body {
+        padding: 0 20px 20px;
+        border-top: 1px solid var(--border);
+      }
+      .incident .incident-body h5 {
+        font-family: var(--font-mono);
+        font-size: 12px;
+        color: var(--amber);
+        margin: 14px 0 6px;
+      }
+      .incident .incident-body h5:first-child {
+        margin-top: 16px;
+      }
+      .incident .incident-body p,
+      .incident .incident-body li {
+        color: var(--text-dim);
+        font-size: 13.5px;
+      }
+      .incident .incident-body ul {
+        padding-left: 18px;
+      }
+
+      /* ---------- ROADMAP ---------- */
+      .roadmap-item {
+        border: 1px solid var(--border);
+        background: var(--surface);
+        border-radius: 10px;
+        padding: 20px 22px;
+        margin-bottom: 14px;
+      }
+      .roadmap-item h4 {
+        font-family: var(--font-display);
+        font-size: 15.5px;
+        font-weight: 600;
+        margin-bottom: 12px;
+      }
+      .roadmap-cols {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 18px;
+      }
+      @media (max-width: 640px) {
+        .roadmap-cols {
+          grid-template-columns: 1fr;
+        }
+      }
+      .roadmap-cols .col h5 {
+        font-family: var(--font-mono);
+        font-size: 11.5px;
+        margin-bottom: 8px;
+      }
+      .roadmap-cols .col.limit h5 {
+        color: var(--red);
+      }
+      .roadmap-cols .col.plan h5 {
+        color: var(--amber);
+      }
+      .roadmap-cols ul {
+        padding-left: 16px;
+      }
+      .roadmap-cols li {
+        font-size: 13px;
+        color: var(--text-dim);
+        margin-bottom: 5px;
+      }
+
+      footer {
+        padding: 40px 0 60px;
+        text-align: center;
+        font-family: var(--font-mono);
+        font-size: 12px;
+        color: var(--text-faint);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 14px;
+      }
+      .footer-back {
+        border: 1px solid var(--border);
+        padding: 8px 16px;
+        border-radius: 6px;
+        color: var(--text-dim);
+        transition:
+          border-color 0.15s,
+          color 0.15s;
+      }
+      .footer-back:hover,
+      .footer-back:focus-visible {
+        border-color: var(--teal);
+        color: var(--teal);
+      }
+
+      @media (max-width: 560px) {
+        .nav-inner {
+          padding: 12px 18px;
+        }
+        .wrap {
+          padding: 0 18px;
+        }
+        .hero {
+          padding: 44px 0 36px;
+        }
+        nav.links {
+          gap: 14px;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          animation-duration: 0.001ms !important;
+          transition-duration: 0.001ms !important;
+        }
+        html {
+          scroll-behavior: auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="nav-inner">
+        <a class="back-link" href="index.html">← ~/sim-sohyeon</a>
+        <nav class="links">
+          <a href="#overview">overview</a>
+          <a href="#architecture">architecture</a>
+          <a href="#implementation">implementation</a>
+          <a href="#operations">operations</a>
+          <a href="#troubleshooting">troubleshooting</a>
+          <a href="#roadmap">roadmap</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="wrap">
+      <section class="hero" style="border-top: none">
+        <div class="eyebrow">project // community platform</div>
+        <h1 class="title">Travelog</h1>
+        <p class="subtitle">
+          사용자들이 여행 경험을 기록하고 공유할 수 있는 커뮤니티 플랫폼입니다.
+        </p>
+        <div class="role-tag">
+          <span class="status-dot"></span> role: 풀스택 개발자 (백엔드 중심)
+        </div>
+        <div class="tag-row">
+          <span class="tag">Spring Boot</span
+          ><span class="tag">AWS ECS Fargate</span>
+          <span class="tag">RDS MySQL</span
+          ><span class="tag">ElastiCache Redis</span>
+          <span class="tag">S3 + CloudFront</span><span class="tag">JWT</span>
+          <span class="tag">CloudFormation</span>
+        </div>
+      </section>
+
+      <section id="overview">
+        <div class="section-head">
+          <span class="path"># overview.tf</span>
+          <h2>프로젝트 소개</h2>
+        </div>
+        <div class="feat-grid fade-in">
+          <div class="feat-card">
+            <h4>회원 관리</h4>
+            <p>일반 회원가입/로그인 및 카카오 소셜 로그인 지원</p>
+          </div>
+          <div class="feat-card">
+            <h4>리뷰 작성</h4>
+            <p>
+              여행지 리뷰 작성 및 다중 이미지 업로드 (평점, 카테고리, 태그 지원)
+            </p>
+          </div>
+          <div class="feat-card">
+            <h4>소셜 기능</h4>
+            <p>좋아요, 북마크, 댓글, 팔로우/언팔로우</p>
+          </div>
+          <div class="feat-card">
+            <h4>인증 / 인가</h4>
+            <p>JWT 기반 Access / Refresh Token 관리</p>
+          </div>
+          <div class="feat-card">
+            <h4>파일 관리</h4>
+            <p>AWS S3 + CloudFront를 통한 이미지 저장 및 배포</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="architecture">
+        <div class="section-head">
+          <span class="path"># architecture.tf</span>
+          <h2>아키텍처 &amp; 기술 선택</h2>
+        </div>
+        <div class="diagram-frame fade-in" style="margin-top: 20px">
+          <img
+            src="travelog-aws.png"
+            alt="Travelog AWS Multi-Region Architecture Diagram"
+            style="
+              width: 100%;
+              height: auto;
+              border-radius: 6px;
+              display: block;
+            "
+          />
+        </div>
+
+        <p class="body-text fade-in" style="margin-bottom: 22px">
+          ECS Fargate로 서버 관리 부담 없이 컨테이너를 운영하고, ALB로 트래픽을
+          분산하며, 데이터는 RDS와 ElastiCache로, 정적 자산은 S3 + CloudFront로
+          서빙합니다. VPC 내부는 Public / Private 서브넷으로 분리해 보안을
+          강화했습니다.
+        </p>
+
+        <div class="service-grid fade-in">
+          <div class="service-card">
+            <span class="svc-name">ECS Fargate</span>
+            <p>
+              서버리스 컨테이너 실행으로 EC2 관리가 불필요하고, 사용량 기반
+              과금으로 비용을 최적화
+            </p>
+          </div>
+          <div class="service-card">
+            <span class="svc-name">ECR</span>
+            <p>
+              Docker 이미지를 중앙에서 관리하고, ECS와 네이티브로 연동해 배포를
+              자동화
+            </p>
+          </div>
+          <div class="service-card">
+            <span class="svc-name">ALB</span>
+            <p>
+              HTTP/HTTPS 트래픽을 분산하고, 경로 기반 라우팅과 헬스체크를 지원
+            </p>
+          </div>
+          <div class="service-card">
+            <span class="svc-name">S3 + CloudFront</span>
+            <p>
+              S3에 정적 파일을 저장하고 CloudFront 엣지 캐싱으로 전송 속도를
+              향상
+            </p>
+          </div>
+          <div class="service-card">
+            <span class="svc-name">RDS MySQL</span>
+            <p>
+              관리형 관계형 DB로 백업/복구를 자동화하고, Multi-AZ로 고가용성을
+              확보
+            </p>
+          </div>
+          <div class="service-card">
+            <span class="svc-name">ElastiCache (Redis)</span>
+            <p>
+              인메모리 캐싱으로 DB 부하와 응답 속도를 개선, 서버리스로 용량을
+              자동 관리
+            </p>
+          </div>
+          <div class="service-card">
+            <span class="svc-name">VPC</span>
+            <p>
+              논리적으로 격리된 네트워크 환경을 구성해 보안과 네트워크 제어를
+              강화
+            </p>
+          </div>
+          <div class="service-card">
+            <span class="svc-name">Public / Private Subnet</span>
+            <p>
+              Public에는 ALB·NAT를, Private에는 애플리케이션과 DB를 배치해 보안
+              격리
+            </p>
+          </div>
+          <div class="service-card">
+            <span class="svc-name">Internet Gateway</span>
+            <p>VPC 내 Public 서브넷 리소스의 인터넷 양방향 통신을 담당</p>
+          </div>
+          <div class="service-card">
+            <span class="svc-name">NAT Gateway</span>
+            <p>
+              Private 서브넷의 안전한 아웃바운드 통신을 허용하고 인바운드는 차단
+            </p>
+          </div>
+          <div class="service-card">
+            <span class="svc-name">Security Groups</span>
+            <p>
+              인스턴스 단위 가상 방화벽으로 인·아웃바운드 트래픽을 세밀하게 제어
+            </p>
+          </div>
+          <div class="service-card">
+            <span class="svc-name">IAM Roles</span>
+            <p>
+              자격 증명을 하드코딩하지 않고 최소 권한 원칙으로 리소스 간 권한을
+              부여
+            </p>
+          </div>
+          <div class="service-card">
+            <span class="svc-name">CloudWatch</span>
+            <p>로그와 성능 지표를 중앙 집중 수집하고, 알람으로 운영을 자동화</p>
+          </div>
+          <div class="service-card">
+            <span class="svc-name">CloudFormation (YAML)</span>
+            <p>
+              인프라를 코드로 관리해 재현 가능한 환경 구축과 버전 관리·자동
+              배포를 지원
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="implementation">
+        <div class="section-head">
+          <span class="path"># implementation.tf</span>
+          <h2>핵심 구현 기능</h2>
+        </div>
+        <p class="body-text fade-in" style="margin-bottom: 8px">
+          풀스택 개발자(백엔드 중심)로 AWS 인프라 초기 설계, 백엔드 API 개발,
+          프론트엔드 연동을 담당했습니다.
+        </p>
+
+        <h3 class="sub-head">애플리케이션 기능</h3>
+        <div class="feat-grid fade-in">
+          <div class="feat-card">
+            <h4>여행 리뷰 게시 시스템 확장</h4>
+            <p>
+              평점·카테고리·태그 추가, 다중 이미지 업로드(파일 크기 제한·유효성
+              검증), S3 연동으로 이미지 저장 후 객체 키를 DB에 저장하고
+              CloudFront URL로 빠르게 서빙. PostTag 엔티티로 태그별 분류 구현
+            </p>
+          </div>
+          <div class="feat-card">
+            <h4>북마크 기능</h4>
+            <p>
+              사용자별 북마크를 Many-to-Many로 설계, Bookmark 엔티티/테이블
+              구성, 추가·삭제 API와 마이페이지 조회 기능 구현
+            </p>
+          </div>
+          <div class="feat-card">
+            <h4>마이페이지 통합 관리</h4>
+            <p>
+              작성글·좋아요한 글·북마크한 글 탭 구성, 탭별 페이징 처리,
+              UserAccount·Post·PostLike·Bookmark 조인 쿼리 최적화
+            </p>
+          </div>
+          <div class="feat-card">
+            <h4>검색 및 필터링</h4>
+            <p>
+              제목/내용 키워드 검색, 카테고리·평점 다중 필터링, JPA
+              Specification으로 동적 쿼리 조합 처리
+            </p>
+          </div>
+          <div class="feat-card">
+            <h4>게시글 정렬</h4>
+            <p>
+              최신순·인기순(좋아요 수)·평점순 정렬 로직 구현 보조, PostLike
+              카운트 기반 인기도 계산
+            </p>
+          </div>
+        </div>
+
+        <h3 class="sub-head">인프라 아키텍처 설계 및 연동</h3>
+        <div class="feat-grid fade-in">
+          <div class="feat-card">
+            <h4>인프라 기초 설계</h4>
+            <p>
+              ECS·RDS·S3·CloudFront·ElastiCache 기반 전체 아키텍처 구성,
+              애플리케이션과 DB를 분리 설계
+            </p>
+          </div>
+          <div class="feat-card">
+            <h4>AWS RDS (MySQL) 연동</h4>
+            <p>
+              UserAccount·Post·Comment·PostLike·Bookmark·PostTag 등 핵심 엔티티
+              설계, schema.sql 기반 테이블 구조와 엔티티 매핑
+            </p>
+          </div>
+          <div class="feat-card">
+            <h4>AWS S3 연동</h4>
+            <p>
+              FileStorageService로 업로드/삭제 로직 구현, S3Config로
+              클라이언트·버킷 연동, 객체 키를 DB에 저장해 파일 관리 최적화
+            </p>
+          </div>
+          <div class="feat-card">
+            <h4>Redis 연동(유지보수)</h4>
+            <p>
+              기존 Refresh Token 저장 로직의 오류 수정, TTL 7일 자동 만료 설정
+              유지
+            </p>
+          </div>
+        </div>
+
+        <p class="body-text" style="margin-top: 22px">
+          그 외 기존 로그인/회원가입 모듈의 버그 수정과 안정화, 디자인 시안에
+          맞춘 프론트엔드 연동, 전체 게시글 목록 페이지의 검색·필터·정렬 통합
+          UI를 구현했습니다.
+        </p>
+      </section>
+
+      <section id="operations">
+        <div class="section-head">
+          <span class="path"># operations.tf</span>
+          <h2>운영 &amp; 검증</h2>
+        </div>
+
+        <h3 class="sub-head">배포 프로세스</h3>
+        <div class="term-block fade-in">
+          <div class="term-titlebar">
+            <span class="term-dot"></span><span class="term-dot"></span
+            ><span class="term-dot"></span
+            ><span>local · build &amp; verify</span>
+          </div>
+          <div class="term-body">
+            <span class="c"># 1. 빌드 및 테스트</span>
+            ./gradlew clean build
+
+            <span class="c"># 2. 로컬 실행 (개발 환경)</span>
+            ./gradlew bootRun
+
+            <span class="c"># 3. Docker 이미지 빌드 및 로컬 검증</span>
+            docker build -t travelog-app:latest . docker run -p 8080:8080
+            --env-file .env travelog-app:latest
+          </div>
+        </div>
+
+        <div class="term-block fade-in">
+          <div class="term-titlebar">
+            <span class="term-dot"></span><span class="term-dot"></span
+            ><span class="term-dot"></span><span>production · deploy</span>
+          </div>
+          <div class="term-body">
+            <span class="c"># Step 1. ECR 인증 및 이미지 준비</span>
+            aws ecr get-login-password --region ap-northeast-2 \ | docker login
+            --username AWS --password-stdin \
+            &lt;AWS_ACCOUNT_ID&gt;.dkr.ecr.ap-northeast-2.amazonaws.com docker
+            build -t travelog-app:v1.0.0 . docker tag travelog-app:v1.0.0 \
+            &lt;AWS_ACCOUNT_ID&gt;.dkr.ecr.ap-northeast-2.amazonaws.com/travelog-backend:v1.0.0
+            docker push
+            &lt;AWS_ACCOUNT_ID&gt;.dkr.ecr.ap-northeast-2.amazonaws.com/travelog-backend:v1.0.0
+
+            <span class="c"># Step 2. ECS 배포</span>
+            aws ecs register-task-definition --cli-input-json
+            file://task-definition.json aws ecs update-service \ --cluster
+            travelog-cluster \ --service travelog-service \
+            --force-new-deployment
+          </div>
+        </div>
+
+        <p class="body-text">
+          <b style="color: var(--text)">배포 전략:</b> Rolling Update로 기존
+          Task를 유지하며 신규 버전을 점진 배포합니다. 최소 가용성 100% / 최대
+          가용성 200%로 배포 중 무중단 상태를 유지하고, 실패 시 이전 Task
+          Definition으로 즉시 롤백합니다. 환경 변수는 S3(<code
+            style="font-family: var(--font-mono)"
+            >s3://travelog-config/environment.env</code
+          >)에 저장 후 ECS Task Definition의
+          <code style="font-family: var(--font-mono)">environmentFiles</code>로
+          주입하며, 민감 정보는 향후 Secrets Manager로 전환할 예정입니다.
+        </p>
+
+        <h3 class="sub-head">모니터링</h3>
+        <p class="body-text">
+          CloudWatch Log Group
+          <code style="font-family: var(--font-mono)">/ecs/travelog/app</code
+          >에서 애플리케이션 시작/종료, HTTP 요청/응답, Redis·S3 오류, JWT 검증
+          실패 로그를 실시간으로 확인합니다. ALB Target Group은 30초 간격으로
+          헬스체크(정상 2회 / 실패 3회 기준)를 수행하며, 장애 시 CloudWatch 로그
+          확인 → 필요 시 이전 버전 롤백 → Task 자동 재시작 → 정상 응답 확인
+          순으로 대응합니다.
+        </p>
+
+        <h3 class="sub-head">테스트 결과</h3>
+        <div class="stat-grid fade-in">
+          <div class="stat-card">
+            <div class="stat-num">180ms</div>
+            <div class="stat-label">평균 응답시간</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">320ms</div>
+            <div class="stat-label">95 Percentile</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">0%</div>
+            <div class="stat-label">오류율</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">45%</div>
+            <div class="stat-label">ECS 평균 CPU</div>
+          </div>
+        </div>
+        <div class="highlight-note">
+          JMeter 부하 테스트 (동시 사용자 100명, 1분) 기준 · ECS CPU 최대 62% ·
+          Redis 캐싱 적용으로 여행 목록 조회 <b>200ms → 50ms</b>로 개선 · Task
+          재시작 시 30초 이내 복구 확인
+        </div>
+
+        <h3 class="sub-head">비용 분석</h3>
+        <div class="table-wrap">
+          <table class="cost-table">
+            <thead>
+              <tr>
+                <th>고정 비용 (24/7)</th>
+                <th>스펙</th>
+                <th>월별</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>ECS Fargate</td>
+                <td>0.5 vCPU / 1GB · Task 1개</td>
+                <td>$18.08</td>
+              </tr>
+              <tr>
+                <td>RDS MySQL</td>
+                <td>db.t3.micro</td>
+                <td>$18.98</td>
+              </tr>
+              <tr>
+                <td>ALB</td>
+                <td>1개</td>
+                <td>$16.43</td>
+              </tr>
+              <tr>
+                <td>NAT Gateway</td>
+                <td>1개 (필수)</td>
+                <td>$32.85</td>
+              </tr>
+              <tr>
+                <td>S3 Standard</td>
+                <td>10GB</td>
+                <td>$0.25</td>
+              </tr>
+              <tr class="total">
+                <td colspan="2">합계</td>
+                <td>$86.59</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="table-wrap">
+          <table class="cost-table">
+            <thead>
+              <tr>
+                <th>가변 비용 (트래픽)</th>
+                <th>예상 사용량</th>
+                <th>월별</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>CloudFront 전송</td>
+                <td>100GB</td>
+                <td>$8.50</td>
+              </tr>
+              <tr>
+                <td>CloudFront 요청</td>
+                <td>1,000만 건</td>
+                <td>$7.50</td>
+              </tr>
+              <tr>
+                <td>NAT Gateway 데이터</td>
+                <td>50GB</td>
+                <td>$2.25</td>
+              </tr>
+              <tr>
+                <td>ElastiCache Serverless</td>
+                <td>변동</td>
+                <td>~$1.00</td>
+              </tr>
+              <tr>
+                <td>S3 요청</td>
+                <td>변동</td>
+                <td>~$0.50</td>
+              </tr>
+              <tr class="total">
+                <td colspan="2">합계</td>
+                <td>$19.75</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="highlight-note">
+          총 예상 비용 — 월 약 <b>$106.34</b> (~14만원) · 연간 약
+          <b>$1,276</b> (~170만원)
+        </div>
+        <ul class="plain" style="margin-top: 16px">
+          <li>Reserved Instance: RDS 1년 약정 시 ~40% 절감 가능</li>
+          <li>Spot Instance: 개발/테스트 환경에 Fargate Spot 활용</li>
+          <li>S3 Lifecycle: 90일 경과 이미지를 Glacier로 이동</li>
+          <li>CloudFront 캐싱 TTL 최적화로 Origin 요청 감소</li>
+        </ul>
+
+        <h3 class="sub-head">운영 체크리스트</h3>
+        <div class="checklist-grid fade-in">
+          <div class="check-col">
+            <h4>배포 전</h4>
+            <ul>
+              <li>로컬 테스트 완료</li>
+              <li>Docker 이미지 빌드 성공</li>
+              <li>환경 변수 S3 업로드 확인</li>
+              <li>Task Definition 버전 확인</li>
+            </ul>
+          </div>
+          <div class="check-col">
+            <h4>배포 중</h4>
+            <ul>
+              <li>ECS Service 업데이트 상태 모니터링</li>
+              <li>CloudWatch Logs 실시간 확인</li>
+              <li>ALB Target Group Healthy 상태 확인</li>
+            </ul>
+          </div>
+          <div class="check-col">
+            <h4>배포 후</h4>
+            <ul>
+              <li>2XX 응답률 90% 이상</li>
+              <li>응답시간 300ms 미만 유지</li>
+              <li>5분간 5XX 오류 없음</li>
+              <li>주요 API 기능 테스트</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="troubleshooting">
+        <div class="section-head">
+          <span class="path"># troubleshooting.tf</span>
+          <h2>트러블슈팅</h2>
+        </div>
+
+        <details class="incident fade-in">
+          <summary>
+            <span class="sev"></span>로컬 → S3 연결 Access Denied<span
+              class="chev"
+              >▸</span
+            >
+          </summary>
+          <div class="incident-body">
+            <h5>원인</h5>
+            <p>S3 접근을 위한 credential 설정이 누락됨</p>
+            <h5>해결</h5>
+            <p>
+              <code style="font-family: var(--font-mono)">S3Config</code>에
+              credentialProvider를 직접 주입
+            </p>
+          </div>
+        </details>
+
+        <details class="incident fade-in">
+          <summary>
+            <span class="sev"></span>AWS CLI 로그인 후 ECR 레포지토리
+            미조회<span class="chev">▸</span>
+          </summary>
+          <div class="incident-body">
+            <h5>원인</h5>
+            <p>AWS CLI에 다른 계정이 등록되어 있어 로그인 계정과 불일치</p>
+            <h5>해결</h5>
+            <p>
+              ECR 로그인 → 등록된 계정 확인 → 계정 불일치 시 올바른 계정으로
+              재설정 → 재로그인
+            </p>
+          </div>
+        </details>
+
+        <details class="incident fade-in">
+          <summary>
+            <span class="sev"></span>RDS 연결 실패
+            (CommunicationsException)<span class="chev">▸</span>
+          </summary>
+          <div class="incident-body">
+            <h5>원인</h5>
+            <p>
+              <code style="font-family: var(--font-mono)"
+                >ddl-auto: validate</code
+              >
+              설정 상태에서 신규 RDS에 스키마가 없어, 검증만 수행하는 validate
+              모드가 빈 DB에서 오류 발생
+            </p>
+            <h5>해결</h5>
+            <p>
+              RDS 신규 생성 시
+              <code style="font-family: var(--font-mono)">update</code>로 스키마
+              생성 후, 완료되면 다시
+              <code style="font-family: var(--font-mono)">validate</code>로 전환
+            </p>
+          </div>
+        </details>
+
+        <details class="incident fade-in">
+          <summary>
+            <span class="sev"></span>Redis 연결 실패로 로그아웃 500 오류<span
+              class="chev"
+              >▸</span
+            >
+          </summary>
+          <div class="incident-body">
+            <h5>원인</h5>
+            <p>
+              ElastiCache Serverless는 TLS 연결만 허용하는데 기본(평문) Redis
+              설정을 사용했고, 연결 실패 예외가 컨트롤러까지 전파되어 로그아웃
+              전체가 중단됨
+            </p>
+            <h5>해결</h5>
+            <ul>
+              <li>TLS 연결 설정을 담은 RedisConfig 신규 작성</li>
+              <li>
+                Refresh Token 삭제 로직을 try-catch로 감싸 Redis 장애 시에도
+                로그아웃은 정상 처리, 장애는 로그로만 기록
+              </li>
+              <li>운영 설정에 Redis 타임아웃 및 Lettuce 커넥션 풀 값 추가</li>
+            </ul>
+          </div>
+        </details>
+
+        <details class="incident fade-in">
+          <summary>
+            <span class="sev"></span>CloudFront 이미지 403 AccessDenied<span
+              class="chev"
+              >▸</span
+            >
+          </summary>
+          <div class="incident-body">
+            <h5>원인</h5>
+            <p>
+              Origin Access Control(OAC) 사용 시 서명·Origin Host 헤더·ARN
+              매칭·버킷 정책 조건 중 하나라도 어긋나면 접근이 거부되는데, 설정은
+              이론상 맞았음에도 내부 정합성 문제로 계속 거부됨
+            </p>
+            <h5>해결</h5>
+            <p>
+              OAC에서 레거시 OAI(Origin Access Identity) 방식으로 전환 —
+              CloudFront가 자동 생성한 OAI 전용 IAM 사용자 ARN이 버킷 정책에
+              자동 반영되어 즉시 해결, 이후 캐시 무효화 수행
+            </p>
+          </div>
+        </details>
+
+        <details class="incident fade-in">
+          <summary>
+            <span class="sev"></span>ECS → RDS 연결 오류<span class="chev"
+              >▸</span
+            >
+          </summary>
+          <div class="incident-body">
+            <h5>원인</h5>
+            <p>
+              RDS 보안 그룹 인바운드에 ECS 보안 그룹이, ECS 보안 그룹
+              아웃바운드에 RDS 보안 그룹이 각각 등록되지 않아 양방향 통신이 막혀
+              있었음
+            </p>
+            <h5>해결</h5>
+            <p>
+              RDS 인바운드에 ECS 보안 그룹 추가, ECS 아웃바운드에 RDS 보안 그룹
+              추가
+            </p>
+          </div>
+        </details>
+
+        <details class="incident fade-in">
+          <summary>
+            <span class="sev"></span>ALB → ECS 트래픽 전달 안 됨<span
+              class="chev"
+              >▸</span
+            >
+          </summary>
+          <div class="incident-body">
+            <h5>원인</h5>
+            <p>
+              ALB와 연결된 Target Group에 ECS Task가 등록되지 않아 라우팅할
+              대상이 없었음
+            </p>
+            <h5>해결</h5>
+            <p>Target Group에서 ECS Task의 Private IP(포트 8080)를 직접 등록</p>
+          </div>
+        </details>
+
+        <details class="incident fade-in">
+          <summary>
+            <span class="sev"></span>ECS / ALB / RDS 보안 그룹 구성 정리<span
+              class="chev"
+              >▸</span
+            >
+          </summary>
+          <div class="incident-body">
+            <h5>정리된 규칙</h5>
+            <ul>
+              <li>
+                <b style="color: var(--text)">ALB</b> — 인바운드
+                HTTP(80)/0.0.0.0/0, 아웃바운드 ECS 보안 그룹으로 전체 트래픽
+              </li>
+              <li>
+                <b style="color: var(--text)">ECS</b> — 인바운드 8080/ALB 보안
+                그룹, 아웃바운드 3306/RDS 보안 그룹
+              </li>
+              <li>
+                <b style="color: var(--text)">RDS</b> — 인바운드 3306/ECS 보안
+                그룹, 아웃바운드 0.0.0.0/0 (패치 등 외부 통신)
+              </li>
+            </ul>
+          </div>
+        </details>
+      </section>
+
+      <section id="roadmap">
+        <div class="section-head">
+          <span class="path"># roadmap.tf</span>
+          <h2>한계 &amp; 개선 계획</h2>
+        </div>
+
+        <div class="roadmap-item fade-in">
+          <h4>페이지 리다이렉트 &amp; UX 안정성</h4>
+          <div class="roadmap-cols">
+            <div class="col limit">
+              <h5>한계</h5>
+              <ul>
+                <li>
+                  인증 리다이렉트 로직이 컴포넌트 단위로 분산되어 일관성 부족
+                </li>
+                <li>
+                  일부 페이지에서 조건 분기 누락으로 의도치 않은 리다이렉트 발생
+                </li>
+              </ul>
+            </div>
+            <div class="col plan">
+              <h5>개선 계획</h5>
+              <ul>
+                <li>Public/Protected Route 구분 및 접근 정책 재정의</li>
+                <li>
+                  인증 체크를 공통 Auth Guard로 중앙화, 글로벌 처리 로직 적용
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="roadmap-item fade-in">
+          <h4>Redis 인프라 구성 통합</h4>
+          <div class="roadmap-cols">
+            <div class="col limit">
+              <h5>한계</h5>
+              <ul>
+                <li>
+                  Redis를 AWS 외부 서비스(Aiven)로 사용해 스택이 완전히 통합되지
+                  않음
+                </li>
+                <li>VPC 내부 통신·보안 그룹 기반 제어에 한계 존재</li>
+              </ul>
+            </div>
+            <div class="col plan">
+              <h5>개선 계획</h5>
+              <ul>
+                <li>AWS ElastiCache 기반으로 통합, VPC 내부 통신 적용</li>
+                <li>CloudFormation으로 Redis 인프라 코드화(IaC)</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="roadmap-item fade-in">
+          <h4>이미지 첨부 기능 확장성</h4>
+          <div class="roadmap-cols">
+            <div class="col limit">
+              <h5>한계</h5>
+              <ul>
+                <li>다중 이미지의 순서 관리 불가, 업로드 실패 처리 미흡</li>
+                <li>사용자 관점 미리보기 UX 부족</li>
+              </ul>
+            </div>
+            <div class="col plan">
+              <h5>개선 계획</h5>
+              <ul>
+                <li>PostImage 테이블 분리 및 순서(order) 필드 추가</li>
+                <li>업로드 실패 시 부분 롤백, 썸네일·캐싱 정책 최적화</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="roadmap-item fade-in">
+          <h4>모니터링 &amp; 보안 체계</h4>
+          <div class="roadmap-cols">
+            <div class="col limit">
+              <h5>한계</h5>
+              <ul>
+                <li>CloudWatch 로그 확인 중심의 기초적인 모니터링</li>
+                <li>장애·보안 이벤트 사전 감지·알림 체계 부족</li>
+              </ul>
+            </div>
+            <div class="col plan">
+              <h5>개선 계획</h5>
+              <ul>
+                <li>CloudWatch Metrics 시각화 및 Alarm → Slack/Email 연동</li>
+                <li>APM·분산 트레이싱 도입 검토, WAF·HTTPS 강제 적용</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="roadmap-item fade-in">
+          <h4>DevOps 자동화</h4>
+          <div class="roadmap-cols">
+            <div class="col limit">
+              <h5>한계</h5>
+              <ul>
+                <li>Docker 빌드·ECR 푸시·Task 등록이 모두 수동 프로세스</li>
+                <li>CI/CD 부재로 반복 작업과 휴먼 에러 가능성 존재</li>
+              </ul>
+            </div>
+            <div class="col plan">
+              <h5>개선 계획</h5>
+              <ul>
+                <li>GitHub Actions 기반 CI/CD 구축, ECS 자동 배포 연동</li>
+                <li>Blue/Green·Canary 배포 및 Auto Scaling 정책 검토</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <a class="footer-back" href="index.html"
+        >← sim-sohyeon 프로필로 돌아가기</a
+      >
+      <div>project status: archived · maintained by 심소현</div>
+    </footer>
+
+    <script>
+      (function () {
+        const targets = document.querySelectorAll(".fade-in");
+        const io = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((e) => {
+              if (e.isIntersecting) {
+                e.target.classList.add("visible");
+                io.unobserve(e.target);
+              }
+            });
+          },
+          { threshold: 0.1 },
+        );
+        targets.forEach((t) => io.observe(t));
+      })();
+    </script>
+  </body>
+</html>
