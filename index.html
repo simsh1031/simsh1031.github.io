@@ -1,166 +1,603 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <title>심소현 프로필 페이지</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: "Segoe UI", Arial, sans-serif;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>심소현 — Cloud · Backend · DevOps Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0A1220;
+    --surface:#0F1A2B;
+    --surface-2:#121F33;
+    --grid:#1B2A40;
+    --border:#233450;
+    --text:#E7ECF3;
+    --text-dim:#7E92AC;
+    --text-faint:#54667F;
+    --teal:#4FD1C5;
+    --amber:#E8A33D;
+    --font-display:'Space Grotesk', sans-serif;
+    --font-body:'Inter', sans-serif;
+    --font-mono:'JetBrains Mono', monospace;
+  }
 
-    body {
-      background-color: #f9fafb;
-      color: #333;
-      line-height: 1.6;
-    }
+  *{ margin:0; padding:0; box-sizing:border-box; }
 
-    header {
-      background-color: #111827;
-      color: white;
-      padding: 1rem 2rem;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
+  html{ scroll-behavior:smooth; }
 
-    header nav {
-      display: flex;
-      justify-content: center;
-      gap: 1.5rem;
-    }
+  body{
+    background:
+      radial-gradient(circle at 1px 1px, var(--grid) 1px, transparent 0) 0 0/28px 28px,
+      var(--bg);
+    color:var(--text);
+    font-family:var(--font-body);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
 
-    header nav a {
-      color: #f3f4f6;
-      text-decoration: none;
-      font-weight: 500;
-      transition: color 0.2s;
-    }
+  a{ color:inherit; text-decoration:none; }
 
-    header nav a:hover {
-      color: #60a5fa;
-    }
+  ::selection{ background:var(--teal); color:#04211F; }
 
-    .container {
-      max-width: 900px;
-      margin: 2rem auto;
-      padding: 0 1rem;
-    }
+  .wrap{
+    max-width:920px;
+    margin:0 auto;
+    padding:0 28px;
+  }
 
-    section {
-      background: white;
-      border-radius: 12px;
-      padding: 2rem;
-      margin-bottom: 2rem;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-    }
+  /* ---------- NAV ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(10,18,32,0.86);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border);
+  }
+  .nav-inner{
+    max-width:920px; margin:0 auto; padding:14px 28px;
+    display:flex; align-items:center; justify-content:space-between;
+    gap:16px;
+  }
+  .nav-path{
+    font-family:var(--font-mono);
+    font-size:13px;
+    color:var(--text-dim);
+    display:flex; align-items:center; gap:8px;
+    white-space:nowrap;
+  }
+  .status-dot{
+    width:7px; height:7px; border-radius:50%;
+    background:var(--teal);
+    box-shadow:0 0 0 0 rgba(79,209,197,0.6);
+    animation:pulse 2.4s infinite;
+    flex:none;
+  }
+  @keyframes pulse{
+    0%{ box-shadow:0 0 0 0 rgba(79,209,197,0.55); }
+    70%{ box-shadow:0 0 0 7px rgba(79,209,197,0); }
+    100%{ box-shadow:0 0 0 0 rgba(79,209,197,0); }
+  }
+  nav.links{
+    display:flex; gap:22px;
+    font-family:var(--font-mono);
+    font-size:13px;
+    color:var(--text-dim);
+    overflow-x:auto;
+  }
+  nav.links a{ white-space:nowrap; transition:color .15s; padding:4px 2px; }
+  nav.links a:hover, nav.links a:focus-visible{ color:var(--teal); }
+  nav.links a:focus-visible{ outline:1px solid var(--teal); outline-offset:4px; border-radius:2px; }
 
-    section h2 {
-      margin-bottom: 1rem;
-      font-size: 1.5rem;
-      color: #1f2937;
-      border-bottom: 2px solid #e5e7eb;
-      padding-bottom: 0.5rem;
-    }
+  /* ---------- HERO ---------- */
+  .hero{ padding:76px 0 56px; }
+  .eyebrow{
+    font-family:var(--font-mono);
+    font-size:12.5px;
+    letter-spacing:.06em;
+    color:var(--amber);
+    text-transform:uppercase;
+    margin-bottom:18px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .eyebrow::before{ content:'//'; color:var(--text-faint); }
 
-    ul {
-      list-style: none;
-      margin-top: 0.5rem;
-    }
+  h1.name{
+    font-family:var(--font-display);
+    font-weight:700;
+    font-size:clamp(42px, 8vw, 68px);
+    line-height:1.05;
+    letter-spacing:-0.01em;
+    margin-bottom:14px;
+  }
+  .role-line{
+    font-family:var(--font-display);
+    font-size:clamp(17px, 2.4vw, 21px);
+    color:var(--teal);
+    font-weight:500;
+    margin-bottom:22px;
+  }
+  .hero-desc{
+    color:var(--text-dim);
+    max-width:560px;
+    font-size:15.5px;
+    margin-bottom:38px;
+  }
 
-    ul li {
-      margin-bottom: 0.4rem;
-    }
+  /* terraform block signature element */
+  .tf-block{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:10px;
+    overflow:hidden;
+    box-shadow:0 20px 50px -20px rgba(0,0,0,0.6);
+  }
+  .tf-titlebar{
+    display:flex; align-items:center; gap:8px;
+    padding:10px 16px;
+    border-bottom:1px solid var(--border);
+    background:var(--surface-2);
+    font-family:var(--font-mono);
+    font-size:12px;
+    color:var(--text-faint);
+  }
+  .tf-dot{ width:9px; height:9px; border-radius:50%; background:var(--grid); }
+  .tf-filename{ margin-left:6px; }
+  .tf-body{
+    font-family:var(--font-mono);
+    font-size:13.5px;
+    padding:20px 22px 24px;
+    overflow-x:auto;
+    white-space:pre;
+    min-height:186px;
+  }
+  .tf-key{ color:var(--text-dim); }
+  .tf-str{ color:var(--teal); }
+  .tf-punc{ color:var(--text-faint); }
+  .tf-comment{ color:var(--text-faint); font-style:italic; }
+  .cursor{
+    display:inline-block; width:8px; height:16px;
+    background:var(--teal);
+    vertical-align:-3px;
+    animation:blink 1s step-end infinite;
+  }
+  @keyframes blink{ 50%{ opacity:0; } }
 
-    .name-box {
-      text-align: center;
-      font-size: 1.8rem;
-      font-weight: bold;
-      color: #111827;
-    }
+  /* ---------- SECTION SHELL ---------- */
+  section{ padding:64px 0; border-top:1px solid var(--border); }
+  .section-head{
+    display:flex; align-items:baseline; gap:12px;
+    margin-bottom:30px;
+    font-family:var(--font-mono);
+  }
+  .section-head .path{
+    font-size:13px; color:var(--amber);
+  }
+  .section-head h2{
+    font-family:var(--font-display);
+    font-size:23px;
+    font-weight:600;
+    color:var(--text);
+  }
+  .fade-in{
+    opacity:0; transform:translateY(14px);
+    transition:opacity .6s ease, transform .6s ease;
+  }
+  .fade-in.visible{ opacity:1; transform:translateY(0); }
 
-    .tag-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-top: 1rem;
-    }
+  /* ---------- ABOUT ---------- */
+  .about-body{ color:var(--text-dim); font-size:15.5px; max-width:640px; }
+  .about-body p + p{ margin-top:14px; }
+  .about-body strong{ color:var(--text); font-weight:600; }
 
-    .tag {
-      background: #e5e7eb;
-      color: #111827;
-      padding: 0.4rem 0.8rem;
-      border-radius: 20px;
-      font-size: 0.9rem;
-    }
-  </style>
+  /* ---------- EXPERIENCE ---------- */
+  .exp-item{
+    border:1px solid var(--border);
+    background:var(--surface);
+    border-radius:10px;
+    padding:22px 24px;
+    margin-bottom:18px;
+    border-left:3px solid var(--teal);
+  }
+  .exp-top{
+    display:flex; flex-wrap:wrap; justify-content:space-between; align-items:baseline;
+    gap:8px 16px; margin-bottom:10px;
+  }
+  .exp-title{
+    font-family:var(--font-display);
+    font-size:17px; font-weight:600;
+  }
+  .exp-date{
+    font-family:var(--font-mono);
+    font-size:12.5px; color:var(--text-faint);
+  }
+  .exp-projects{
+    display:flex; flex-wrap:wrap; gap:8px; margin:12px 0 14px;
+  }
+  .chip{
+    font-family:var(--font-mono);
+    font-size:12px;
+    color:var(--text);
+    background:var(--surface-2);
+    border:1px solid var(--border);
+    padding:4px 10px;
+    border-radius:5px;
+  }
+  .chip::before{ content:'+ '; color:var(--teal); }
+  .exp-stack{
+    font-family:var(--font-mono);
+    font-size:12.5px;
+    color:var(--text-faint);
+    line-height:1.9;
+  }
+  .exp-stack span.k{ color:var(--text-dim); }
+
+  /* ---------- STACK ---------- */
+  .stack-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(230px, 1fr));
+    gap:16px;
+  }
+  .stack-group{
+    border:1px solid var(--border);
+    background:var(--surface);
+    border-radius:10px;
+    padding:18px 20px;
+  }
+  .stack-group h3{
+    font-family:var(--font-mono);
+    font-size:12.5px;
+    color:var(--amber);
+    text-transform:lowercase;
+    margin-bottom:12px;
+    letter-spacing:.02em;
+  }
+  .stack-group h3::before{ content:'kind: '; color:var(--text-faint); }
+  .tag-row{ display:flex; flex-wrap:wrap; gap:8px; }
+  .tag{
+    font-family:var(--font-mono);
+    font-size:12px;
+    padding:5px 10px;
+    border-radius:5px;
+    background:var(--surface-2);
+    border:1px solid var(--border);
+    color:var(--text-dim);
+  }
+
+  /* ---------- PROJECTS ---------- */
+  .proj-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
+    gap:16px;
+  }
+  .proj-card{
+    border:1px solid var(--border);
+    background:var(--surface);
+    border-radius:10px;
+    padding:20px 22px;
+    display:flex; flex-direction:column;
+    transition:border-color .18s, transform .18s;
+  }
+  .proj-card:hover, .proj-card:focus-within{
+    border-color:var(--teal);
+    transform:translateY(-3px);
+  }
+  .proj-top{
+    display:flex; justify-content:space-between; align-items:center;
+    margin-bottom:10px;
+  }
+  .proj-name{
+    font-family:var(--font-display);
+    font-weight:600; font-size:16.5px;
+  }
+  .proj-status{
+    font-family:var(--font-mono);
+    font-size:11px; color:var(--teal);
+    display:flex; align-items:center; gap:6px;
+  }
+  .proj-status .status-dot{ width:6px; height:6px; }
+  .proj-link{
+    margin-top:auto;
+    padding-top:14px;
+    font-family:var(--font-mono);
+    font-size:12.5px;
+    color:var(--text-dim);
+    display:inline-flex; align-items:center; gap:6px;
+  }
+  .proj-card:hover .proj-link, .proj-card:focus-within .proj-link{ color:var(--teal); }
+  .proj-link .arrow{ transition:transform .18s; }
+  .proj-card:hover .arrow{ transform:translateX(3px); }
+
+  /* ---------- CONTACT ---------- */
+  .contact-block{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:10px;
+    overflow:hidden;
+  }
+  .contact-body{
+    font-family:var(--font-mono);
+    font-size:13.5px;
+    padding:22px 24px;
+  }
+  .contact-row{
+    display:flex; gap:10px; padding:6px 0;
+    flex-wrap:wrap;
+  }
+  .contact-row .k{ color:var(--text-dim); min-width:70px; }
+  .contact-row .v{ color:var(--teal); }
+  .contact-row a.v:hover, .contact-row a.v:focus-visible{ text-decoration:underline; }
+
+  footer{
+    padding:36px 0 60px;
+    text-align:center;
+    font-family:var(--font-mono);
+    font-size:12px;
+    color:var(--text-faint);
+  }
+
+  @media (max-width:560px){
+    .nav-inner{ padding:12px 18px; }
+    .wrap{ padding:0 18px; }
+    .hero{ padding:52px 0 40px; }
+    .tf-body{ font-size:12px; padding:16px; }
+    nav.links{ gap:16px; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:0.001ms !important; transition-duration:0.001ms !important; }
+    html{ scroll-behavior:auto; }
+  }
+</style>
 </head>
 <body>
 
-  <header>
-    <nav>
-      <a href="#name">이름</a>
-      <a href="#career">경력</a>
-      <a href="#skills">기술 스택</a>
-      <a href="#portfolio">포트폴리오</a>
-      <a href="#goals">희망 직군</a>
+<header>
+  <div class="nav-inner">
+    <div class="nav-path"><span class="status-dot"></span> ~/sim-sohyeon/profile</div>
+    <nav class="links">
+      <a href="#about">about.tf</a>
+      <a href="#experience">experience.tf</a>
+      <a href="#stack">stack.tf</a>
+      <a href="#projects">projects.tf</a>
+      <a href="#contact">outputs.tf</a>
     </nav>
-  </header>
-
-  <div class="container">
-    <section id="name">
-      <div class="name-box">심소현</div>
-    </section>
-
-    <section id="career">
-      <h2>경력</h2>
-      <ul>
-        <li>컴퓨터 공학과 3학년 재학중</li>
-        <li>멋쟁이사자처럼 클라우드 엔지니어링 부트 캠프</li>
-        <li>웹 학회 활동</li>
-      </ul>
-    </section>
-
-    <section id="skills">
-      <h2>기술 스택</h2>
-      <div class="tag-list">
-        <span class="tag">C</span>
-        <span class="tag">C++</span>
-        <span class="tag">Python</span>
-        <span class="tag">Java</span>
-        <span class="tag">HTML</span>
-        <span class="tag">CSS</span>
-        <span class="tag">Assembly</span>
-        <span class="tag">Django</span>
-        <span class="tag">Spring</span>
-        <span class="tag">MySQL</span>
-        <span class="tag">AWS</span>
-      </div>
-    </section>
-
-    <section id="portfolio">
-      <h2>포트폴리오</h2>
-      <ul>
-        <li>AI 챗봇 제작</li>
-        <li>테트리스 프로그램 제작</li>
-        <li>게시판 프로그램 제작</li>
-        <li>Shell 자체 제작</li>
-      </ul>
-    </section>
-
-    <section id="goals">
-      <h2>희망 직군</h2>
-      <div class="tag-list">
-        <span class="tag">백엔드 엔지니어</span>
-        <span class="tag">풀스택 엔지니어</span>
-        <span class="tag">클라우드 엔지니어</span>
-        <span class="tag">시스템 엔지니어</span>
-        <span class="tag">네트워크 엔지니어</span>
-      </div>
-    </section>
   </div>
+</header>
+
+<main class="wrap">
+
+  <section class="hero" style="border-top:none;">
+    <div class="eyebrow">status: actively learning &amp; deploying</div>
+    <h1 class="name">심소현</h1>
+    <div class="role-line">Cloud · Backend · DevOps Engineer</div>
+    <p class="hero-desc">
+      기능 구현에 그치지 않고, 안정적으로 배포되고 운영되는 시스템을 만드는 것에
+      가장 큰 흥미를 느끼는 엔지니어입니다. AWS 아키텍처 설계부터 Terraform 기반 IaC,
+      Kubernetes 운영, CI/CD 자동화까지 서비스 전체의 생애주기를 다루고자 합니다.
+    </p>
+
+    <div class="tf-block">
+      <div class="tf-titlebar">
+        <span class="tf-dot"></span><span class="tf-dot"></span><span class="tf-dot"></span>
+        <span class="tf-filename">profile/main.tf</span>
+      </div>
+      <div class="tf-body" id="tfBody"></div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="section-head"><span class="path"># about.tf</span><h2>About</h2></div>
+    <div class="about-body fade-in">
+      <p>
+        <strong>서강대학교 컴퓨터공학과</strong>에 재학 중이며, 2023년부터 컴퓨터공학을 전공하고 있습니다.
+        AWS 기반 DevOps 부트캠프와 인턴십을 통해 인프라를 직접 설계·구축하고,
+        Docker, Kubernetes, Terraform으로 인프라 구성과 CI/CD 파이프라인을 구축한 경험이 있습니다.
+      </p>
+      <p>
+        Java Spring Boot 기반 백엔드와 React 기반 프론트엔드도 함께 다루며 서비스 전체를 이해하는
+        개발 역량을 키워왔습니다. 안정적인 인프라 구축과 운영 자동화를 통해 개발 생산성을 높이는
+        엔지니어로 성장하는 것이 목표입니다.
+      </p>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="section-head"><span class="path"># experience.tf</span><h2>Experience</h2></div>
+
+    <div class="exp-item fade-in">
+      <div class="exp-top">
+        <div class="exp-title">멋쟁이사자처럼 클라우드 엔지니어링 부트캠프</div>
+        <div class="exp-date">2025.07 — 2026.01</div>
+      </div>
+      <div class="exp-projects">
+        <span class="chip">Travelog</span>
+        <span class="chip">NewSugar</span>
+      </div>
+      <div class="exp-stack">
+        <span class="k">stack:</span> AWS · Docker · Kubernetes · Terraform · GitHub Actions · Spring Boot · React
+      </div>
+    </div>
+
+    <div class="exp-item fade-in">
+      <div class="exp-top">
+        <div class="exp-title">멋사 로켓단 인턴십 — wooriteam</div>
+        <div class="exp-date">2026.06 — 2026.07</div>
+      </div>
+      <div class="exp-projects">
+        <span class="chip">Backend</span>
+        <span class="chip">Frontend</span>
+        <span class="chip">AWS Infrastructure</span>
+        <span class="chip">Terraform</span>
+      </div>
+      <div class="exp-stack">
+        <span class="k">role:</span> 백엔드·프론트엔드·AWS 인프라 전반 담당
+      </div>
+    </div>
+  </section>
+
+  <section id="stack">
+    <div class="section-head"><span class="path"># stack.tf</span><h2>Tech Stack</h2></div>
+    <div class="stack-grid fade-in">
+      <div class="stack-group">
+        <h3>cloud</h3>
+        <div class="tag-row"><span class="tag">AWS</span></div>
+      </div>
+      <div class="stack-group">
+        <h3>backend</h3>
+        <div class="tag-row">
+          <span class="tag">Java</span><span class="tag">Kotlin</span>
+          <span class="tag">Spring Boot</span><span class="tag">MySQL</span>
+        </div>
+      </div>
+      <div class="stack-group">
+        <h3>frontend</h3>
+        <div class="tag-row">
+          <span class="tag">React</span><span class="tag">TypeScript</span>
+          <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">TailwindCSS</span>
+        </div>
+      </div>
+      <div class="stack-group">
+        <h3>devops</h3>
+        <div class="tag-row">
+          <span class="tag">Docker</span><span class="tag">Kubernetes</span>
+          <span class="tag">Terraform</span><span class="tag">GitHub Actions</span>
+          <span class="tag">Nginx</span><span class="tag">ArgoCD</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="section-head"><span class="path"># projects.tf</span><h2>Projects</h2></div>
+    <div class="proj-grid fade-in">
+      <a class="proj-card" href="https://app.notion.com/p/travelog-39fe46a3dc7d8086b879c832283a48ab?pvs=21" target="_blank" rel="noopener">
+        <div class="proj-top">
+          <span class="proj-name">Travelog</span>
+          <span class="proj-status"><span class="status-dot"></span>live</span>
+        </div>
+        <span class="proj-link">Notion에서 보기 <span class="arrow">→</span></span>
+      </a>
+      <a class="proj-card" href="https://app.notion.com/p/NewSugar-39fe46a3dc7d807b9ffdc97408694c26?pvs=21" target="_blank" rel="noopener">
+        <div class="proj-top">
+          <span class="proj-name">NewSugar</span>
+          <span class="proj-status"><span class="status-dot"></span>live</span>
+        </div>
+        <span class="proj-link">Notion에서 보기 <span class="arrow">→</span></span>
+      </a>
+      <a class="proj-card" href="https://app.notion.com/p/Planner-39fe46a3dc7d802c99badf0fed8a985c?pvs=21" target="_blank" rel="noopener">
+        <div class="proj-top">
+          <span class="proj-name">Planner</span>
+          <span class="proj-status"><span class="status-dot"></span>live</span>
+        </div>
+        <span class="proj-link">Notion에서 보기 <span class="arrow">→</span></span>
+      </a>
+      <a class="proj-card" href="https://app.notion.com/p/Wooriteam-39fe46a3dc7d8068a519f68a02c793cb?pvs=21" target="_blank" rel="noopener">
+        <div class="proj-top">
+          <span class="proj-name">Wooriteam</span>
+          <span class="proj-status"><span class="status-dot"></span>live</span>
+        </div>
+        <span class="proj-link">Notion에서 보기 <span class="arrow">→</span></span>
+      </a>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="section-head"><span class="path"># outputs.tf</span><h2>Contact</h2></div>
+    <div class="contact-block fade-in">
+      <div class="contact-body">
+        <div class="contact-row"><span class="k">email</span> <a class="v" href="mailto:simsohyeon04@gmail.com">simsohyeon04@gmail.com</a></div>
+        <div class="contact-row"><span class="k">phone</span> <a class="v" href="tel:+821041643752">+82 10-4164-3752</a></div>
+        <div class="contact-row"><span class="k">github</span> <a class="v" href="https://github.com/simsh1031" target="_blank" rel="noopener">github.com/simsh1031</a></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    terraform apply 완료 · 계속 running 상태로 성장 중입니다.
+  </footer>
+
+</main>
+
+<script>
+  // Typing animation for the terraform hero block
+  (function(){
+    const el = document.getElementById('tfBody');
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const lines = [
+      {k:'resource "engineer" "sim_sohyeon" {', c:false},
+      {k:'  name        = ', v:'"심소현"'},
+      {k:'  role        = ', v:'"Cloud · Backend · DevOps Engineer"'},
+      {k:'  university  = ', v:'"서강대학교 컴퓨터공학과"'},
+      {k:'  since       = ', v:'"2023-03"'},
+      {k:'  status      = ', v:'"provisioning → always_learning"'},
+      {k:'}', c:false},
+    ];
+
+    function render(){
+      el.innerHTML = lines.map(l => {
+        if(l.v){
+          return `<span class="tf-key">${l.k}</span><span class="tf-str">${l.v}</span>`;
+        }
+        return `<span class="tf-punc">${l.k}</span>`;
+      }).join('\n');
+    }
+
+    if(reduced){
+      render();
+      return;
+    }
+
+    let out = '';
+    let li = 0, ci = 0;
+
+    function typeStep(){
+      if(li >= lines.length){
+        el.innerHTML += '<span class="cursor"></span>';
+        return;
+      }
+      const line = lines[li];
+      const full = line.v ? line.k : line.k;
+      const target = line.v ? line.k + line.v : line.k;
+
+      if(ci <= target.length){
+        let html = '';
+        for(let i=0;i<li;i++){
+          const pl = lines[i];
+          html += (pl.v ? `<span class="tf-key">${pl.k}</span><span class="tf-str">${pl.v}</span>` : `<span class="tf-punc">${pl.k}</span>`) + '\n';
+        }
+        const partial = target.slice(0, ci);
+        if(line.v && ci > line.k.length){
+          html += `<span class="tf-key">${line.k}</span><span class="tf-str">${partial.slice(line.k.length)}</span>`;
+        } else {
+          html += line.v ? `<span class="tf-key">${partial}</span>` : `<span class="tf-punc">${partial}</span>`;
+        }
+        el.innerHTML = html + '<span class="cursor"></span>';
+        ci++;
+        setTimeout(typeStep, 14);
+      } else {
+        li++; ci = 0;
+        setTimeout(typeStep, 60);
+      }
+    }
+    typeStep();
+  })();
+
+  // Scroll reveal
+  (function(){
+    const targets = document.querySelectorAll('.fade-in');
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          e.target.classList.add('visible');
+          io.unobserve(e.target);
+        }
+      });
+    }, {threshold:0.12});
+    targets.forEach(t=>io.observe(t));
+  })();
+</script>
 
 </body>
 </html>
