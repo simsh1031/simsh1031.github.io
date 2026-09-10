@@ -3,261 +3,174 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>sim-sohyeon/Wooriteam</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --bg:#0A1220;
-    --surface:#0F1A2B;
-    --surface-2:#121F33;
-    --grid:#1B2A40;
-    --border:#233450;
-    --text:#E7ECF3;
-    --text-dim:#7E92AC;
-    --text-faint:#54667F;
-    --teal:#4FD1C5;
-    --amber:#E8A33D;
-    --red:#E8664F;
-    --font-display:'Space Grotesk', sans-serif;
-    --font-body:'Inter', sans-serif;
-    --font-mono:'JetBrains Mono', monospace;
-  }
-  *{ margin:0; padding:0; box-sizing:border-box; }
-  html{ scroll-behavior:smooth; }
-  body{
-    background:
-      radial-gradient(circle at 1px 1px, var(--grid) 1px, transparent 0) 0 0/28px 28px,
-      var(--bg);
-    color:var(--text);
-    font-family:var(--font-body);
-    line-height:1.65;
-    -webkit-font-smoothing:antialiased;
-  }
-  a{ color:inherit; text-decoration:none; }
-  ::selection{ background:var(--teal); color:#04211F; }
-  .wrap{ max-width:960px; margin:0 auto; padding:0 28px; }
+      :root {
+        color-scheme: light;
+        --bg: #ffffff;
+        --surface: #ffffff;
+        --surface-2: #f8f9fa;
+        --border: #e5e7eb;
+        --border-light: #f0f1f3;
+        --text: #1f2937;
+        --text-dim: #4b5563;
+        --text-faint: #6b7280;
+        --accent: #c41e3a;
+        /* Existing inline code and diagram colors use these tokens. */
+        --teal: #4b5563;
+        --amber: #4b5563;
+        --red: #4b5563;
+        --font-body: "Inter", "Noto Sans KR", system-ui, sans-serif;
+        --font-mono: "JetBrains Mono", ui-monospace, monospace;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: var(--font-body);
+        font-size: 15px;
+        line-height: 1.75;
+        overflow-wrap: anywhere;
+        -webkit-font-smoothing: antialiased;
+      }
+      a { color: inherit; text-decoration: none; }
+      a:focus-visible, summary:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 4px;
+        border-radius: 4px;
+      }
+      ::selection { background: #f8e9ed; color: var(--text); }
+      .wrap, .nav-inner { max-width: 1080px; margin: 0 auto; padding-inline: 16px; }
 
-  /* ---------- NAV ---------- */
-  header{
-    position:sticky; top:0; z-index:50;
-    background:rgba(10,18,32,0.88);
-    backdrop-filter:blur(10px);
-    border-bottom:1px solid var(--border);
-  }
-  .nav-inner{
-    max-width:960px; margin:0 auto; padding:14px 28px;
-    display:flex; align-items:center; justify-content:space-between; gap:16px;
-  }
-  .nav-path{
-    font-family:var(--font-mono); font-size:12.5px; color:var(--text-dim);
-    display:flex; align-items:center; gap:8px; white-space:nowrap;
-  }
-  .status-dot{
-    width:7px; height:7px; border-radius:50%; background:var(--teal); flex:none;
-    box-shadow:0 0 0 0 rgba(79,209,197,0.6); animation:pulse 2.4s infinite;
-  }
-  @keyframes pulse{
-    0%{ box-shadow:0 0 0 0 rgba(79,209,197,0.55); }
-    70%{ box-shadow:0 0 0 7px rgba(79,209,197,0); }
-    100%{ box-shadow:0 0 0 0 rgba(79,209,197,0); }
-  }
-  nav.links{ display:flex; gap:18px; font-family:var(--font-mono); font-size:12.5px; color:var(--text-dim); overflow-x:auto; }
-  nav.links a{ white-space:nowrap; transition:color .15s; padding:4px 2px; }
-  nav.links a:hover, nav.links a:focus-visible{ color:var(--teal); }
-  nav.links a:focus-visible{ outline:1px solid var(--teal); outline-offset:4px; border-radius:2px; }
-  .back-link{
-    font-family:var(--font-mono); font-size:12.5px; color:var(--text-dim);
-    display:flex; align-items:center; gap:6px; flex:none;
-  }
-  .back-link:hover, .back-link:focus-visible{ color:var(--amber); }
+      /* Navigation */
+      header { position: sticky; top: 0; z-index: 10; background: var(--bg); border-bottom: 1px solid var(--border); }
+      .nav-inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 4px 32px; padding-block: 12px; }
+      .back-link { display: inline-flex; align-items: center; min-height: 44px; font-size: 16px; font-weight: 600; }
+      nav.links { display: flex; flex-wrap: wrap; gap: 0 16px; }
+      nav.links a { display: inline-flex; align-items: center; min-height: 44px; font-size: 14px; color: var(--text-dim); }
+      nav.links a, .back-link { transition: color 150ms ease; }
+      nav.links a:hover, .back-link:hover { color: var(--accent); }
 
-  /* ---------- HERO ---------- */
-  .hero{ padding:64px 0 48px; }
-  .eyebrow{
-    font-family:var(--font-mono); font-size:12.5px; letter-spacing:.06em;
-    color:var(--amber); text-transform:uppercase; margin-bottom:16px;
-    display:flex; align-items:center; gap:10px;
-  }
-  .eyebrow::before{ content:'//'; color:var(--text-faint); }
-  h1.title{
-    font-family:var(--font-display); font-weight:700;
-    font-size:clamp(38px, 7vw, 58px); line-height:1.05; letter-spacing:-0.01em;
-    margin-bottom:14px;
-  }
-  .subtitle{ color:var(--text-dim); max-width:600px; font-size:15.5px; margin-bottom:26px; }
-  .role-tag{
-    display:inline-flex; align-items:center; gap:8px;
-    font-family:var(--font-mono); font-size:12.5px; color:var(--teal);
-    border:1px solid var(--border); background:var(--surface);
-    padding:6px 12px; border-radius:6px; margin-bottom:22px;
-  }
-  .tag-row{ display:flex; flex-wrap:wrap; gap:8px; }
-  .tag{
-    font-family:var(--font-mono); font-size:12px; padding:5px 10px; border-radius:5px;
-    background:var(--surface-2); border:1px solid var(--border); color:var(--text-dim);
-  }
+      /* Project introduction */
+      section { padding-block: 32px; scroll-margin-top: 224px; }
+      .eyebrow { margin-bottom: 12px; color: var(--text-faint); font-size: 13px; }
+      h1.title { font-size: 28px; font-weight: 700; line-height: 1.35; letter-spacing: -0.02em; }
+      .subtitle { max-width: 760px; margin-top: 16px; color: var(--text-dim); font-size: 15px; line-height: 1.9; }
+      .role-tag { border-left: 1px solid var(--accent); padding-left: 16px; margin-block: 24px 16px; color: var(--text-dim); font-size: 14px; }
+      .tag-row { display: flex; flex-wrap: wrap; gap: 8px; }
+      .tag { padding: 4px 10px; border-radius: 4px; background: var(--surface-2); color: var(--text-dim); font-size: 13px; }
+      .github-link { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
+      .github-link a, .footer-back {
+        display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+        min-height: 40px; padding: 8px 16px; border: 1px solid var(--border); border-radius: 6px;
+        background: var(--bg); color: var(--text-dim); font-size: 14px;
+        transition: background-color 150ms ease, border-color 150ms ease;
+      }
+      .github-link a:hover, .footer-back:hover { background: var(--surface-2); border-color: #9ca3af; }
+      .github-link a::before { content: "↗"; }
 
-  /* ---------- SECTION SHELL ---------- */
-  section{ padding:60px 0; border-top:1px solid var(--border); }
-  .section-head{ display:flex; align-items:baseline; gap:12px; margin-bottom:28px; font-family:var(--font-mono); }
-  .section-head .path{ font-size:13px; color:var(--amber); }
-  .section-head h2{ font-family:var(--font-display); font-size:23px; font-weight:600; }
-  h3.sub-head{
-    font-family:var(--font-display); font-size:16.5px; font-weight:600;
-    margin:32px 0 14px; display:flex; align-items:center; gap:8px;
-  }
-  h3.sub-head:first-child{ margin-top:0; }
-  h3.sub-head::before{ content:''; width:8px; height:8px; background:var(--teal); border-radius:2px; flex:none; }
+      /* Section hierarchy */
+      .section-head { position: relative; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+      .section-head::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -1px;
+        width: 24px;
+        border-bottom: 1px solid var(--accent);
+      }
+      .section-head h2 { font-size: 20px; font-weight: 600; line-height: 1.4; }
+      h3.sub-head { font-size: 18px; font-weight: 600; margin: 32px 0 16px; }
+      h3.sub-head:first-child { margin-top: 0; }
+      p.body-text { max-width: 760px; color: var(--text-dim); font-size: 15px; line-height: 1.9; }
+      p.body-text + p.body-text { margin-top: 16px; }
+      ul.plain { padding-left: 20px; color: var(--text-dim); font-size: 14px; }
+      ul.plain li { margin-bottom: 8px; }
+      ul.plain li::marker { color: var(--text-faint); }
 
-  .fade-in{ opacity:0; transform:translateY(14px); transition:opacity .6s ease, transform .6s ease; }
-  .fade-in.visible{ opacity:1; transform:translateY(0); }
+      /* Feature and service descriptions */
+      .feat-grid, .service-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 24px 32px; }
+      .feat-card, .service-card { min-width: 0; padding-bottom: 24px; border-bottom: 1px solid var(--border-light); }
+      .feat-card h4, .service-card .svc-name { display: block; margin-bottom: 8px; color: var(--text); font-size: 16px; font-weight: 600; }
+      .feat-card p, .service-card p { color: var(--text-dim); font-size: 14px; line-height: 1.85; }
 
-  p.body-text{ color:var(--text-dim); font-size:15px; max-width:680px; }
-  p.body-text + p.body-text{ margin-top:10px; }
+      /* Architecture figures and real code samples */
+      .diagram-frame { margin-bottom: 24px; padding: 16px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg); overflow-x: auto; }
+      .diagram-frame img { max-width: 100%; height: auto; }
+      .diagram-frame svg { display: block; width: 100%; height: auto; min-width: 640px; }
+      .diagram-frame svg text { font-family: var(--font-body); }
+      .term-block { margin: 24px 0; }
+      .term-titlebar { padding-bottom: 12px; color: var(--text-faint); font-size: 13px; }
+      .term-body { padding: 16px; border: 1px solid var(--border-light); border-radius: 6px; background: var(--surface-2); font-family: var(--font-mono); font-size: 13px; line-height: 1.75; white-space: pre; overflow-x: auto; overflow-wrap: normal; }
+      .term-body .c { color: var(--text-faint); }
+      .term-body .p { color: var(--text); }
 
-  ul.plain{ color:var(--text-dim); font-size:14.5px; padding-left:20px; }
-  ul.plain li{ margin-bottom:6px; }
-  ul.plain li::marker{ color:var(--teal); }
+      /* Results and notes */
+      .stat-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; margin: 24px 0 16px; padding: 24px 16px; border-block: 1px solid var(--border-light); background: var(--surface-2); }
+      .stat-num { font-size: 24px; font-weight: 600; line-height: 1.4; }
+      .stat-label { margin-top: 8px; font-size: 13px; color: var(--text-faint); }
+      .highlight-note { margin-top: 16px; padding: 16px; border-left: 2px solid var(--border); background: var(--surface-2); color: var(--text-dim); font-size: 14px; }
+      .highlight-note b { color: var(--text); font-weight: 600; }
 
-  /* ---------- OVERVIEW FEATURE GRID ---------- */
-  .feat-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(260px,1fr)); gap:16px; }
-  .feat-card{ border:1px solid var(--border); background:var(--surface); border-radius:10px; padding:18px 20px; border-left:3px solid var(--teal); }
-  .feat-card h4{ font-family:var(--font-display); font-size:15px; font-weight:600; margin-bottom:8px; }
-  .feat-card p{ color:var(--text-dim); font-size:13.5px; }
+      /* Tables retain horizontal scrolling on small screens. */
+      .table-wrap { overflow-x: auto; margin-bottom: 24px; }
+      table.cost-table { width: 100%; min-width: 480px; border-collapse: collapse; font-size: 14px; font-variant-numeric: tabular-nums; }
+      table.cost-table th, table.cost-table td { padding: 12px 16px; border-bottom: 1px solid var(--border); text-align: left; vertical-align: top; }
+      table.cost-table th { background: var(--surface-2); color: var(--text); font-weight: 600; }
+      table.cost-table td { color: var(--text-dim); }
+      table.cost-table tr.total td { background: #fafafa; color: var(--text); font-weight: 600; }
 
-  /* ---------- ARCHITECTURE DIAGRAM ---------- */
-  .diagram-frame{
-    border:1px solid var(--border); background:var(--surface); border-radius:10px;
-    padding:16px; margin-bottom:30px; overflow-x:auto;
-  }
-  .diagram-frame svg{ width:100%; height:auto; min-width:640px; display:block; }
+      /* Checklists */
+      .checklist-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 24px 32px; }
+      .check-col h4 { margin-bottom: 12px; font-size: 16px; font-weight: 600; }
+      .check-col ul { list-style: none; }
+      .check-col li { position: relative; padding: 4px 0 4px 24px; color: var(--text-dim); font-size: 14px; }
+      .check-col li::before { content: "✓"; position: absolute; left: 0; color: var(--text-faint); }
 
-  .service-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(270px,1fr)); gap:14px; }
-  .service-card{ border:1px solid var(--border); background:var(--surface); border-radius:8px; padding:14px 16px; }
-  .service-card .svc-name{ font-family:var(--font-mono); font-size:13px; color:var(--teal); margin-bottom:6px; display:block; }
-  .service-card p{ color:var(--text-dim); font-size:13px; }
+      /* Native disclosure controls */
+      .incident { border-bottom: 1px solid var(--border); }
+      .incident summary { display: flex; align-items: center; gap: 12px; padding: 20px 8px; list-style: none; cursor: pointer; font-size: 16px; font-weight: 500; transition: background-color 150ms ease; }
+      .incident summary:hover { background: #fafafa; }
+      .incident summary::-webkit-details-marker { display: none; }
+      .incident summary .chev { margin-left: auto; flex-shrink: 0; color: var(--text-faint); font-size: 14px; transition: transform 150ms ease; }
+      .incident[open] summary .chev { transform: rotate(90deg); }
+      .incident-body { padding: 0 8px 24px; }
+      .incident-body h5 { margin: 16px 0 8px; font-size: 14px; font-weight: 600; }
+      .incident-body p, .incident-body li { color: var(--text-dim); font-size: 14px; line-height: 1.85; }
+      .incident-body ul { padding-left: 20px; }
 
-  /* ---------- TERMINAL / CODE BLOCK ---------- */
-  .term-block{ background:var(--surface); border:1px solid var(--border); border-radius:10px; overflow:hidden; margin:18px 0 26px; }
-  .term-titlebar{
-    display:flex; align-items:center; gap:8px; padding:9px 16px; border-bottom:1px solid var(--border);
-    background:var(--surface-2); font-family:var(--font-mono); font-size:11.5px; color:var(--text-faint);
-  }
-  .term-dot{ width:8px; height:8px; border-radius:50%; background:var(--grid); }
-  .term-body{ font-family:var(--font-mono); font-size:13px; padding:16px 18px; overflow-x:auto; white-space:pre; }
-  .term-body .c{ color:var(--text-faint); font-style:italic; }
-  .term-body .p{ color:var(--amber); }
+      /* Roadmap */
+      .roadmap-item + .roadmap-item { padding-top: 24px; margin-top: 24px; border-top: 1px solid var(--border-light); }
+      .roadmap-item h4 { margin-bottom: 16px; font-size: 17px; font-weight: 600; }
+      .roadmap-cols { display: grid; grid-template-columns: minmax(0, 1fr); gap: 24px 32px; }
+      .roadmap-cols h5 { margin-bottom: 8px; color: var(--text); font-size: 14px; font-weight: 600; }
+      .roadmap-cols ul { padding-left: 20px; }
+      .roadmap-cols li { margin-bottom: 8px; color: var(--text-dim); font-size: 14px; }
 
-  /* ---------- STAT GRID ---------- */
-  .stat-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(150px,1fr)); gap:14px; margin:20px 0 8px; }
-  .stat-card{ border:1px solid var(--border); background:var(--surface); border-radius:10px; padding:18px; text-align:center; }
-  .stat-num{ font-family:var(--font-display); font-size:26px; font-weight:700; color:var(--teal); }
-  .stat-label{ font-family:var(--font-mono); font-size:11.5px; color:var(--text-faint); margin-top:6px; }
-  .highlight-note{
-    font-family:var(--font-mono); font-size:13px; color:var(--text-dim);
-    border-left:3px solid var(--amber); padding:10px 14px; background:var(--surface); border-radius:0 8px 8px 0; margin-top:14px;
-  }
-  .highlight-note b{ color:var(--amber); }
-
-  /* ---------- TABLES ---------- */
-  table.cost-table{ width:100%; border-collapse:collapse; font-family:var(--font-mono); font-size:13px; margin-bottom:10px; }
-  table.cost-table th, table.cost-table td{ border:1px solid var(--border); padding:9px 12px; text-align:left; }
-  table.cost-table th{ background:var(--surface-2); color:var(--text-dim); font-weight:500; }
-  table.cost-table td{ color:var(--text-dim); }
-  table.cost-table tr.total td{ color:var(--amber); font-weight:600; }
-  .table-wrap{ overflow-x:auto; margin-bottom:26px; }
-
-  /* ---------- CHECKLIST ---------- */
-  .checklist-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(220px,1fr)); gap:16px; }
-  .check-col h4{ font-family:var(--font-mono); font-size:12.5px; color:var(--amber); margin-bottom:10px; }
-  .check-col ul{ list-style:none; }
-  .check-col li{ font-size:13.5px; color:var(--text-dim); padding:5px 0 5px 24px; position:relative; }
-  .check-col li::before{
-    content:'✓'; position:absolute; left:0; top:5px; width:16px; height:16px;
-    border:1px solid var(--border); border-radius:4px; color:var(--teal);
-    font-size:11px; display:flex; align-items:center; justify-content:center;
-  }
-
-  /* ---------- TROUBLESHOOTING (details) ---------- */
-  .incident{ border:1px solid var(--border); background:var(--surface); border-radius:10px; margin-bottom:12px; overflow:hidden; }
-  .incident summary{
-    list-style:none; cursor:pointer; padding:16px 20px; display:flex; align-items:center; gap:12px;
-    font-family:var(--font-display); font-weight:600; font-size:14.5px;
-  }
-  .incident summary::-webkit-details-marker{ display:none; }
-  .incident summary .sev{ width:8px; height:8px; border-radius:50%; background:var(--teal); flex:none; }
-  .incident summary .chev{ margin-left:auto; color:var(--text-faint); transition:transform .18s; font-family:var(--font-mono); font-size:12px; }
-  .incident[open] summary .chev{ transform:rotate(90deg); }
-  .incident .incident-body{ padding:0 20px 20px; border-top:1px solid var(--border); }
-  .incident .incident-body h5{ font-family:var(--font-mono); font-size:12px; color:var(--amber); margin:14px 0 6px; }
-  .incident .incident-body h5:first-child{ margin-top:16px; }
-  .incident .incident-body p, .incident .incident-body li{ color:var(--text-dim); font-size:13.5px; }
-  .incident .incident-body ul{ padding-left:18px; }
-
-  /* ---------- ROADMAP ---------- */
-  .roadmap-item{ border:1px solid var(--border); background:var(--surface); border-radius:10px; padding:20px 22px; margin-bottom:14px; }
-  .roadmap-item h4{ font-family:var(--font-display); font-size:15.5px; font-weight:600; margin-bottom:12px; }
-  .roadmap-cols{ display:grid; grid-template-columns:1fr 1fr; gap:18px; }
-  @media (max-width:640px){ .roadmap-cols{ grid-template-columns:1fr; } }
-  .roadmap-cols .col h5{ font-family:var(--font-mono); font-size:11.5px; margin-bottom:8px; }
-  .roadmap-cols .col.limit h5{ color:var(--red); }
-  .roadmap-cols .col.plan h5{ color:var(--amber); }
-  .roadmap-cols ul{ padding-left:16px; }
-  .roadmap-cols li{ font-size:13px; color:var(--text-dim); margin-bottom:5px; }
-
-  footer{
-    padding:40px 0 60px; text-align:center; font-family:var(--font-mono); font-size:12px; color:var(--text-faint);
-    display:flex; flex-direction:column; align-items:center; gap:14px;
-  }
-  .footer-back{
-    border:1px solid var(--border); padding:8px 16px; border-radius:6px; color:var(--text-dim); transition:border-color .15s, color .15s;
-  }
-  .footer-back:hover, .footer-back:focus-visible{ border-color:var(--teal); color:var(--teal); }
-
-  @media (max-width:560px){
-    .nav-inner{ padding:12px 18px; }
-    .wrap{ padding:0 18px; }
-    .hero{ padding:44px 0 36px; }
-    nav.links{ gap:14px; }
-  }
-  @media (prefers-reduced-motion: reduce){
-    *{ animation-duration:0.001ms !important; transition-duration:0.001ms !important; }
-    html{ scroll-behavior:auto; }
-  }
-  .github-link {
-    margin-top: 18px;
-  }
-
-  .github-link a {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 14px;
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    background: var(--surface);
-    color: var(--text-dim);
-    font-family: var(--font-mono);
-    font-size: 13px;
-    transition: all 0.2s ease;
-  }
-
-  .github-link a:hover {
-    color: var(--teal);
-    border-color: var(--teal);
-    transform: translateY(-1px);
-  }
-
-  .github-link a::before {
-    content: "↗";
-    color: var(--teal);
-  }
-</style>
+      footer { display: flex; flex-direction: column; align-items: center; gap: 16px; margin: 16px auto 0; padding: 24px 16px 32px; border-top: 1px solid var(--border); color: var(--text-faint); font-size: 13px; text-align: center; }
+      @media (min-width: 600px) {
+        .wrap, .nav-inner { padding-inline: 24px; }
+        section { padding-block: 48px; scroll-margin-top: 180px; }
+        .feat-grid, .service-grid, .roadmap-cols { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .checklist-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .stat-grid { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); padding-inline: 24px; }
+        .term-body { padding: 24px; }
+      }
+      @media (min-width: 960px) {
+        .wrap, .nav-inner { padding-inline: 32px; }
+        section { scroll-margin-top: 144px; }
+        .checklist-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after { transition: none !important; }
+      }
+    </style>
 </head>
 <body>
 
 <header>
   <div class="nav-inner">
-    <a class="back-link" href="index.html">← ~/sim-sohyeon</a>
+    <a class="back-link" href="index.html">← sim-sohyeon</a>
     <nav class="links">
       <a href="#overview">overview</a>
       <a href="#architecture">architecture</a>
@@ -275,7 +188,7 @@
     <div class="eyebrow">project // solo project</div>
     <h1 class="title">Wooriteam</h1>
     <p class="subtitle">대학생·비전공자를 위한 역할 중심 팀 프로젝트 구인 플랫폼입니다.</p>
-    <div class="role-tag"><span class="status-dot"></span> role: 기획 · 풀스택 개발 · 인프라 설계 및 구현 (멋사 로켓단 인턴십)</div>
+    <div class="role-tag"> role: 기획 · 풀스택 개발 · 인프라 설계 및 구현 (멋사 로켓단 인턴십)</div>
     <div class="tag-row">
       <span class="tag">Spring Boot</span><span class="tag">Spring Security + JWT</span>
       <span class="tag">React + TS + Vite</span><span class="tag">MySQL (RDS)</span>
@@ -294,7 +207,7 @@
   </section>
 
   <section id="overview">
-    <div class="section-head"><span class="path"># overview.tf</span><h2>문제정의 · 목표 · MVP</h2></div>
+    <div class="section-head"><h2>문제정의 · 목표 · MVP</h2></div>
 
     <h3 class="sub-head">문제 정의</h3>
     <p class="body-text">대학생·비전공자가 팀 프로젝트 팀원을 구할 때 에브리타임, 오픈카톡방, 디스코드 등 비공식 채널에 의존하는 상황을 해결하고자 했습니다.</p>
@@ -344,7 +257,7 @@
   </section>
 
   <section id="architecture">
-    <div class="section-head"><span class="path"># architecture.tf</span><h2>아키텍처 &amp; 기술 선택</h2></div>
+    <div class="section-head"><h2>아키텍처 &amp; 기술 선택</h2></div>
     <div class="diagram-frame fade-in" style="margin-top: 20px;">
       <img src="wooriteam-aws.png" alt="Wooriteam AWS Multi-Region Architecture Diagram" style="width: 100%; height: auto; border-radius: 6px; display: block;">
     </div>
@@ -367,7 +280,7 @@
   </section>
 
   <section id="implementation">
-    <div class="section-head"><span class="path"># implementation.tf</span><h2>핵심 구현 기능</h2></div>
+    <div class="section-head"><h2>핵심 구현 기능</h2></div>
 
     <h3 class="sub-head">서비스 기능</h3>
     <div class="feat-grid fade-in">
@@ -416,7 +329,7 @@
   </section>
 
   <section id="operations">
-    <div class="section-head"><span class="path"># operations.tf</span><h2>운영 &amp; 검증</h2></div>
+    <div class="section-head"><h2>운영 &amp; 검증</h2></div>
 
     <h3 class="sub-head">운영 체크리스트</h3>
     <div class="checklist-grid fade-in">
@@ -470,10 +383,10 @@
   </section>
 
   <section id="troubleshooting">
-    <div class="section-head"><span class="path"># troubleshooting.tf</span><h2>트러블슈팅</h2></div>
+    <div class="section-head"><h2>트러블슈팅</h2></div>
 
     <details class="incident fade-in">
-      <summary><span class="sev"></span>프론트엔드 빌드 실패 - TS6133 (미사용 변수)<span class="chev">▸</span></summary>
+      <summary>프론트엔드 빌드 실패 - TS6133 (미사용 변수)<span class="chev">▸</span></summary>
       <div class="incident-body">
         <h5>원인</h5><p>삭제 핸들러가 정의되어 있었지만 UI에 연결되지 않아 tsc 빌드에서 미사용 변수로 잡힘</p>
         <h5>해결</h5><p>'내가 올린 공고' 카드 UI에 삭제 버튼을 추가해 핸들러를 실제로 연결</p>
@@ -481,7 +394,7 @@
     </details>
 
     <details class="incident fade-in">
-      <summary><span class="sev"></span>백엔드 테스트 실패 - JavaMailSender 빈 없음<span class="chev">▸</span></summary>
+      <summary>백엔드 테스트 실패 - JavaMailSender 빈 없음<span class="chev">▸</span></summary>
       <div class="incident-body">
         <h5>원인</h5><p>테스트 환경설정에 spring.mail.host가 없어 MailSenderAutoConfiguration이 빈을 생성하지 못해 ApplicationContext 로딩 실패</p>
         <h5>해결</h5><p>테스트 설정에 더미 mail 설정과 app.mail.enabled: false를 추가</p>
@@ -489,7 +402,7 @@
     </details>
 
     <details class="incident fade-in">
-      <summary><span class="sev"></span>CD - Trivy 이미지 스캔에서 CRITICAL 취약점 발견<span class="chev">▸</span></summary>
+      <summary>CD - Trivy 이미지 스캔에서 CRITICAL 취약점 발견<span class="chev">▸</span></summary>
       <div class="incident-body">
         <h5>원인</h5><p>Spring Boot가 번들하는 Tomcat 버전에 CRITICAL 취약점 포함</p>
         <h5>해결</h5><p>build.gradle에 번들 Tomcat 버전을 오버라이드하도록 추가</p>
@@ -497,7 +410,7 @@
     </details>
 
     <details class="incident fade-in">
-      <summary><span class="sev"></span>Infra - ECS 태스크 기동 직후 즉시 종료 반복<span class="chev">▸</span></summary>
+      <summary>Infra - ECS 태스크 기동 직후 즉시 종료 반복<span class="chev">▸</span></summary>
       <div class="incident-body">
         <h5>원인</h5><p>ddl-auto: validate 상태에서 새로 생성된 빈 RDS에는 테이블이 없어 Hibernate 스키마 검증이 즉시 실패</p>
         <h5>해결</h5><p>최초 배포·RDS 재생성 시 update로 변경해 테이블을 자동 생성하도록 설정</p>
@@ -505,7 +418,7 @@
     </details>
 
     <details class="incident fade-in">
-      <summary><span class="sev"></span>CD - terraform apply 후 GitHub Secrets 미갱신으로 연쇄 실패<span class="chev">▸</span></summary>
+      <summary>CD - terraform apply 후 GitHub Secrets 미갱신으로 연쇄 실패<span class="chev">▸</span></summary>
       <div class="incident-body">
         <h5>원인</h5><p>ALB/CloudFront 재생성 시 식별자가 바뀌는데 GitHub Actions는 워크플로 시작 시점의 시크릿 값을 사용해 옛 값으로 실패</p>
         <h5>해결</h5><p>terraform apply 직후 output 기준으로 시크릿을 갱신한 뒤 새 런을 트리거하는 운영 체크리스트 수립</p>
@@ -513,7 +426,7 @@
     </details>
 
     <details class="incident fade-in">
-      <summary><span class="sev"></span>Infra - k6 부하테스트 시 ALB 직접 호출 403 및 헬스체크 한계<span class="chev">▸</span></summary>
+      <summary>Infra - k6 부하테스트 시 ALB 직접 호출 403 및 헬스체크 한계<span class="chev">▸</span></summary>
       <div class="incident-body">
         <h5>원인</h5><p>"CloudFront 경유 트래픽만 허용" 정책으로 ALB DNS 직접 호출은 403 고정 응답</p>
         <h5>해결</h5><p>BASE_URL을 CloudFront 도메인으로 변경. 단 CloudFront 경유 시 /actuator/health가 ALB가 아닌 S3로 라우팅되어 프론트 응답이 200으로 잡히는 한계는 별도 개선 과제로 남김</p>
@@ -521,7 +434,7 @@
     </details>
 
     <details class="incident fade-in">
-      <summary><span class="sev"></span>Mail Health Indicator로 인한 /actuator/health DOWN 유발<span class="chev">▸</span></summary>
+      <summary>Mail Health Indicator로 인한 /actuator/health DOWN 유발<span class="chev">▸</span></summary>
       <div class="incident-body">
         <h5>원인</h5><p>JavaMailSender 빈이 있으면 Actuator가 MailHealthIndicator를 자동 등록해 메일 인증 실패가 헬스 status를 DOWN으로 끌어내릴 수 있음</p>
         <h5>해결</h5><p>management.health.mail.enabled: false를 추가해 메일 발송 여부와 헬스체크를 분리</p>
@@ -529,7 +442,7 @@
     </details>
 
     <details class="incident fade-in">
-      <summary><span class="sev"></span>신고 알림 메일 배포 환경 미발송<span class="chev">▸</span></summary>
+      <summary>신고 알림 메일 배포 환경 미발송<span class="chev">▸</span></summary>
       <div class="incident-body">
         <h5>원인</h5><p>로컬 .env는 ECS 환경에 영향이 없고, 메일 관련 환경변수가 Task Definition에 주입되어 있지 않았음</p>
         <h5>해결</h5><p>메일 환경변수를 ecs.tf에 추가하고 민감값은 Secrets Manager에서 참조하도록 구성 후 신규 리비전 강제 등록</p>
@@ -537,7 +450,7 @@
     </details>
 
     <details class="incident fade-in">
-      <summary><span class="sev"></span>Terraform State 파손<span class="chev">▸</span></summary>
+      <summary>Terraform State 파손<span class="chev">▸</span></summary>
       <div class="incident-body">
         <h5>원인</h5><p>S3 버킷을 콘솔에서 실수로 비워 tfstate 파일이 삭제되었고, 버전 관리가 미설정이라 복구 불가</p>
         <h5>해결</h5><p>DynamoDB 체크섬 수동 삭제 후 전체 리소스를 수동 정리하고 재구성, 이후 S3 버킷에 버저닝 활성화</p>
@@ -546,7 +459,7 @@
   </section>
 
   <section id="feedback">
-    <div class="section-head"><span class="path"># feedback.tf</span><h2>받은 피드백 &amp; 개선 사항</h2></div>
+    <div class="section-head"><h2>받은 피드백 &amp; 개선 사항</h2></div>
     <p class="body-text">멋쟁이사자처럼 22기 개인 프로젝트 멘토 피드백을 기반으로 정리했습니다. 한 달 개인 프로젝트에서 Multi-AZ, ECS Fargate, Terraform IaC, Trivy 보안 스캔, 스모크 테스트 기반 자동 롤백, k6 3단계 부하테스트까지 구성하고 실제 배포·검증까지 마친 점을 좋게 평가받았습니다. 특히 트러블슈팅을 "증상"이 아니라 "원인 → 해결"로 문서화한 점이 강점으로 꼽혔습니다.</p>
 
     <h3 class="sub-head">잘한 점</h3>

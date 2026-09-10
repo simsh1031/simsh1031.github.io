@@ -3,261 +3,174 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>sim-sohyeon/NewSugar</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --bg:#0A1220;
-    --surface:#0F1A2B;
-    --surface-2:#121F33;
-    --grid:#1B2A40;
-    --border:#233450;
-    --text:#E7ECF3;
-    --text-dim:#7E92AC;
-    --text-faint:#54667F;
-    --teal:#4FD1C5;
-    --amber:#E8A33D;
-    --red:#E8664F;
-    --font-display:'Space Grotesk', sans-serif;
-    --font-body:'Inter', sans-serif;
-    --font-mono:'JetBrains Mono', monospace;
-  }
-  *{ margin:0; padding:0; box-sizing:border-box; }
-  html{ scroll-behavior:smooth; }
-  body{
-    background:
-      radial-gradient(circle at 1px 1px, var(--grid) 1px, transparent 0) 0 0/28px 28px,
-      var(--bg);
-    color:var(--text);
-    font-family:var(--font-body);
-    line-height:1.65;
-    -webkit-font-smoothing:antialiased;
-  }
-  a{ color:inherit; text-decoration:none; }
-  ::selection{ background:var(--teal); color:#04211F; }
-  .wrap{ max-width:960px; margin:0 auto; padding:0 28px; }
+      :root {
+        color-scheme: light;
+        --bg: #ffffff;
+        --surface: #ffffff;
+        --surface-2: #f8f9fa;
+        --border: #e5e7eb;
+        --border-light: #f0f1f3;
+        --text: #1f2937;
+        --text-dim: #4b5563;
+        --text-faint: #6b7280;
+        --accent: #c41e3a;
+        /* Existing inline code and diagram colors use these tokens. */
+        --teal: #4b5563;
+        --amber: #4b5563;
+        --red: #4b5563;
+        --font-body: "Inter", "Noto Sans KR", system-ui, sans-serif;
+        --font-mono: "JetBrains Mono", ui-monospace, monospace;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: var(--font-body);
+        font-size: 15px;
+        line-height: 1.75;
+        overflow-wrap: anywhere;
+        -webkit-font-smoothing: antialiased;
+      }
+      a { color: inherit; text-decoration: none; }
+      a:focus-visible, summary:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 4px;
+        border-radius: 4px;
+      }
+      ::selection { background: #f8e9ed; color: var(--text); }
+      .wrap, .nav-inner { max-width: 1080px; margin: 0 auto; padding-inline: 16px; }
 
-  /* ---------- NAV ---------- */
-  header{
-    position:sticky; top:0; z-index:50;
-    background:rgba(10,18,32,0.88);
-    backdrop-filter:blur(10px);
-    border-bottom:1px solid var(--border);
-  }
-  .nav-inner{
-    max-width:960px; margin:0 auto; padding:14px 28px;
-    display:flex; align-items:center; justify-content:space-between; gap:16px;
-  }
-  .nav-path{
-    font-family:var(--font-mono); font-size:12.5px; color:var(--text-dim);
-    display:flex; align-items:center; gap:8px; white-space:nowrap;
-  }
-  .status-dot{
-    width:7px; height:7px; border-radius:50%; background:var(--teal); flex:none;
-    box-shadow:0 0 0 0 rgba(79,209,197,0.6); animation:pulse 2.4s infinite;
-  }
-  @keyframes pulse{
-    0%{ box-shadow:0 0 0 0 rgba(79,209,197,0.55); }
-    70%{ box-shadow:0 0 0 7px rgba(79,209,197,0); }
-    100%{ box-shadow:0 0 0 0 rgba(79,209,197,0); }
-  }
-  nav.links{ display:flex; gap:18px; font-family:var(--font-mono); font-size:12.5px; color:var(--text-dim); overflow-x:auto; }
-  nav.links a{ white-space:nowrap; transition:color .15s; padding:4px 2px; }
-  nav.links a:hover, nav.links a:focus-visible{ color:var(--teal); }
-  nav.links a:focus-visible{ outline:1px solid var(--teal); outline-offset:4px; border-radius:2px; }
-  .back-link{
-    font-family:var(--font-mono); font-size:12.5px; color:var(--text-dim);
-    display:flex; align-items:center; gap:6px; flex:none;
-  }
-  .back-link:hover, .back-link:focus-visible{ color:var(--amber); }
+      /* Navigation */
+      header { position: sticky; top: 0; z-index: 10; background: var(--bg); border-bottom: 1px solid var(--border); }
+      .nav-inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 4px 32px; padding-block: 12px; }
+      .back-link { display: inline-flex; align-items: center; min-height: 44px; font-size: 16px; font-weight: 600; }
+      nav.links { display: flex; flex-wrap: wrap; gap: 0 16px; }
+      nav.links a { display: inline-flex; align-items: center; min-height: 44px; font-size: 14px; color: var(--text-dim); }
+      nav.links a, .back-link { transition: color 150ms ease; }
+      nav.links a:hover, .back-link:hover { color: var(--accent); }
 
-  /* ---------- HERO ---------- */
-  .hero{ padding:64px 0 48px; }
-  .eyebrow{
-    font-family:var(--font-mono); font-size:12.5px; letter-spacing:.06em;
-    color:var(--amber); text-transform:uppercase; margin-bottom:16px;
-    display:flex; align-items:center; gap:10px;
-  }
-  .eyebrow::before{ content:'//'; color:var(--text-faint); }
-  h1.title{
-    font-family:var(--font-display); font-weight:700;
-    font-size:clamp(38px, 7vw, 58px); line-height:1.05; letter-spacing:-0.01em;
-    margin-bottom:14px;
-  }
-  .subtitle{ color:var(--text-dim); max-width:600px; font-size:15.5px; margin-bottom:26px; }
-  .role-tag{
-    display:inline-flex; align-items:center; gap:8px;
-    font-family:var(--font-mono); font-size:12.5px; color:var(--teal);
-    border:1px solid var(--border); background:var(--surface);
-    padding:6px 12px; border-radius:6px; margin-bottom:22px;
-  }
-  .tag-row{ display:flex; flex-wrap:wrap; gap:8px; }
-  .tag{
-    font-family:var(--font-mono); font-size:12px; padding:5px 10px; border-radius:5px;
-    background:var(--surface-2); border:1px solid var(--border); color:var(--text-dim);
-  }
+      /* Project introduction */
+      section { padding-block: 32px; scroll-margin-top: 224px; }
+      .eyebrow { margin-bottom: 12px; color: var(--text-faint); font-size: 13px; }
+      h1.title { font-size: 28px; font-weight: 700; line-height: 1.35; letter-spacing: -0.02em; }
+      .subtitle { max-width: 760px; margin-top: 16px; color: var(--text-dim); font-size: 15px; line-height: 1.9; }
+      .role-tag { border-left: 1px solid var(--accent); padding-left: 16px; margin-block: 24px 16px; color: var(--text-dim); font-size: 14px; }
+      .tag-row { display: flex; flex-wrap: wrap; gap: 8px; }
+      .tag { padding: 4px 10px; border-radius: 4px; background: var(--surface-2); color: var(--text-dim); font-size: 13px; }
+      .github-link { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
+      .github-link a, .footer-back {
+        display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+        min-height: 40px; padding: 8px 16px; border: 1px solid var(--border); border-radius: 6px;
+        background: var(--bg); color: var(--text-dim); font-size: 14px;
+        transition: background-color 150ms ease, border-color 150ms ease;
+      }
+      .github-link a:hover, .footer-back:hover { background: var(--surface-2); border-color: #9ca3af; }
+      .github-link a::before { content: "↗"; }
 
-  /* ---------- SECTION SHELL ---------- */
-  section{ padding:60px 0; border-top:1px solid var(--border); }
-  .section-head{ display:flex; align-items:baseline; gap:12px; margin-bottom:28px; font-family:var(--font-mono); }
-  .section-head .path{ font-size:13px; color:var(--amber); }
-  .section-head h2{ font-family:var(--font-display); font-size:23px; font-weight:600; }
-  h3.sub-head{
-    font-family:var(--font-display); font-size:16.5px; font-weight:600;
-    margin:32px 0 14px; display:flex; align-items:center; gap:8px;
-  }
-  h3.sub-head:first-child{ margin-top:0; }
-  h3.sub-head::before{ content:''; width:8px; height:8px; background:var(--teal); border-radius:2px; flex:none; }
+      /* Section hierarchy */
+      .section-head { position: relative; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+      .section-head::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -1px;
+        width: 24px;
+        border-bottom: 1px solid var(--accent);
+      }
+      .section-head h2 { font-size: 20px; font-weight: 600; line-height: 1.4; }
+      h3.sub-head { font-size: 18px; font-weight: 600; margin: 32px 0 16px; }
+      h3.sub-head:first-child { margin-top: 0; }
+      p.body-text { max-width: 760px; color: var(--text-dim); font-size: 15px; line-height: 1.9; }
+      p.body-text + p.body-text { margin-top: 16px; }
+      ul.plain { padding-left: 20px; color: var(--text-dim); font-size: 14px; }
+      ul.plain li { margin-bottom: 8px; }
+      ul.plain li::marker { color: var(--text-faint); }
 
-  .fade-in{ opacity:0; transform:translateY(14px); transition:opacity .6s ease, transform .6s ease; }
-  .fade-in.visible{ opacity:1; transform:translateY(0); }
+      /* Feature and service descriptions */
+      .feat-grid, .service-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 24px 32px; }
+      .feat-card, .service-card { min-width: 0; padding-bottom: 24px; border-bottom: 1px solid var(--border-light); }
+      .feat-card h4, .service-card .svc-name { display: block; margin-bottom: 8px; color: var(--text); font-size: 16px; font-weight: 600; }
+      .feat-card p, .service-card p { color: var(--text-dim); font-size: 14px; line-height: 1.85; }
 
-  p.body-text{ color:var(--text-dim); font-size:15px; max-width:680px; }
-  p.body-text + p.body-text{ margin-top:10px; }
+      /* Architecture figures and real code samples */
+      .diagram-frame { margin-bottom: 24px; padding: 16px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg); overflow-x: auto; }
+      .diagram-frame img { max-width: 100%; height: auto; }
+      .diagram-frame svg { display: block; width: 100%; height: auto; min-width: 640px; }
+      .diagram-frame svg text { font-family: var(--font-body); }
+      .term-block { margin: 24px 0; }
+      .term-titlebar { padding-bottom: 12px; color: var(--text-faint); font-size: 13px; }
+      .term-body { padding: 16px; border: 1px solid var(--border-light); border-radius: 6px; background: var(--surface-2); font-family: var(--font-mono); font-size: 13px; line-height: 1.75; white-space: pre; overflow-x: auto; overflow-wrap: normal; }
+      .term-body .c { color: var(--text-faint); }
+      .term-body .p { color: var(--text); }
 
-  ul.plain{ color:var(--text-dim); font-size:14.5px; padding-left:20px; }
-  ul.plain li{ margin-bottom:6px; }
-  ul.plain li::marker{ color:var(--teal); }
+      /* Results and notes */
+      .stat-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; margin: 24px 0 16px; padding: 24px 16px; border-block: 1px solid var(--border-light); background: var(--surface-2); }
+      .stat-num { font-size: 24px; font-weight: 600; line-height: 1.4; }
+      .stat-label { margin-top: 8px; font-size: 13px; color: var(--text-faint); }
+      .highlight-note { margin-top: 16px; padding: 16px; border-left: 2px solid var(--border); background: var(--surface-2); color: var(--text-dim); font-size: 14px; }
+      .highlight-note b { color: var(--text); font-weight: 600; }
 
-  /* ---------- OVERVIEW FEATURE GRID ---------- */
-  .feat-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(260px,1fr)); gap:16px; }
-  .feat-card{ border:1px solid var(--border); background:var(--surface); border-radius:10px; padding:18px 20px; border-left:3px solid var(--teal); }
-  .feat-card h4{ font-family:var(--font-display); font-size:15px; font-weight:600; margin-bottom:8px; }
-  .feat-card p{ color:var(--text-dim); font-size:13.5px; }
+      /* Tables retain horizontal scrolling on small screens. */
+      .table-wrap { overflow-x: auto; margin-bottom: 24px; }
+      table.cost-table { width: 100%; min-width: 480px; border-collapse: collapse; font-size: 14px; font-variant-numeric: tabular-nums; }
+      table.cost-table th, table.cost-table td { padding: 12px 16px; border-bottom: 1px solid var(--border); text-align: left; vertical-align: top; }
+      table.cost-table th { background: var(--surface-2); color: var(--text); font-weight: 600; }
+      table.cost-table td { color: var(--text-dim); }
+      table.cost-table tr.total td { background: #fafafa; color: var(--text); font-weight: 600; }
 
-  /* ---------- ARCHITECTURE DIAGRAM ---------- */
-  .diagram-frame{
-    border:1px solid var(--border); background:var(--surface); border-radius:10px;
-    padding:16px; margin-bottom:30px; overflow-x:auto;
-  }
-  .diagram-frame svg{ width:100%; height:auto; min-width:640px; display:block; }
+      /* Checklists */
+      .checklist-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 24px 32px; }
+      .check-col h4 { margin-bottom: 12px; font-size: 16px; font-weight: 600; }
+      .check-col ul { list-style: none; }
+      .check-col li { position: relative; padding: 4px 0 4px 24px; color: var(--text-dim); font-size: 14px; }
+      .check-col li::before { content: "✓"; position: absolute; left: 0; color: var(--text-faint); }
 
-  .service-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(270px,1fr)); gap:14px; }
-  .service-card{ border:1px solid var(--border); background:var(--surface); border-radius:8px; padding:14px 16px; }
-  .service-card .svc-name{ font-family:var(--font-mono); font-size:13px; color:var(--teal); margin-bottom:6px; display:block; }
-  .service-card p{ color:var(--text-dim); font-size:13px; }
+      /* Native disclosure controls */
+      .incident { border-bottom: 1px solid var(--border); }
+      .incident summary { display: flex; align-items: center; gap: 12px; padding: 20px 8px; list-style: none; cursor: pointer; font-size: 16px; font-weight: 500; transition: background-color 150ms ease; }
+      .incident summary:hover { background: #fafafa; }
+      .incident summary::-webkit-details-marker { display: none; }
+      .incident summary .chev { margin-left: auto; flex-shrink: 0; color: var(--text-faint); font-size: 14px; transition: transform 150ms ease; }
+      .incident[open] summary .chev { transform: rotate(90deg); }
+      .incident-body { padding: 0 8px 24px; }
+      .incident-body h5 { margin: 16px 0 8px; font-size: 14px; font-weight: 600; }
+      .incident-body p, .incident-body li { color: var(--text-dim); font-size: 14px; line-height: 1.85; }
+      .incident-body ul { padding-left: 20px; }
 
-  /* ---------- TERMINAL / CODE BLOCK ---------- */
-  .term-block{ background:var(--surface); border:1px solid var(--border); border-radius:10px; overflow:hidden; margin:18px 0 26px; }
-  .term-titlebar{
-    display:flex; align-items:center; gap:8px; padding:9px 16px; border-bottom:1px solid var(--border);
-    background:var(--surface-2); font-family:var(--font-mono); font-size:11.5px; color:var(--text-faint);
-  }
-  .term-dot{ width:8px; height:8px; border-radius:50%; background:var(--grid); }
-  .term-body{ font-family:var(--font-mono); font-size:13px; padding:16px 18px; overflow-x:auto; white-space:pre; }
-  .term-body .c{ color:var(--text-faint); font-style:italic; }
-  .term-body .p{ color:var(--amber); }
+      /* Roadmap */
+      .roadmap-item + .roadmap-item { padding-top: 24px; margin-top: 24px; border-top: 1px solid var(--border-light); }
+      .roadmap-item h4 { margin-bottom: 16px; font-size: 17px; font-weight: 600; }
+      .roadmap-cols { display: grid; grid-template-columns: minmax(0, 1fr); gap: 24px 32px; }
+      .roadmap-cols h5 { margin-bottom: 8px; color: var(--text); font-size: 14px; font-weight: 600; }
+      .roadmap-cols ul { padding-left: 20px; }
+      .roadmap-cols li { margin-bottom: 8px; color: var(--text-dim); font-size: 14px; }
 
-  /* ---------- STAT GRID ---------- */
-  .stat-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(150px,1fr)); gap:14px; margin:20px 0 8px; }
-  .stat-card{ border:1px solid var(--border); background:var(--surface); border-radius:10px; padding:18px; text-align:center; }
-  .stat-num{ font-family:var(--font-display); font-size:26px; font-weight:700; color:var(--teal); }
-  .stat-label{ font-family:var(--font-mono); font-size:11.5px; color:var(--text-faint); margin-top:6px; }
-  .highlight-note{
-    font-family:var(--font-mono); font-size:13px; color:var(--text-dim);
-    border-left:3px solid var(--amber); padding:10px 14px; background:var(--surface); border-radius:0 8px 8px 0; margin-top:14px;
-  }
-  .highlight-note b{ color:var(--amber); }
-
-  /* ---------- TABLES ---------- */
-  table.cost-table{ width:100%; border-collapse:collapse; font-family:var(--font-mono); font-size:13px; margin-bottom:10px; }
-  table.cost-table th, table.cost-table td{ border:1px solid var(--border); padding:9px 12px; text-align:left; }
-  table.cost-table th{ background:var(--surface-2); color:var(--text-dim); font-weight:500; }
-  table.cost-table td{ color:var(--text-dim); }
-  table.cost-table tr.total td{ color:var(--amber); font-weight:600; }
-  .table-wrap{ overflow-x:auto; margin-bottom:26px; }
-
-  /* ---------- CHECKLIST ---------- */
-  .checklist-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(220px,1fr)); gap:16px; }
-  .check-col h4{ font-family:var(--font-mono); font-size:12.5px; color:var(--amber); margin-bottom:10px; }
-  .check-col ul{ list-style:none; }
-  .check-col li{ font-size:13.5px; color:var(--text-dim); padding:5px 0 5px 24px; position:relative; }
-  .check-col li::before{
-    content:'✓'; position:absolute; left:0; top:5px; width:16px; height:16px;
-    border:1px solid var(--border); border-radius:4px; color:var(--teal);
-    font-size:11px; display:flex; align-items:center; justify-content:center;
-  }
-
-  /* ---------- TROUBLESHOOTING (details) ---------- */
-  .incident{ border:1px solid var(--border); background:var(--surface); border-radius:10px; margin-bottom:12px; overflow:hidden; }
-  .incident summary{
-    list-style:none; cursor:pointer; padding:16px 20px; display:flex; align-items:center; gap:12px;
-    font-family:var(--font-display); font-weight:600; font-size:14.5px;
-  }
-  .incident summary::-webkit-details-marker{ display:none; }
-  .incident summary .sev{ width:8px; height:8px; border-radius:50%; background:var(--teal); flex:none; }
-  .incident summary .chev{ margin-left:auto; color:var(--text-faint); transition:transform .18s; font-family:var(--font-mono); font-size:12px; }
-  .incident[open] summary .chev{ transform:rotate(90deg); }
-  .incident .incident-body{ padding:0 20px 20px; border-top:1px solid var(--border); }
-  .incident .incident-body h5{ font-family:var(--font-mono); font-size:12px; color:var(--amber); margin:14px 0 6px; }
-  .incident .incident-body h5:first-child{ margin-top:16px; }
-  .incident .incident-body p, .incident .incident-body li{ color:var(--text-dim); font-size:13.5px; }
-  .incident .incident-body ul{ padding-left:18px; }
-
-  /* ---------- ROADMAP ---------- */
-  .roadmap-item{ border:1px solid var(--border); background:var(--surface); border-radius:10px; padding:20px 22px; margin-bottom:14px; }
-  .roadmap-item h4{ font-family:var(--font-display); font-size:15.5px; font-weight:600; margin-bottom:12px; }
-  .roadmap-cols{ display:grid; grid-template-columns:1fr 1fr; gap:18px; }
-  @media (max-width:640px){ .roadmap-cols{ grid-template-columns:1fr; } }
-  .roadmap-cols .col h5{ font-family:var(--font-mono); font-size:11.5px; margin-bottom:8px; }
-  .roadmap-cols .col.limit h5{ color:var(--red); }
-  .roadmap-cols .col.plan h5{ color:var(--amber); }
-  .roadmap-cols ul{ padding-left:16px; }
-  .roadmap-cols li{ font-size:13px; color:var(--text-dim); margin-bottom:5px; }
-
-  footer{
-    padding:40px 0 60px; text-align:center; font-family:var(--font-mono); font-size:12px; color:var(--text-faint);
-    display:flex; flex-direction:column; align-items:center; gap:14px;
-  }
-  .footer-back{
-    border:1px solid var(--border); padding:8px 16px; border-radius:6px; color:var(--text-dim); transition:border-color .15s, color .15s;
-  }
-  .footer-back:hover, .footer-back:focus-visible{ border-color:var(--teal); color:var(--teal); }
-
-  @media (max-width:560px){
-    .nav-inner{ padding:12px 18px; }
-    .wrap{ padding:0 18px; }
-    .hero{ padding:44px 0 36px; }
-    nav.links{ gap:14px; }
-  }
-  @media (prefers-reduced-motion: reduce){
-    *{ animation-duration:0.001ms !important; transition-duration:0.001ms !important; }
-    html{ scroll-behavior:auto; }
-  }
-  .github-link {
-    margin-top: 18px;
-  }
-
-  .github-link a {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 14px;
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    background: var(--surface);
-    color: var(--text-dim);
-    font-family: var(--font-mono);
-    font-size: 13px;
-    transition: all 0.2s ease;
-  }
-
-  .github-link a:hover {
-    color: var(--teal);
-    border-color: var(--teal);
-    transform: translateY(-1px);
-  }
-
-  .github-link a::before {
-    content: "↗";
-    color: var(--teal);
-  }
-</style>
+      footer { display: flex; flex-direction: column; align-items: center; gap: 16px; margin: 16px auto 0; padding: 24px 16px 32px; border-top: 1px solid var(--border); color: var(--text-faint); font-size: 13px; text-align: center; }
+      @media (min-width: 600px) {
+        .wrap, .nav-inner { padding-inline: 24px; }
+        section { padding-block: 48px; scroll-margin-top: 180px; }
+        .feat-grid, .service-grid, .roadmap-cols { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .checklist-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .stat-grid { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); padding-inline: 24px; }
+        .term-body { padding: 24px; }
+      }
+      @media (min-width: 960px) {
+        .wrap, .nav-inner { padding-inline: 32px; }
+        section { scroll-margin-top: 144px; }
+        .checklist-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after { transition: none !important; }
+      }
+    </style>
 </head>
 <body>
 
 <header>
   <div class="nav-inner">
-    <a class="back-link" href="index.html">← ~/sim-sohyeon</a>
+    <a class="back-link" href="index.html">← sim-sohyeon</a>
     <nav class="links">
       <a href="#overview">overview</a>
       <a href="#architecture">architecture</a>
@@ -275,7 +188,7 @@
     <div class="eyebrow">project // multi-region news platform</div>
     <h1 class="title">NewSugar</h1>
     <p class="subtitle">긴 뉴스를 간편하게 요약해주고, 퀴즈로 재미있게 소비하도록 돕는 뉴스 요약 서비스입니다.</p>
-    <div class="role-tag"><span class="status-dot"></span> role: 프론트엔드 개발 및 CI/CD 파이프라인 구축  · 인프라 설계</div>
+    <div class="role-tag"> role: 프론트엔드 개발 및 CI/CD 파이프라인 구축  · 인프라 설계</div>
     <div class="tag-row">
       <span class="tag">EKS (Kubernetes)</span><span class="tag">Aurora MySQL Global DB</span>
       <span class="tag">ElastiCache Redis</span><span class="tag">ALB · Route53 Failover</span>
@@ -294,7 +207,7 @@
   </section>
 
   <section id="overview">
-    <div class="section-head"><span class="path"># overview.tf</span><h2>문제정의 · 목표 · MVP</h2></div>
+    <div class="section-head"><h2>문제정의 · 목표 · MVP</h2></div>
     <p class="body-text">긴 뉴스 내용으로 인한 현대인의 낮은 뉴스 시청률 문제를 해결하고자, 길고 중복된 뉴스를 요약하고 흥미를 유도하는 서비스를 기획했습니다.</p>
     <ul class="plain" style="margin-top:10px;">
       <li><b style="color:var(--text)">비즈니스 목표:</b> 효율적이고 체계적인 정보 전달로 현대인이 뉴스를 더 쉽게 접하고 이해할 수 있는 접근성 확보</li>
@@ -312,7 +225,7 @@
   </section>
 
   <section id="architecture">
-    <div class="section-head"><span class="path"># architecture.tf</span><h2>아키텍처 &amp; 기술 선택</h2></div>
+    <div class="section-head"><h2>아키텍처 &amp; 기술 선택</h2></div>
     <div class="diagram-frame fade-in" style="margin-top: 20px;">
       <img src="newsugar-aws.png" alt="NewSugar AWS Multi-Region Architecture Diagram" style="width: 100%; height: auto; border-radius: 6px; display: block;">
     </div>
@@ -332,7 +245,7 @@
   </section>
 
   <section id="implementation">
-    <div class="section-head"><span class="path"># implementation.tf</span><h2>핵심 구현 기능</h2></div>
+    <div class="section-head"><h2>핵심 구현 기능</h2></div>
 
     <h3 class="sub-head">퀴즈 시스템 프론트엔드 &amp; API 연동</h3>
     <div class="feat-grid fade-in">
@@ -368,11 +281,11 @@
   </section>
 
   <section id="operations">
-    <div class="section-head"><span class="path"># operations.tf</span><h2>운영 &amp; 검증</h2></div>
+    <div class="section-head"><h2>운영 &amp; 검증</h2></div>
 
     <h3 class="sub-head">배포 프로세스</h3>
     <div class="term-block fade-in">
-      <div class="term-titlebar"><span class="term-dot"></span><span class="term-dot"></span><span class="term-dot"></span><span>infra · setup / destroy</span></div>
+      <div class="term-titlebar"><span>infra · setup / destroy</span></div>
       <div class="term-body"><span class="c"># 서울 리전 구축 (t3 인스턴스)</span>
 chmod +x setup.sh
 ./setup.sh seoul
@@ -426,69 +339,69 @@ chmod +x destroy.sh
   </section>
 
   <section id="troubleshooting">
-    <div class="section-head"><span class="path"># troubleshooting.tf</span><h2>트러블슈팅</h2></div>
+    <div class="section-head"><h2>트러블슈팅</h2></div>
 
-    <details class="incident fade-in"><summary><span class="sev"></span>API Response 의미 매칭 문제<span class="chev">▸</span></summary>
+    <details class="incident fade-in"><summary>API Response 의미 매칭 문제<span class="chev">▸</span></summary>
       <div class="incident-body"><h5>원인</h5><p>퀴즈 결과 조회 API의 total/correct 필드를 누적 개수로 잘못 이해</p><h5>해결</h5><p>실제 의미(해당 회차 기준 1/0/true·false)에 맞게 필드 정의를 수정</p></div>
     </details>
-    <details class="incident fade-in"><summary><span class="sev"></span>React 무한 루프 에러<span class="chev">▸</span></summary>
+    <details class="incident fade-in"><summary>React 무한 루프 에러<span class="chev">▸</span></summary>
       <div class="incident-body"><h5>원인</h5><p>useForm 설정 객체가 렌더링마다 새로 생성되어 useEffect 무한 재실행, 조건부 리턴이 훅보다 위에 위치해 Rules of Hooks 위반</p><h5>해결</h5><p>설정 객체를 useMemo로 감싸고, 조건부 리턴을 모든 훅 선언 아래로 이동</p></div>
     </details>
-    <details class="incident fade-in"><summary><span class="sev"></span>로그인 시 에러 페이지 플래시 문제<span class="chev">▸</span></summary>
+    <details class="incident fade-in"><summary>로그인 시 에러 페이지 플래시 문제<span class="chev">▸</span></summary>
       <div class="incident-body"><h5>원인</h5><p>렌더링 중 checkAuth()를 직접 호출해 상태를 변경, useEffect로도 중복 실행</p><h5>해결</h5><p>렌더링 중 직접 호출 대신 useAuth의 isLoggedIn 상태값 사용</p></div>
     </details>
-    <details class="incident fade-in"><summary><span class="sev"></span>AWS Load Balancer Controller Webhook 에러<span class="chev">▸</span></summary>
+    <details class="incident fade-in"><summary>AWS Load Balancer Controller Webhook 에러<span class="chev">▸</span></summary>
       <div class="incident-body"><h5>원인</h5><p>Controller가 완전히 준비되기 전에 ArgoCD가 배포되어 타이밍 이슈 발생</p><h5>해결</h5><p>depends_on 추가로 순서를 보장하고 타임아웃을 600초로 증가</p></div>
     </details>
-    <details class="incident fade-in"><summary><span class="sev"></span>RDS Global Cluster 엔진 버전 에러<span class="chev">▸</span></summary>
+    <details class="incident fade-in"><summary>RDS Global Cluster 엔진 버전 에러<span class="chev">▸</span></summary>
       <div class="incident-body"><h5>원인</h5><p>사용한 Aurora 엔진 버전이 Global Database를 지원하지 않음</p><h5>해결</h5><p>terraform.tfvars에서 지원 버전으로 엔진 버전 변경</p></div>
     </details>
-    <details class="incident fade-in"><summary><span class="sev"></span>EKS Control Plane ↔ Worker Node 통신 에러<span class="chev">▸</span></summary>
+    <details class="incident fade-in"><summary>EKS Control Plane ↔ Worker Node 통신 에러<span class="chev">▸</span></summary>
       <div class="incident-body"><h5>원인</h5><p>Worker Node 보안 그룹이 8080 외 포트(Webhook용 9443 포함)를 차단</p><h5>해결</h5><p>Launch Template의 vpc_security_group_ids에 Cluster Security Group을 추가</p></div>
     </details>
-    <details class="incident fade-in"><summary><span class="sev"></span>EKS Node Group 업데이트 실패<span class="chev">▸</span></summary>
+    <details class="incident fade-in"><summary>EKS Node Group 업데이트 실패<span class="chev">▸</span></summary>
       <div class="incident-body"><h5>원인</h5><p>기존 노드의 파드 배수(Drain) 실패로 업데이트 프로세스 중단</p><h5>해결</h5><p>aws_eks_node_group에 force_update_version = true 추가</p></div>
     </details>
-    <details class="incident fade-in"><summary><span class="sev"></span>Terraform 문법 에러<span class="chev">▸</span></summary>
+    <details class="incident fade-in"><summary>Terraform 문법 에러<span class="chev">▸</span></summary>
       <div class="incident-body"><h5>원인</h5><p>인수 2개 이상 블록을 한 줄에 작성, 세미콜론 사용</p><h5>해결</h5><p>set 블록을 여러 줄로 분리하고 세미콜론을 줄바꿈으로 변경</p></div>
     </details>
-    <details class="incident fade-in"><summary><span class="sev"></span>EKS 접속 권한 에러<span class="chev">▸</span></summary>
+    <details class="incident fade-in"><summary>EKS 접속 권한 에러<span class="chev">▸</span></summary>
       <div class="incident-body"><h5>원인</h5><p>EKS는 클러스터 생성자에게만 기본 권한을 부여, 추가 사용자는 명시적 RBAC 매핑 필요</p><h5>해결</h5><p>aws-auth ConfigMap을 정의해 팀원 IAM ARN을 system:masters 그룹에 매핑</p></div>
     </details>
-    <details class="incident fade-in"><summary><span class="sev"></span>Terraform Destroy 시 로드밸런서 잔존 문제<span class="chev">▸</span></summary>
+    <details class="incident fade-in"><summary>Terraform Destroy 시 로드밸런서 잔존 문제<span class="chev">▸</span></summary>
       <div class="incident-body"><h5>원인</h5><p>AWS Load Balancer Controller가 생성한 ALB는 Terraform State에 기록되지 않아, 삭제되지 않은 ALB가 Subnet을 점유</p><h5>해결</h5><p>콘솔에서 잔존 리소스를 수동 삭제 후 terraform refresh, 이후 좀비 리소스 자동 탐지·삭제 스크립트 개발</p></div>
     </details>
-    <details class="incident fade-in"><summary><span class="sev"></span>Helm Release 삭제 오류<span class="chev">▸</span></summary>
+    <details class="incident fade-in"><summary>Helm Release 삭제 오류<span class="chev">▸</span></summary>
       <div class="incident-body"><h5>원인</h5><p>클러스터는 수동 삭제됐지만 State에는 Helm 리소스가 "관리 중"으로 남아있음</p><h5>해결</h5><p>terraform state rm으로 해당 리소스를 강제 제거 후 refresh·destroy</p></div>
     </details>
-    <details class="incident fade-in"><summary><span class="sev"></span>VPC 삭제 무한 대기<span class="chev">▸</span></summary>
+    <details class="incident fade-in"><summary>VPC 삭제 무한 대기<span class="chev">▸</span></summary>
       <div class="incident-body"><h5>원인</h5><p>삭제된 로드밸런서가 남긴 ENI가 VPC 삭제를 방해</p><h5>해결</h5><p>Terraform 중단 후 콘솔에서 VPC 직접 삭제, terraform refresh 실행</p></div>
     </details>
-    <details class="incident fade-in"><summary><span class="sev"></span>퀴즈 채점 오류<span class="chev">▸</span></summary>
+    <details class="incident fade-in"><summary>퀴즈 채점 오류<span class="chev">▸</span></summary>
       <div class="incident-body"><h5>원인</h5><p>백엔드와 프론트엔드의 채점 인덱스 방식(0-based/1-based) 불일치</p><h5>해결</h5><p>양쪽 채점 방식을 1-based로 통일</p></div>
     </details>
-    <details class="incident fade-in"><summary><span class="sev"></span>프론트엔드 접속 에러<span class="chev">▸</span></summary>
+    <details class="incident fade-in"><summary>프론트엔드 접속 에러<span class="chev">▸</span></summary>
       <div class="incident-body"><h5>원인</h5><p>기존 로드밸런서 연결 방식의 설정 문제</p><h5>해결</h5><p>Nginx Ingress로 전환하고 internet-facing 설정 추가</p></div>
     </details>
-    <details class="incident fade-in"><summary><span class="sev"></span>백엔드 파드 기동 실패<span class="chev">▸</span></summary>
+    <details class="incident fade-in"><summary>백엔드 파드 기동 실패<span class="chev">▸</span></summary>
       <div class="incident-body"><h5>원인</h5><p>RDS 주소 변경 후 Kubernetes Secret이 구버전 유지, ECR 이미지 태그 불일치</p><h5>해결</h5><p>Secret에 최신 JDBC URL·Credential 반영, 이미지 태그 최신화 후 rollout restart</p></div>
     </details>
-    <details class="incident fade-in"><summary><span class="sev"></span>구글 소셜 로그인 에러<span class="chev">▸</span></summary>
+    <details class="incident fade-in"><summary>구글 소셜 로그인 에러<span class="chev">▸</span></summary>
       <div class="incident-body"><h5>원인</h5><p>JWT 형식이 아닌 토큰을 JWT로 파싱 시도</p><h5>해결</h5><p>토큰 검증 로직에서 JWT 형식 확인 후 파싱하도록 수정</p></div>
     </details>
-    <details class="incident fade-in"><summary><span class="sev"></span>ArgoCD 재배포 에러<span class="chev">▸</span></summary>
+    <details class="incident fade-in"><summary>ArgoCD 재배포 에러<span class="chev">▸</span></summary>
       <div class="incident-body"><h5>원인</h5><p>Git의 secrets.yaml에 잘못된 RDS 비밀번호가 남아있어 ArgoCD가 이를 그대로 참조</p><h5>해결</h5><p>새 RDS 비밀번호로 secrets.yaml 수정</p></div>
     </details>
-    <details class="incident fade-in"><summary><span class="sev"></span>요약 생성 시 최근 뉴스 반영 오류<span class="chev">▸</span></summary>
+    <details class="incident fade-in"><summary>요약 생성 시 최근 뉴스 반영 오류<span class="chev">▸</span></summary>
       <div class="incident-body"><h5>원인</h5><p>prompt에 category만 포함하고 실제 뉴스 summary 값을 포함하지 않음</p><h5>해결</h5><p>prompt에 joinedSummaries 값을 추가로 포함</p></div>
     </details>
-    <details class="incident fade-in"><summary><span class="sev"></span>GitHub Action build/libs NOT FOUND 에러<span class="chev">▸</span></summary>
+    <details class="incident fade-in"><summary>GitHub Action build/libs NOT FOUND 에러<span class="chev">▸</span></summary>
       <div class="incident-body"><h5>원인</h5><p>build.gradle에서 빌드 디렉토리를 임시 경로로 지정했으나 Dockerfile은 기본 경로를 참조</p><h5>해결</h5><p>buildDir 지정 코드를 삭제해 Gradle 기본 디렉토리(build/libs)에 JAR 생성</p></div>
     </details>
   </section>
 
   <section id="roadmap">
-    <div class="section-head"><span class="path"># roadmap.tf</span><h2>한계 &amp; 개선 계획</h2></div>
+    <div class="section-head"><h2>한계 &amp; 개선 계획</h2></div>
 
     <div class="roadmap-item fade-in">
       <h4>인프라</h4>

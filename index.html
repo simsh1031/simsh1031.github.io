@@ -6,511 +6,388 @@
     <title>sim-sohyeon/profile</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
     <style>
       :root {
-        --bg: #0a1220;
-        --surface: #0f1a2b;
-        --surface-2: #121f33;
-        --grid: #1b2a40;
-        --border: #233450;
-        --text: #e7ecf3;
-        --text-dim: #7e92ac;
-        --text-faint: #54667f;
-        --teal: #4fd1c5;
-        --amber: #e8a33d;
-        --font-display: "Space Grotesk", sans-serif;
-        --font-body: "Inter", sans-serif;
-        --font-mono: "JetBrains Mono", monospace;
+        color-scheme: light;
+        --background: #ffffff;
+        --surface: #f8f9fa;
+        --border: #e5e7eb;
+        --border-light: #f0f1f3;
+        --text: #1f2937;
+        --secondary: #4b5563;
+        --muted: #6b7280;
+        --accent: #c41e3a;
       }
 
       * {
-        margin: 0;
-        padding: 0;
         box-sizing: border-box;
       }
-
-      html {
-        scroll-behavior: smooth;
-      }
-
       body {
-        background:
-          radial-gradient(circle at 1px 1px, var(--grid) 1px, transparent 0) 0
-            0/28px 28px,
-          var(--bg);
+        margin: 0;
+        background: var(--background);
         color: var(--text);
-        font-family: var(--font-body);
-        line-height: 1.6;
+        font-family: "Inter", "Noto Sans KR", system-ui, sans-serif;
+        font-size: 15px;
+        line-height: 1.75;
         -webkit-font-smoothing: antialiased;
+        overflow-wrap: anywhere;
       }
-
+      h1,
+      h2,
+      h3,
+      p,
+      dl,
+      dd {
+        margin: 0;
+      }
       a {
         color: inherit;
         text-decoration: none;
       }
-
+      a:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 4px;
+        border-radius: 4px;
+      }
       ::selection {
-        background: var(--teal);
-        color: #04211f;
+        background: #f8e9ed;
+        color: var(--text);
       }
-
-      .wrap {
-        max-width: 920px;
+      .wrap,
+      .nav-inner {
+        max-width: 1080px;
         margin: 0 auto;
-        padding: 0 28px;
+        padding-inline: 16px;
       }
 
-      /* ---------- NAV ---------- */
+      /* Navigation */
       header {
         position: sticky;
         top: 0;
-        z-index: 50;
-        background: rgba(10, 18, 32, 0.86);
-        backdrop-filter: blur(10px);
+        z-index: 10;
+        background: var(--background);
         border-bottom: 1px solid var(--border);
       }
       .nav-inner {
-        max-width: 920px;
-        margin: 0 auto;
-        padding: 14px 28px;
         display: flex;
+        flex-wrap: wrap;
         align-items: center;
         justify-content: space-between;
-        gap: 16px;
+        gap: 4px 32px;
+        padding-block: 12px;
       }
-      .nav-path {
-        font-family: var(--font-mono);
-        font-size: 13px;
-        color: var(--text-dim);
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        white-space: nowrap;
-      }
-      .status-dot {
-        width: 7px;
-        height: 7px;
-        border-radius: 50%;
-        background: var(--teal);
-        box-shadow: 0 0 0 0 rgba(79, 209, 197, 0.6);
-        animation: pulse 2.4s infinite;
-        flex: none;
-      }
-      @keyframes pulse {
-        0% {
-          box-shadow: 0 0 0 0 rgba(79, 209, 197, 0.55);
-        }
-        70% {
-          box-shadow: 0 0 0 7px rgba(79, 209, 197, 0);
-        }
-        100% {
-          box-shadow: 0 0 0 0 rgba(79, 209, 197, 0);
-        }
+      .nav-brand {
+        font-size: 16px;
+        font-weight: 600;
       }
       nav.links {
         display: flex;
-        gap: 22px;
-        font-family: var(--font-mono);
-        font-size: 13px;
-        color: var(--text-dim);
-        overflow-x: auto;
+        flex-wrap: wrap;
+        gap: 0 16px;
       }
       nav.links a {
-        white-space: nowrap;
-        transition: color 0.15s;
-        padding: 4px 2px;
+        display: inline-flex;
+        align-items: center;
+        min-height: 44px;
+        font-size: 14px;
+        color: var(--secondary);
+        transition: color 150ms ease;
       }
-      nav.links a:hover,
-      nav.links a:focus-visible {
-        color: var(--teal);
-      }
-      nav.links a:focus-visible {
-        outline: 1px solid var(--teal);
-        outline-offset: 4px;
-        border-radius: 2px;
+      nav.links a:hover {
+        color: var(--accent);
       }
 
-      /* ---------- HERO ---------- */
+      /* Profile introduction */
       .hero {
-        padding: 76px 0 56px;
+        padding-block: 32px;
       }
       .eyebrow {
-        font-family: var(--font-mono);
-        font-size: 12.5px;
-        letter-spacing: 0.06em;
-        color: var(--amber);
-        text-transform: uppercase;
-        margin-bottom: 18px;
-        display: flex;
-        align-items: center;
-        gap: 10px;
+        margin-bottom: 12px;
+        color: var(--muted);
+        font-size: 13px;
       }
-      .eyebrow::before {
-        content: "//";
-        color: var(--text-faint);
-      }
-
       h1.name {
-        font-family: var(--font-display);
+        font-size: 28px;
         font-weight: 700;
-        font-size: clamp(42px, 8vw, 68px);
-        line-height: 1.05;
-        letter-spacing: -0.01em;
-        margin-bottom: 14px;
+        line-height: 1.35;
+        letter-spacing: -0.02em;
       }
       .role-line {
-        font-family: var(--font-display);
-        font-size: clamp(17px, 2.4vw, 21px);
-        color: var(--teal);
+        margin-top: 8px;
+        font-size: 18px;
         font-weight: 500;
-        margin-bottom: 22px;
       }
       .hero-desc {
-        color: var(--text-dim);
-        max-width: 560px;
-        font-size: 15.5px;
-        margin-bottom: 38px;
+        max-width: 720px;
+        margin-top: 16px;
+        color: var(--secondary);
+        line-height: 1.9;
       }
-
-      /* terraform block signature element */
-      .tf-block {
+      .profile-details {
+        display: grid;
+        margin-top: 24px;
+        padding: 8px 16px;
         background: var(--surface);
-        border: 1px solid var(--border);
-        border-radius: 10px;
-        overflow: hidden;
-        box-shadow: 0 20px 50px -20px rgba(0, 0, 0, 0.6);
+        border-block: 1px solid var(--border-light);
+        border-left: 1px solid var(--accent);
       }
-      .tf-titlebar {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        padding: 10px 16px;
-        border-bottom: 1px solid var(--border);
-        background: var(--surface-2);
-        font-family: var(--font-mono);
-        font-size: 12px;
-        color: var(--text-faint);
-      }
-      .tf-dot {
-        width: 9px;
-        height: 9px;
-        border-radius: 50%;
-        background: var(--grid);
-      }
-      .tf-filename {
-        margin-left: 6px;
-      }
-      .tf-body {
-        font-family: var(--font-mono);
-        font-size: 13.5px;
-        padding: 20px 22px 24px;
-        overflow-x: auto;
-        white-space: pre;
-        min-height: 186px;
-      }
-      .tf-key {
-        color: var(--text-dim);
-      }
-      .tf-str {
-        color: var(--teal);
-      }
-      .tf-punc {
-        color: var(--text-faint);
-      }
-      .tf-comment {
-        color: var(--text-faint);
-        font-style: italic;
-      }
-      .cursor {
-        display: inline-block;
-        width: 8px;
-        height: 16px;
-        background: var(--teal);
-        vertical-align: -3px;
-        animation: blink 1s step-end infinite;
-      }
-      @keyframes blink {
-        50% {
-          opacity: 0;
-        }
-      }
-
-      /* ---------- SECTION SHELL ---------- */
-      section {
-        padding: 64px 0;
-        border-top: 1px solid var(--border);
-      }
-      .section-head {
-        display: flex;
+      .profile-detail {
+        display: grid;
+        grid-template-columns: 80px minmax(0, 1fr);
         align-items: baseline;
         gap: 12px;
-        margin-bottom: 30px;
-        font-family: var(--font-mono);
+        padding-block: 12px;
+        font-size: 14px;
       }
-      .section-head .path {
-        font-size: 13px;
-        color: var(--amber);
+      .profile-detail + .profile-detail {
+        border-top: 1px solid var(--border-light);
       }
-      .section-head h2 {
-        font-family: var(--font-display);
-        font-size: 23px;
-        font-weight: 600;
-        color: var(--text);
-      }
-      .fade-in {
-        opacity: 0;
-        transform: translateY(14px);
-        transition:
-          opacity 0.6s ease,
-          transform 0.6s ease;
-      }
-      .fade-in.visible {
-        opacity: 1;
-        transform: translateY(0);
+      .profile-detail dt {
+        color: var(--muted);
       }
 
-      /* ---------- ABOUT ---------- */
+      /* Section headings and reading rhythm */
+      section {
+        padding-block: 32px;
+        scroll-margin-top: 176px;
+      }
+      .section-head {
+        position: relative;
+        padding-bottom: 16px;
+        margin-bottom: 24px;
+        border-bottom: 1px solid var(--border);
+      }
+      .section-head::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -1px;
+        width: 24px;
+        border-bottom: 1px solid var(--accent);
+      }
+      .section-head h2 {
+        font-size: 20px;
+        font-weight: 600;
+        line-height: 1.4;
+      }
       .about-body {
-        color: var(--text-dim);
-        font-size: 15.5px;
-        max-width: 640px;
+        max-width: 760px;
+        color: var(--secondary);
+        line-height: 1.9;
       }
       .about-body p + p {
-        margin-top: 14px;
+        margin-top: 16px;
       }
       .about-body strong {
         color: var(--text);
         font-weight: 600;
       }
 
-      /* ---------- EXPERIENCE ---------- */
-      .exp-item {
-        border: 1px solid var(--border);
-        background: var(--surface);
-        border-radius: 10px;
-        padding: 22px 24px;
-        margin-bottom: 18px;
-        border-left: 3px solid var(--teal);
+      /* Experience */
+      .exp-item + .exp-item {
+        margin-top: 24px;
+        padding-top: 24px;
+        border-top: 1px solid var(--border-light);
       }
       .exp-top {
         display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        align-items: baseline;
-        gap: 8px 16px;
-        margin-bottom: 10px;
+        flex-direction: column;
+        gap: 8px;
       }
       .exp-title {
-        font-family: var(--font-display);
         font-size: 17px;
         font-weight: 600;
       }
       .exp-date {
-        font-family: var(--font-mono);
-        font-size: 12.5px;
-        color: var(--text-faint);
+        color: var(--muted);
+        font-size: 13px;
+        font-variant-numeric: tabular-nums;
       }
       .exp-projects {
         display: flex;
         flex-wrap: wrap;
         gap: 8px;
-        margin: 12px 0 14px;
+        margin-block: 12px;
       }
       .chip {
-        font-family: var(--font-mono);
-        font-size: 12px;
-        color: var(--text);
-        background: var(--surface-2);
-        border: 1px solid var(--border);
         padding: 4px 10px;
-        border-radius: 5px;
-      }
-      .chip::before {
-        content: "+ ";
-        color: var(--teal);
+        background: var(--surface);
+        border-radius: 4px;
+        color: var(--secondary);
+        font-size: 13px;
       }
       .exp-stack {
-        font-family: var(--font-mono);
-        font-size: 12.5px;
-        color: var(--text-faint);
-        line-height: 1.9;
+        color: var(--secondary);
+        font-size: 14px;
       }
-      .exp-stack span.k {
-        color: var(--text-dim);
+      .exp-stack .k {
+        margin-right: 8px;
+        color: var(--muted);
       }
 
-      /* ---------- STACK ---------- */
-      .stack-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-        gap: 16px;
-      }
+      /* Skills: simple category rows */
       .stack-group {
-        border: 1px solid var(--border);
-        background: var(--surface);
-        border-radius: 10px;
-        padding: 18px 20px;
+        display: grid;
+        gap: 12px;
+        padding-block: 16px;
+      }
+      .stack-group:first-child {
+        padding-top: 0;
+      }
+      .stack-group:last-child {
+        padding-bottom: 0;
+      }
+      .stack-group + .stack-group {
+        border-top: 1px solid var(--border-light);
       }
       .stack-group h3 {
-        font-family: var(--font-mono);
-        font-size: 12.5px;
-        color: var(--amber);
-        text-transform: lowercase;
-        margin-bottom: 12px;
-        letter-spacing: 0.02em;
-      }
-      .stack-group h3::before {
-        content: "kind: ";
-        color: var(--text-faint);
+        font-size: 16px;
+        font-weight: 500;
       }
       .tag-row {
         display: flex;
         flex-wrap: wrap;
-        gap: 8px;
+        gap: 8px 24px;
       }
       .tag {
-        font-family: var(--font-mono);
-        font-size: 12px;
-        padding: 5px 10px;
-        border-radius: 5px;
-        background: var(--surface-2);
-        border: 1px solid var(--border);
-        color: var(--text-dim);
+        color: var(--secondary);
+        font-size: 14px;
       }
 
-      /* ---------- PROJECTS ---------- */
+      /* Projects: full-width links */
       .proj-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-        gap: 16px;
+        border-bottom: 1px solid var(--border-light);
       }
       .proj-card {
-        border: 1px solid var(--border);
-        background: var(--surface);
-        border-radius: 10px;
-        padding: 20px 22px;
         display: flex;
         flex-direction: column;
-        transition:
-          border-color 0.18s,
-          transform 0.18s;
+        gap: 12px;
+        padding: 20px 8px;
+        border-top: 1px solid var(--border-light);
+        transition: background-color 150ms ease;
+      }
+      .proj-card:first-child {
+        border-top: 0;
       }
       .proj-card:hover,
-      .proj-card:focus-within {
-        border-color: var(--teal);
-        transform: translateY(-3px);
+      .proj-card:focus-visible {
+        background: #fafafa;
       }
       .proj-top {
         display: flex;
-        justify-content: space-between;
         align-items: center;
-        margin-bottom: 10px;
+        gap: 12px;
       }
       .proj-name {
-        font-family: var(--font-display);
+        font-size: 17px;
         font-weight: 600;
-        font-size: 16.5px;
       }
       .proj-status {
-        font-family: var(--font-mono);
-        font-size: 11px;
-        color: var(--teal);
-        display: flex;
-        align-items: center;
-        gap: 6px;
-      }
-      .proj-status .status-dot {
-        width: 6px;
-        height: 6px;
+        color: var(--muted);
+        font-size: 12px;
       }
       .proj-link {
-        margin-top: auto;
-        padding-top: 14px;
-        font-family: var(--font-mono);
-        font-size: 12.5px;
-        color: var(--text-dim);
         display: inline-flex;
         align-items: center;
-        gap: 6px;
+        gap: 8px;
+        color: var(--secondary);
+        font-size: 14px;
       }
-      .proj-card:hover .proj-link,
-      .proj-card:focus-within .proj-link {
-        color: var(--teal);
-      }
-      .proj-link .arrow {
-        transition: transform 0.18s;
-      }
-      .proj-card:hover .arrow {
-        transform: translateX(3px);
+      .proj-card:hover .proj-link {
+        color: var(--accent);
       }
 
-      /* ---------- CONTACT ---------- */
-      .contact-block {
-        background: var(--surface);
-        border: 1px solid var(--border);
-        border-radius: 10px;
-        overflow: hidden;
-      }
-      .contact-body {
-        font-family: var(--font-mono);
-        font-size: 13.5px;
-        padding: 22px 24px;
-      }
+      /* Contact */
       .contact-row {
-        display: flex;
-        gap: 10px;
-        padding: 6px 0;
-        flex-wrap: wrap;
+        display: grid;
+        grid-template-columns: 80px minmax(0, 1fr);
+        gap: 16px;
+        align-items: baseline;
       }
       .contact-row .k {
-        color: var(--text-dim);
-        min-width: 70px;
+        color: var(--muted);
+        font-size: 14px;
       }
       .contact-row .v {
-        color: var(--teal);
+        width: fit-content;
+        padding-block: 10px;
+        color: #2563eb;
+        font-size: 14px;
       }
-      .contact-row a.v:hover,
-      .contact-row a.v:focus-visible {
+      .contact-row a:hover {
         text-decoration: underline;
+        text-underline-offset: 4px;
       }
-
       footer {
-        padding: 36px 0 60px;
-        text-align: center;
-        font-family: var(--font-mono);
-        font-size: 12px;
-        color: var(--text-faint);
+        margin-top: 16px;
+        padding-block: 24px 32px;
+        border-top: 1px solid var(--border);
+        color: var(--muted);
+        font-size: 13px;
       }
 
-      @media (max-width: 560px) {
+      @media (min-width: 600px) {
+        .wrap,
         .nav-inner {
-          padding: 12px 18px;
+          padding-inline: 24px;
         }
-        .wrap {
-          padding: 0 18px;
+        section {
+          scroll-margin-top: 136px;
         }
-        .hero {
-          padding: 52px 0 40px;
+        .hero,
+        section {
+          padding-block: 48px;
         }
-        .tf-body {
-          font-size: 12px;
-          padding: 16px;
+        .profile-details {
+          padding: 8px 24px;
         }
-        nav.links {
+        .profile-detail {
+          grid-template-columns: 112px minmax(0, 1fr);
+        }
+        .exp-top {
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: baseline;
           gap: 16px;
         }
-      }
-
-      @media (prefers-reduced-motion: reduce) {
-        * {
-          animation-duration: 0.001ms !important;
-          transition-duration: 0.001ms !important;
+        .exp-date {
+          flex-shrink: 0;
         }
-        html {
-          scroll-behavior: auto;
+        .stack-group {
+          grid-template-columns: 144px minmax(0, 1fr);
+          gap: 24px;
+        }
+        .proj-card {
+          flex-direction: row;
+          align-items: center;
+          justify-content: space-between;
+          gap: 24px;
+          padding-inline: 16px;
+        }
+        .proj-link {
+          flex-shrink: 0;
+        }
+      }
+      @media (min-width: 960px) {
+        .wrap,
+        .nav-inner {
+          padding-inline: 32px;
+        }
+        nav.links {
+          gap: 24px;
+        }
+        section {
+          scroll-margin-top: 96px;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          transition: none !important;
         }
       }
     </style>
@@ -518,22 +395,20 @@
   <body>
     <header>
       <div class="nav-inner">
-        <div class="nav-path">
-          <span class="status-dot"></span> ~/sim-sohyeon/profile
-        </div>
+        <div class="nav-brand">Sim Sohyeon</div>
         <nav class="links">
-          <a href="#about">about.tf</a>
-          <a href="#experience">experience.tf</a>
-          <a href="#stack">stack.tf</a>
-          <a href="#projects">projects.tf</a>
-          <a href="#contact">outputs.tf</a>
+          <a href="#about">About</a>
+          <a href="#experience">Experience</a>
+          <a href="#stack">Tech Stack</a>
+          <a href="#projects">Projects</a>
+          <a href="#contact">Contact</a>
         </nav>
       </div>
     </header>
 
     <main class="wrap">
-      <section class="hero" style="border-top: none">
-        <div class="eyebrow">status: actively learning &amp; deploying</div>
+      <section class="hero">
+        <div class="eyebrow">actively learning &amp; deploying</div>
         <h1 class="name">Sim Sohyeon</h1>
         <div class="role-line">Cloud · Backend · DevOps Engineer</div>
         <p class="hero-desc">
@@ -543,27 +418,41 @@
           생애주기를 다루고자 합니다.
         </p>
 
-        <div class="tf-block">
-          <div class="tf-titlebar">
-            <span class="tf-dot"></span><span class="tf-dot"></span
-            ><span class="tf-dot"></span>
-            <span class="tf-filename">profile/main.tf</span>
+        <dl class="profile-details">
+          <div class="profile-detail">
+            <dt>이름</dt>
+            <dd>심소현</dd>
           </div>
-          <div class="tf-body" id="tfBody"></div>
-        </div>
+          <div class="profile-detail">
+            <dt>직무</dt>
+            <dd>Cloud · Backend · DevOps Engineer</dd>
+          </div>
+          <div class="profile-detail">
+            <dt>학교</dt>
+            <dd>서강대학교 컴퓨터공학과</dd>
+          </div>
+          <div class="profile-detail">
+            <dt>시작</dt>
+            <dd>2023-03</dd>
+          </div>
+          <div class="profile-detail">
+            <dt>상태</dt>
+            <dd>provisioning → always_learning</dd>
+          </div>
+        </dl>
       </section>
 
       <section id="about">
         <div class="section-head">
-          <span class="path"># about.tf</span>
           <h2>About</h2>
         </div>
-        <div class="about-body fade-in">
+        <div class="about-body">
           <p>
             <strong>서강대학교 컴퓨터공학과</strong>에 재학 중이며, 2023년부터
             컴퓨터공학을 전공하고 있습니다. AWS 기반 DevOps 부트캠프와 인턴십을
             통해 인프라를 직접 설계·구축하고, Docker, Kubernetes, Terraform으로
-            인프라 구성과 CI/CD 파이프라인을 구축한 경험이 있습니다.
+            인프라 구성과 Github Actions를 통한 CI/CD 파이프라인을 구축한 경험이
+            있습니다.
           </p>
           <p>
             Java Spring Boot 기반 백엔드와 React 기반 프론트엔드도 함께 다루며
@@ -576,11 +465,10 @@
 
       <section id="experience">
         <div class="section-head">
-          <span class="path"># experience.tf</span>
           <h2>Experience</h2>
         </div>
 
-        <div class="exp-item fade-in">
+        <div class="exp-item">
           <div class="exp-top">
             <div class="exp-title">
               멋쟁이사자처럼 클라우드 엔지니어링 부트캠프
@@ -592,12 +480,12 @@
             <span class="chip">NewSugar</span>
           </div>
           <div class="exp-stack">
-            <span class="k">stack:</span> AWS · Docker · Kubernetes · Terraform
-            · GitHub Actions · Spring Boot · React
+            <span class="k">기술</span> AWS · Docker · Kubernetes · Terraform ·
+            GitHub Actions · Spring Boot · React
           </div>
         </div>
 
-        <div class="exp-item fade-in">
+        <div class="exp-item">
           <div class="exp-top">
             <div class="exp-title">멋사 로켓단 인턴십 - wooriteam</div>
             <div class="exp-date">2026.06 ~ 2026.07</div>
@@ -609,17 +497,16 @@
             <span class="chip">Terraform</span>
           </div>
           <div class="exp-stack">
-            <span class="k">role:</span> 백엔드·프론트엔드·AWS 인프라 전반 담당
+            <span class="k">담당</span> 백엔드·프론트엔드·AWS 인프라 전반 담당
           </div>
         </div>
       </section>
 
       <section id="stack">
         <div class="section-head">
-          <span class="path"># stack.tf</span>
           <h2>Tech Stack</h2>
         </div>
-        <div class="stack-grid fade-in">
+        <div class="stack-grid">
           <div class="stack-group">
             <h3>cloud</h3>
             <div class="tag-row"><span class="tag">AWS</span></div>
@@ -653,16 +540,12 @@
 
       <section id="projects">
         <div class="section-head">
-          <span class="path"># projects.tf</span>
           <h2>Projects</h2>
         </div>
-        <div class="proj-grid fade-in">
+        <div class="proj-grid">
           <a class="proj-card" href="travelog.html">
             <div class="proj-top">
               <span class="proj-name">Travelog</span>
-              <span class="proj-status"
-                ><span class="status-dot"></span>live</span
-              >
             </div>
             <span class="proj-link"
               >프로젝트 상세 보기 <span class="arrow">→</span></span
@@ -671,9 +554,6 @@
           <a class="proj-card" href="newsugar.html">
             <div class="proj-top">
               <span class="proj-name">NewSugar</span>
-              <span class="proj-status"
-                ><span class="status-dot"></span>live</span
-              >
             </div>
             <span class="proj-link"
               >프로젝트 상세 보기 <span class="arrow">→</span></span
@@ -682,9 +562,6 @@
           <a class="proj-card" href="planner.html">
             <div class="proj-top">
               <span class="proj-name">Planner</span>
-              <span class="proj-status"
-                ><span class="status-dot"></span>live</span
-              >
             </div>
             <span class="proj-link"
               >프로젝트 상세 보기 <span class="arrow">→</span></span
@@ -693,9 +570,6 @@
           <a class="proj-card" href="wooriteam.html">
             <div class="proj-top">
               <span class="proj-name">Wooriteam</span>
-              <span class="proj-status"
-                ><span class="status-dot"></span>live</span
-              >
             </div>
             <span class="proj-link"
               >프로젝트 상세 보기 <span class="arrow">→</span></span
@@ -706,10 +580,9 @@
 
       <section id="contact">
         <div class="section-head">
-          <span class="path"># outputs.tf</span>
           <h2>Contact</h2>
         </div>
-        <div class="contact-block fade-in">
+        <div class="contact-block">
           <div class="contact-body">
             <div class="contact-row">
               <span class="k">email</span>
@@ -733,99 +606,5 @@
 
       <footer>terraform apply 완료 · 계속 running 상태로 성장 중입니다.</footer>
     </main>
-
-    <script>
-      // Typing animation for the terraform hero block
-      (function () {
-        const el = document.getElementById("tfBody");
-        const reduced = window.matchMedia(
-          "(prefers-reduced-motion: reduce)",
-        ).matches;
-
-        const lines = [
-          { k: 'resource "engineer" "sim_sohyeon" {', c: false },
-          { k: "  name        = ", v: '"심소현"' },
-          { k: "  role        = ", v: '"Cloud · Backend · DevOps Engineer"' },
-          { k: "  university  = ", v: '"서강대학교 컴퓨터공학과"' },
-          { k: "  since       = ", v: '"2023-03"' },
-          { k: "  status      = ", v: '"provisioning → always_learning"' },
-          { k: "}", c: false },
-        ];
-
-        function render() {
-          el.innerHTML = lines
-            .map((l) => {
-              if (l.v) {
-                return `<span class="tf-key">${l.k}</span><span class="tf-str">${l.v}</span>`;
-              }
-              return `<span class="tf-punc">${l.k}</span>`;
-            })
-            .join("\n");
-        }
-
-        if (reduced) {
-          render();
-          return;
-        }
-
-        let out = "";
-        let li = 0,
-          ci = 0;
-
-        function typeStep() {
-          if (li >= lines.length) {
-            el.innerHTML += '<span class="cursor"></span>';
-            return;
-          }
-          const line = lines[li];
-          const full = line.v ? line.k : line.k;
-          const target = line.v ? line.k + line.v : line.k;
-
-          if (ci <= target.length) {
-            let html = "";
-            for (let i = 0; i < li; i++) {
-              const pl = lines[i];
-              html +=
-                (pl.v
-                  ? `<span class="tf-key">${pl.k}</span><span class="tf-str">${pl.v}</span>`
-                  : `<span class="tf-punc">${pl.k}</span>`) + "\n";
-            }
-            const partial = target.slice(0, ci);
-            if (line.v && ci > line.k.length) {
-              html += `<span class="tf-key">${line.k}</span><span class="tf-str">${partial.slice(line.k.length)}</span>`;
-            } else {
-              html += line.v
-                ? `<span class="tf-key">${partial}</span>`
-                : `<span class="tf-punc">${partial}</span>`;
-            }
-            el.innerHTML = html + '<span class="cursor"></span>';
-            ci++;
-            setTimeout(typeStep, 14);
-          } else {
-            li++;
-            ci = 0;
-            setTimeout(typeStep, 60);
-          }
-        }
-        typeStep();
-      })();
-
-      // Scroll reveal
-      (function () {
-        const targets = document.querySelectorAll(".fade-in");
-        const io = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((e) => {
-              if (e.isIntersecting) {
-                e.target.classList.add("visible");
-                io.unobserve(e.target);
-              }
-            });
-          },
-          { threshold: 0.12 },
-        );
-        targets.forEach((t) => io.observe(t));
-      })();
-    </script>
   </body>
 </html>
