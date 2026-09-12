@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>sim-sohyeon/profile</title>
+    <title>SimSoHyeon/profile</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
@@ -69,7 +69,7 @@
         top: 0;
         z-index: 10;
         background: var(--background);
-        border-bottom: 1px solid var(--border);
+        border-bottom: 1px solid var(--accent);
       }
       .nav-inner {
         display: flex;
@@ -103,6 +103,21 @@
       /* Profile introduction */
       .hero {
         padding-block: 32px;
+      }
+      .hero-intro {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+      }
+      .hero-copy {
+        min-width: 0;
+      }
+      .profile-image {
+        width: 160px;
+        height: 160px;
+        flex-shrink: 0;
+        border-radius: 50%;
+        object-fit: cover;
       }
       .eyebrow {
         margin-bottom: 12px;
@@ -313,7 +328,7 @@
       .contact-row .v {
         width: fit-content;
         padding-block: 10px;
-        color: #2563eb;
+        color: var(--accent);
         font-size: 14px;
       }
       .contact-row a:hover {
@@ -339,6 +354,17 @@
         .hero,
         section {
           padding-block: 48px;
+        }
+        .hero-intro {
+          display: grid;
+          grid-template-columns: minmax(0, 720px) minmax(264px, 1fr);
+          align-items: center;
+          gap: 0;
+        }
+        .profile-image {
+          width: 200px;
+          height: 200px;
+          justify-self: center;
         }
         .profile-details {
           padding: 8px 24px;
@@ -396,7 +422,7 @@
       <div class="nav-inner">
         <div class="nav-brand">Sim Sohyeon</div>
         <nav class="links">
-          <a href="#about">About</a>
+          <a href="#">About</a>
           <a href="#experience">Experience</a>
           <a href="#stack">Tech Stack</a>
           <a href="#projects">Projects</a>
@@ -407,15 +433,28 @@
 
     <main class="wrap">
       <section class="hero">
-        <div class="eyebrow">actively learning &amp; deploying</div>
-        <h1 class="name">Sim Sohyeon</h1>
-        <div class="role-line">Cloud · Backend · DevOps Engineer</div>
-        <p class="hero-desc">
-          기능 구현에 그치지 않고, 안정적으로 배포되고 운영되는 시스템을 만드는
-          것에 가장 큰 흥미를 느끼는 엔지니어입니다. AWS 아키텍처 설계부터
-          Terraform 기반 IaC, Kubernetes 운영, CI/CD 자동화까지 서비스 전체의
-          생애주기를 다루고자 합니다.
-        </p>
+        <div class="hero-intro">
+          <div class="hero-copy">
+            <h1 class="name">Sim Sohyeon</h1>
+            <p class="hero-desc">
+              서강대학교 컴퓨터공학과에 재학 중이며, 2023년부터 컴퓨터공학을
+              전공하고 있습니다. AWS 기반 클라우드 DevOps 부트캠프와 인턴십을 통해
+              인프라를 직접 설계·구축하고, Docker, Kubernetes, Terraform으로 인프라
+              구성과 Github Actions를 통한 CI/CD 파이프라인을 구축한 경험이
+              있습니다. Java Spring Boot 기반 백엔드와 React 기반 프론트엔드도 함께
+              다루며 서비스 전체를 이해하는 개발 역량을 키워왔습니다. 안정적인
+              인프라 구축과 운영 자동화를 통해 개발 생산성을 높이는 엔지니어로
+              성장하는 것이 목표입니다.
+            </p>
+          </div>
+          <img
+            class="profile-image"
+            src="profile-image.jpg"
+            alt="심소현 프로필 사진"
+            width="200"
+            height="200"
+          />
+        </div>
 
         <dl class="profile-details">
           <div class="profile-detail">
@@ -431,24 +470,6 @@
             <dd>서강대학교 컴퓨터공학과</dd>
           </div>
         </dl>
-      </section>
-
-      <section id="about">
-        <div class="section-head">
-          <h2>About</h2>
-        </div>
-        <div class="about-body">
-          <p>
-            서강대학교 컴퓨터공학과에 재학 중이며, 2023년부터 컴퓨터공학을
-            전공하고 있습니다. AWS 기반 DevOps 부트캠프와 인턴십을 통해 인프라를
-            직접 설계·구축하고, Docker, Kubernetes, Terraform으로 인프라 구성과
-            Github Actions를 통한 CI/CD 파이프라인을 구축한 경험이 있습니다.
-            Java Spring Boot 기반 백엔드와 React 기반 프론트엔드도 함께 다루며
-            서비스 전체를 이해하는 개발 역량을 키워왔습니다. 안정적인 인프라
-            구축과 운영 자동화를 통해 개발 생산성을 높이는 엔지니어로 성장하는
-            것이 목표입니다.
-          </p>
-        </div>
       </section>
 
       <section id="experience">
@@ -485,7 +506,7 @@
             <span class="chip">Terraform</span>
           </div>
           <div class="exp-stack">
-            <span class="k">담당</span> 백엔드·프론트엔드·AWS 인프라 전반 담당
+            <span class="k">담당</span> 프론트엔드 구현 및 AWS 인프라 전반 담당
           </div>
         </div>
       </section>
@@ -519,8 +540,8 @@
             <div class="tag-row">
               <span class="tag">Docker</span><span class="tag">Kubernetes</span>
               <span class="tag">Terraform</span
-              ><span class="tag">GitHub Actions</span>
-              <span class="tag">Nginx</span><span class="tag">ArgoCD</span>
+              ><span class="tag">GitHub Actions</span
+              ><span class="tag">ArgoCD</span>
             </div>
           </div>
         </div>
@@ -591,8 +612,6 @@
           </div>
         </div>
       </section>
-
-      <footer>terraform apply 완료 · 계속 running 상태로 성장 중입니다.</footer>
     </main>
   </body>
 </html>
